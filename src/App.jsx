@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
 import Main from './components/Main/Main';
 import Admin from './components/Admin/Admin';
 import ScrollToTop from './components/ScrollToTop/ScrollToTop';
@@ -40,66 +41,86 @@ import './App.css';
 
 function App() {
     return (
-        <Router>
-            <ScrollToTop />
-            <Routes>
-                <Route path="/" element={<Main />}>
-                    <Route index element={<MainPage />} />
-                    <Route path="projects" element={<ProjectsPage />} />
-                    <Route path="projects/:id" element={<ProjectPage />} />
-                    <Route path="platforms" element={<PlatformsPage />} />
-                    <Route path="platforms/:id" element={<PlatformPage />} />
-                    <Route path="for-assets-owners" element={<AssetsPage />} />
-                    <Route path="partner/:id" element={<PartnerPage />} />
-                    <Route path="insights" element={<InsightsPage />} />
-                    <Route path="insights/:id" element={<Article />} />
-                    <Route path="academy" element={<Academy />} />
-                    <Route path="about-us" element={<AboutUsPage />} />
-                    <Route path="verified" element={<VerifiedPage />} />
-                    <Route path="contact-us" element={<ContactUs />} />
-                    <Route path="privacy-policy" element={<PrivacyPolicy />} />
+        <HelmetProvider>
+            <Router>
+                <ScrollToTop />
+                <Routes>
+                    <Route path="/" element={<Main />}>
+                        <Route index element={<MainPage />} />
+                        <Route path="projects" element={<ProjectsPage />} />
+                        <Route path="projects/:id" element={<ProjectPage />} />
+                        <Route path="platforms" element={<PlatformsPage />} />
+                        <Route
+                            path="platforms/:id"
+                            element={<PlatformPage />}
+                        />
+                        <Route
+                            path="for-assets-owners"
+                            element={<AssetsPage />}
+                        />
+                        <Route path="partner/:id" element={<PartnerPage />} />
+                        <Route path="insights" element={<InsightsPage />} />
+                        <Route path="insights/:id" element={<Article />} />
+                        <Route path="academy" element={<Academy />} />
+                        <Route path="about-us" element={<AboutUsPage />} />
+                        <Route path="verified" element={<VerifiedPage />} />
+                        <Route path="contact-us" element={<ContactUs />} />
+                        <Route
+                            path="privacy-policy"
+                            element={<PrivacyPolicy />}
+                        />
+                        <Route
+                            path="legal-disclaimer"
+                            element={<LegalDisclaimer />}
+                        />
+                        <Route
+                            path="term-services"
+                            element={<TermOfServices />}
+                        />
+                        <Route path="*" element={<NotFound />} />
+                    </Route>
                     <Route
-                        path="legal-disclaimer"
-                        element={<LegalDisclaimer />}
-                    />
-                    <Route path="term-services" element={<TermOfServices />} />
-                    <Route path="*" element={<NotFound />} />
-                </Route>
-                <Route
-                    path="/admin"
-                    element={
-                        <ProtectedRoute>
-                            <Admin />
-                        </ProtectedRoute>
-                    }
-                >
-                    <Route index element={<AdminDashboard />} />
-                    <Route path="platforms" element={<AdminPlatforms />} />
-                    <Route path="projects" element={<AdminProjects />} />
-                    <Route path="categories" element={<AdminCategories />} />
-                    <Route path="partners" element={<AdminPartners />} />
-                    <Route path="news" element={<AdminNews />} />
-                    <Route path="academy" element={<AdminAcademy />} />
-                    <Route path="faq" element={<AdminFAQ />} />
-                    <Route path="teams" element={<AdminTeams />} />
-                    <Route path="mail/:id" element={<AdminMail />} />
-                    <Route
-                        path="platforms/add"
-                        element={<AdminPlatformAdd />}
-                    />
-                    <Route
-                        path="platforms/edit/:id"
-                        element={<AdminPlatformEdit />}
-                    />
-                    <Route path="projects/add" element={<AdminProjectAdd />} />
-                    <Route
-                        path="projects/edit/:id"
-                        element={<AdminProjectEdit />}
-                    />
-                </Route>
-            </Routes>
-            <CookieConsent />
-        </Router>
+                        path="/admin"
+                        element={
+                            <ProtectedRoute>
+                                <Admin />
+                            </ProtectedRoute>
+                        }
+                    >
+                        <Route index element={<AdminDashboard />} />
+                        <Route path="platforms" element={<AdminPlatforms />} />
+                        <Route path="projects" element={<AdminProjects />} />
+                        <Route
+                            path="categories"
+                            element={<AdminCategories />}
+                        />
+                        <Route path="partners" element={<AdminPartners />} />
+                        <Route path="news" element={<AdminNews />} />
+                        <Route path="academy" element={<AdminAcademy />} />
+                        <Route path="faq" element={<AdminFAQ />} />
+                        <Route path="teams" element={<AdminTeams />} />
+                        <Route path="mail/:id" element={<AdminMail />} />
+                        <Route
+                            path="platforms/add"
+                            element={<AdminPlatformAdd />}
+                        />
+                        <Route
+                            path="platforms/edit/:id"
+                            element={<AdminPlatformEdit />}
+                        />
+                        <Route
+                            path="projects/add"
+                            element={<AdminProjectAdd />}
+                        />
+                        <Route
+                            path="projects/edit/:id"
+                            element={<AdminProjectEdit />}
+                        />
+                    </Route>
+                </Routes>
+                <CookieConsent />
+            </Router>
+        </HelmetProvider>
     );
 }
 

@@ -6,6 +6,7 @@ import {
     DATABASE_ID,
     TABLE_ID_PLATFORMS,
 } from '../../../../lib/appwrite';
+import { Helmet } from 'react-helmet-async';
 
 import classes from './PlatformsPage.module.css';
 import platformImgNone from '../../../../assets/images/mainPageImages/platformImgNone.png';
@@ -247,471 +248,520 @@ const PlatformsPage = () => {
     }
 
     return (
-        <main className={classes.platformsPage}>
-            <section className={classes.header}>
-                <div className="wrapper">
-                    <h2>Platforms</h2>
-                    <p>
-                        Explore platforms across real-world assets, tokenized
-                        products
-                    </p>
-                </div>
-            </section>
-            <section className={classes.platforms}>
-                <div className="wrapper">
-                    <div className={classes.platformsSection}>
-                        <div
-                            className={
-                                isFiltersActive
-                                    ? `${classes.platformsFilters} ${classes.active}`
-                                    : classes.platformsFilters
-                            }
-                        >
-                            <div className={classes.filtersHeader}>
-                                <h3>Filters</h3>
-                            </div>
-                            <div className={classes.platformsFiltersContainer}>
-                                <div className={classes.platformsFilter}>
-                                    <h4>Jurisdiction</h4>
-                                    <div className={classes.checkboxList}>
-                                        {availableFilters.jurisdictions.length >
-                                        0 ? (
-                                            availableFilters.jurisdictions.map(
-                                                (country) => (
-                                                    <label
-                                                        key={country}
-                                                        className={
-                                                            classes.checkboxLabel
-                                                        }
-                                                    >
-                                                        <input
-                                                            type="checkbox"
-                                                            checked={selectedJurisdictions.includes(
-                                                                country,
-                                                            )}
-                                                            onChange={() =>
-                                                                handleJurisdictionChange(
-                                                                    country,
-                                                                )
-                                                            }
-                                                        />
-                                                        <span>{country}</span>
-                                                    </label>
-                                                ),
-                                            )
-                                        ) : (
-                                            <p className={classes.noFilters}>
-                                                No jurisdictions found
-                                            </p>
-                                        )}
-                                    </div>
-                                </div>
-
-                                <div className={classes.platformsFilter}>
-                                    <h4>Asset Type</h4>
-                                    <div className={classes.checkboxList}>
-                                        {availableFilters.categories.length >
-                                        0 ? (
-                                            availableFilters.categories.map(
-                                                (category) => (
-                                                    <label
-                                                        key={category}
-                                                        className={
-                                                            classes.checkboxLabel
-                                                        }
-                                                    >
-                                                        <input
-                                                            type="checkbox"
-                                                            checked={selectedCategories.includes(
-                                                                category,
-                                                            )}
-                                                            onChange={() =>
-                                                                handleCategoryChange(
-                                                                    category,
-                                                                )
-                                                            }
-                                                        />
-                                                        <span>{category}</span>
-                                                    </label>
-                                                ),
-                                            )
-                                        ) : (
-                                            <p className={classes.noFilters}>
-                                                No Asset Types found
-                                            </p>
-                                        )}
-                                    </div>
-                                </div>
-
-                                <div className={classes.platformsFilter}>
-                                    <h4>Token Types</h4>
-                                    <div className={classes.checkboxList}>
-                                        {availableFilters.types.length > 0 ? (
-                                            availableFilters.types.map(
-                                                (type) => (
-                                                    <label
-                                                        key={type}
-                                                        className={
-                                                            classes.checkboxLabel
-                                                        }
-                                                    >
-                                                        <input
-                                                            type="checkbox"
-                                                            checked={selectedTypes.includes(
-                                                                type,
-                                                            )}
-                                                            onChange={() =>
-                                                                handleTypeChange(
-                                                                    type,
-                                                                )
-                                                            }
-                                                        />
-                                                        <span>{type}</span>
-                                                    </label>
-                                                ),
-                                            )
-                                        ) : (
-                                            <p className={classes.noFilters}>
-                                                No Types found
-                                            </p>
-                                        )}
-                                    </div>
-                                </div>
-
-                                <div className={classes.platformsFilter}>
-                                    <h4>Investor Type</h4>
-                                    <div className={classes.checkboxList}>
-                                        {availableFilters.investorTypes.length >
-                                        0 ? (
-                                            availableFilters.investorTypes.map(
-                                                (type) => (
-                                                    <label
-                                                        key={type}
-                                                        className={
-                                                            classes.checkboxLabel
-                                                        }
-                                                    >
-                                                        <input
-                                                            type="checkbox"
-                                                            checked={selectedInvestorTypes.includes(
-                                                                type,
-                                                            )}
-                                                            onChange={() =>
-                                                                handleInvestorTypeChange(
-                                                                    type,
-                                                                )
-                                                            }
-                                                        />
-                                                        <span>{type}</span>
-                                                    </label>
-                                                ),
-                                            )
-                                        ) : (
-                                            <p className={classes.noFilters}>
-                                                No Investor Types found
-                                            </p>
-                                        )}
-                                    </div>
-                                </div>
-                                <div className={classes.platformsFilter}>
-                                    <h4>Max Asset Volume</h4>
-                                    <div
-                                        className={classes.priceSliderContainer}
-                                    >
-                                        <div
-                                            className={
-                                                classes.selectedMaxAssets
-                                            }
-                                        >
-                                            $
-                                            {formatAssetLabel(
-                                                selectedMaxAssets,
-                                            )}
-                                        </div>
-                                        <input
-                                            type="range"
-                                            min={minAvailableAssets}
-                                            max={maxAvailableAssets}
-                                            value={selectedMaxAssets}
-                                            onChange={handleAssetSliderChange}
-                                            className={classes.slider}
-                                        />
-                                        <div className={classes.sliderLabels}>
-                                            <span>
-                                                $
-                                                {formatAssetLabel(
-                                                    minAvailableAssets,
-                                                )}
-                                            </span>
-                                            <span>
-                                                $
-                                                {formatAssetLabel(
-                                                    maxAvailableAssets,
-                                                )}
-                                            </span>
-                                        </div>
-                                    </div>
+        <>
+            <Helmet>
+                <title>Asset Tokenization Platforms Compared | UnitStake</title>
+                <meta
+                    name="description"
+                    content="Compare RWA and real estate tokenization platforms side by side: tokenized asset volume, jurisdiction, investor type, asset classes and years operating."
+                />
+            </Helmet>
+            <main className={classes.platformsPage}>
+                <section className={classes.header}>
+                    <div className="wrapper">
+                        <h2>Platforms</h2>
+                        <p>
+                            Explore platforms across real-world assets,
+                            tokenized products
+                        </p>
+                    </div>
+                </section>
+                <section className={classes.platforms}>
+                    <div className="wrapper">
+                        <div className={classes.platformsSection}>
+                            <div
+                                className={
+                                    isFiltersActive
+                                        ? `${classes.platformsFilters} ${classes.active}`
+                                        : classes.platformsFilters
+                                }
+                            >
+                                <div className={classes.filtersHeader}>
+                                    <h3>Filters</h3>
                                 </div>
                                 <div
                                     className={
-                                        classes.platformsFiltersMobileBtn
+                                        classes.platformsFiltersContainer
                                     }
                                 >
-                                    <button onClick={openFiltersMenu}>
-                                        Close filters
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <div className={classes.platformsContainer}>
-                            <div className={classes.platformsSearch}>
-                                <div className={classes.filtersHeaderMobile}>
-                                    <button onClick={openFiltersMenu}>
-                                        Filters
-                                    </button>
-                                </div>
-                                <input
-                                    id="SearchPlatforms"
-                                    type="text"
-                                    placeholder="Search"
-                                    value={searchQuery}
-                                    onChange={handleSearchChange}
-                                    className={classes.searchInput}
-                                />
-                            </div>
-                            <div className={classes.platformsGrid}>
-                                {paginatedPlatforms.length > 0 ? (
-                                    paginatedPlatforms.map((platform) => (
-                                        <div
-                                            key={platform.$id}
-                                            className={classes.platformCard}
-                                            onClick={() =>
-                                                navigate(
-                                                    `/platforms/${platform.$id}`,
+                                    <div className={classes.platformsFilter}>
+                                        <h4>Jurisdiction</h4>
+                                        <div className={classes.checkboxList}>
+                                            {availableFilters.jurisdictions
+                                                .length > 0 ? (
+                                                availableFilters.jurisdictions.map(
+                                                    (country) => (
+                                                        <label
+                                                            key={country}
+                                                            className={
+                                                                classes.checkboxLabel
+                                                            }
+                                                        >
+                                                            <input
+                                                                type="checkbox"
+                                                                checked={selectedJurisdictions.includes(
+                                                                    country,
+                                                                )}
+                                                                onChange={() =>
+                                                                    handleJurisdictionChange(
+                                                                        country,
+                                                                    )
+                                                                }
+                                                            />
+                                                            <span>
+                                                                {country}
+                                                            </span>
+                                                        </label>
+                                                    ),
                                                 )
+                                            ) : (
+                                                <p
+                                                    className={
+                                                        classes.noFilters
+                                                    }
+                                                >
+                                                    No jurisdictions found
+                                                </p>
+                                            )}
+                                        </div>
+                                    </div>
+
+                                    <div className={classes.platformsFilter}>
+                                        <h4>Asset Type</h4>
+                                        <div className={classes.checkboxList}>
+                                            {availableFilters.categories
+                                                .length > 0 ? (
+                                                availableFilters.categories.map(
+                                                    (category) => (
+                                                        <label
+                                                            key={category}
+                                                            className={
+                                                                classes.checkboxLabel
+                                                            }
+                                                        >
+                                                            <input
+                                                                type="checkbox"
+                                                                checked={selectedCategories.includes(
+                                                                    category,
+                                                                )}
+                                                                onChange={() =>
+                                                                    handleCategoryChange(
+                                                                        category,
+                                                                    )
+                                                                }
+                                                            />
+                                                            <span>
+                                                                {category}
+                                                            </span>
+                                                        </label>
+                                                    ),
+                                                )
+                                            ) : (
+                                                <p
+                                                    className={
+                                                        classes.noFilters
+                                                    }
+                                                >
+                                                    No Asset Types found
+                                                </p>
+                                            )}
+                                        </div>
+                                    </div>
+
+                                    <div className={classes.platformsFilter}>
+                                        <h4>Token Types</h4>
+                                        <div className={classes.checkboxList}>
+                                            {availableFilters.types.length >
+                                            0 ? (
+                                                availableFilters.types.map(
+                                                    (type) => (
+                                                        <label
+                                                            key={type}
+                                                            className={
+                                                                classes.checkboxLabel
+                                                            }
+                                                        >
+                                                            <input
+                                                                type="checkbox"
+                                                                checked={selectedTypes.includes(
+                                                                    type,
+                                                                )}
+                                                                onChange={() =>
+                                                                    handleTypeChange(
+                                                                        type,
+                                                                    )
+                                                                }
+                                                            />
+                                                            <span>{type}</span>
+                                                        </label>
+                                                    ),
+                                                )
+                                            ) : (
+                                                <p
+                                                    className={
+                                                        classes.noFilters
+                                                    }
+                                                >
+                                                    No Types found
+                                                </p>
+                                            )}
+                                        </div>
+                                    </div>
+
+                                    <div className={classes.platformsFilter}>
+                                        <h4>Investor Type</h4>
+                                        <div className={classes.checkboxList}>
+                                            {availableFilters.investorTypes
+                                                .length > 0 ? (
+                                                availableFilters.investorTypes.map(
+                                                    (type) => (
+                                                        <label
+                                                            key={type}
+                                                            className={
+                                                                classes.checkboxLabel
+                                                            }
+                                                        >
+                                                            <input
+                                                                type="checkbox"
+                                                                checked={selectedInvestorTypes.includes(
+                                                                    type,
+                                                                )}
+                                                                onChange={() =>
+                                                                    handleInvestorTypeChange(
+                                                                        type,
+                                                                    )
+                                                                }
+                                                            />
+                                                            <span>{type}</span>
+                                                        </label>
+                                                    ),
+                                                )
+                                            ) : (
+                                                <p
+                                                    className={
+                                                        classes.noFilters
+                                                    }
+                                                >
+                                                    No Investor Types found
+                                                </p>
+                                            )}
+                                        </div>
+                                    </div>
+                                    <div className={classes.platformsFilter}>
+                                        <h4>Max Asset Volume</h4>
+                                        <div
+                                            className={
+                                                classes.priceSliderContainer
                                             }
                                         >
                                             <div
                                                 className={
-                                                    classes.platformCardInfo
+                                                    classes.selectedMaxAssets
+                                                }
+                                            >
+                                                $
+                                                {formatAssetLabel(
+                                                    selectedMaxAssets,
+                                                )}
+                                            </div>
+                                            <input
+                                                type="range"
+                                                min={minAvailableAssets}
+                                                max={maxAvailableAssets}
+                                                value={selectedMaxAssets}
+                                                onChange={
+                                                    handleAssetSliderChange
+                                                }
+                                                className={classes.slider}
+                                            />
+                                            <div
+                                                className={classes.sliderLabels}
+                                            >
+                                                <span>
+                                                    $
+                                                    {formatAssetLabel(
+                                                        minAvailableAssets,
+                                                    )}
+                                                </span>
+                                                <span>
+                                                    $
+                                                    {formatAssetLabel(
+                                                        maxAvailableAssets,
+                                                    )}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div
+                                        className={
+                                            classes.platformsFiltersMobileBtn
+                                        }
+                                    >
+                                        <button onClick={openFiltersMenu}>
+                                            Close filters
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className={classes.platformsContainer}>
+                                <div className={classes.platformsSearch}>
+                                    <div
+                                        className={classes.filtersHeaderMobile}
+                                    >
+                                        <button onClick={openFiltersMenu}>
+                                            Filters
+                                        </button>
+                                    </div>
+                                    <input
+                                        id="SearchPlatforms"
+                                        type="text"
+                                        placeholder="Search"
+                                        value={searchQuery}
+                                        onChange={handleSearchChange}
+                                        className={classes.searchInput}
+                                    />
+                                </div>
+                                <div className={classes.platformsGrid}>
+                                    {paginatedPlatforms.length > 0 ? (
+                                        paginatedPlatforms.map((platform) => (
+                                            <div
+                                                key={platform.$id}
+                                                className={classes.platformCard}
+                                                onClick={() =>
+                                                    navigate(
+                                                        `/platforms/${platform.$id}`,
+                                                    )
                                                 }
                                             >
                                                 <div
                                                     className={
-                                                        classes.platformCardMainInfo
+                                                        classes.platformCardInfo
                                                     }
                                                 >
                                                     <div
                                                         className={
-                                                            classes.platformCardMainInfoImg
+                                                            classes.platformCardMainInfo
                                                         }
                                                     >
-                                                        <img
-                                                            src={
-                                                                platform.image_url ||
-                                                                platformImgNone
+                                                        <div
+                                                            className={
+                                                                classes.platformCardMainInfoImg
                                                             }
-                                                            alt="platform image"
-                                                        />
-                                                    </div>
-                                                    <div
-                                                        className={
-                                                            classes.platformCardMainInfoName
-                                                        }
-                                                    >
-                                                        <h3>{platform.name}</h3>
-                                                    </div>
-                                                </div>
-                                                <div
-                                                    className={
-                                                        classes.platformCardInfoNumbers
-                                                    }
-                                                >
-                                                    <div
-                                                        className={
-                                                            classes.platformCardInfoNumbersTotal
-                                                        }
-                                                    >
-                                                        <h4>
-                                                            Total Tokenized
-                                                            Asset Volume
-                                                        </h4>
-                                                        <h5>
-                                                            $
-                                                            {formatAssetLabel(
-                                                                platform.assets,
-                                                            )}
-                                                        </h5>
-                                                    </div>
-                                                    <div
-                                                        className={
-                                                            classes.platformCardInfoNumbersTotal
-                                                        }
-                                                    >
-                                                        <h4>Operating since</h4>
-                                                        <p>
-                                                            {
-                                                                platform.platform_age
-                                                            }
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                                <div
-                                                    className={
-                                                        classes.projectsCardLocation
-                                                    }
-                                                >
-                                                    <div>
-                                                        <h4>Projects</h4>
-                                                        <h6>
-                                                            {
-                                                                platform.total_projects
-                                                            }
-                                                        </h6>
-                                                    </div>
-                                                    <div>
-                                                        <h4>Jurisdiction</h4>
-                                                        <h6>
-                                                            {platform.jurisdiction &&
-                                                            platform
-                                                                .jurisdiction
-                                                                .length > 0
-                                                                ? platform.jurisdiction.join(
-                                                                      ', ',
-                                                                  )
-                                                                : '—'}
-                                                        </h6>
-                                                    </div>
-                                                </div>
-                                                <div
-                                                    className={
-                                                        classes.projectsCardLink
-                                                    }
-                                                >
-                                                    <div
-                                                        className={
-                                                            classes.projectsCardLinkBtn
-                                                        }
-                                                        onClick={() =>
-                                                            navigate(
-                                                                `/platforms/${platform.$id}`,
-                                                            )
-                                                        }
-                                                    >
-                                                        <p>Open Platform</p>
-                                                        <svg
-                                                            width="16"
-                                                            height="17"
-                                                            viewBox="0 0 16 17"
-                                                            fill="none"
-                                                            xmlns="http://www.w3.org/2000/svg"
                                                         >
-                                                            <path
-                                                                d="M1 15.2758L15 1"
-                                                                stroke="#D34329"
-                                                                strokeWidth="2"
-                                                                strokeMiterlimit="10"
-                                                                strokeLinecap="round"
+                                                            <img
+                                                                src={
+                                                                    platform.image_url ||
+                                                                    platformImgNone
+                                                                }
+                                                                alt="platform image"
                                                             />
-                                                            <path
-                                                                d="M15 12.0761V1.1C15 1.04477 14.9553 1 14.9 1H4.0752"
-                                                                stroke="#D34329"
-                                                                strokeWidth="2"
-                                                                strokeMiterlimit="10"
-                                                                strokeLinecap="round"
-                                                            />
-                                                        </svg>
+                                                        </div>
+                                                        <div
+                                                            className={
+                                                                classes.platformCardMainInfoName
+                                                            }
+                                                        >
+                                                            <h3>
+                                                                {platform.name}
+                                                            </h3>
+                                                        </div>
+                                                    </div>
+                                                    <div
+                                                        className={
+                                                            classes.platformCardInfoNumbers
+                                                        }
+                                                    >
+                                                        <div
+                                                            className={
+                                                                classes.platformCardInfoNumbersTotal
+                                                            }
+                                                        >
+                                                            <h4>
+                                                                Total Tokenized
+                                                                Asset Volume
+                                                            </h4>
+                                                            <h5>
+                                                                $
+                                                                {formatAssetLabel(
+                                                                    platform.assets,
+                                                                )}
+                                                            </h5>
+                                                        </div>
+                                                        <div
+                                                            className={
+                                                                classes.platformCardInfoNumbersTotal
+                                                            }
+                                                        >
+                                                            <h4>
+                                                                Operating since
+                                                            </h4>
+                                                            <p>
+                                                                {
+                                                                    platform.platform_age
+                                                                }
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <div
+                                                        className={
+                                                            classes.projectsCardLocation
+                                                        }
+                                                    >
+                                                        <div>
+                                                            <h4>Projects</h4>
+                                                            <h6>
+                                                                {
+                                                                    platform.total_projects
+                                                                }
+                                                            </h6>
+                                                        </div>
+                                                        <div>
+                                                            <h4>
+                                                                Jurisdiction
+                                                            </h4>
+                                                            <h6>
+                                                                {platform.jurisdiction &&
+                                                                platform
+                                                                    .jurisdiction
+                                                                    .length > 0
+                                                                    ? platform.jurisdiction.join(
+                                                                          ', ',
+                                                                      )
+                                                                    : '—'}
+                                                            </h6>
+                                                        </div>
+                                                    </div>
+                                                    <div
+                                                        className={
+                                                            classes.projectsCardLink
+                                                        }
+                                                    >
+                                                        <div
+                                                            className={
+                                                                classes.projectsCardLinkBtn
+                                                            }
+                                                            onClick={() =>
+                                                                navigate(
+                                                                    `/platforms/${platform.$id}`,
+                                                                )
+                                                            }
+                                                        >
+                                                            <p>Open Platform</p>
+                                                            <svg
+                                                                width="16"
+                                                                height="17"
+                                                                viewBox="0 0 16 17"
+                                                                fill="none"
+                                                                xmlns="http://www.w3.org/2000/svg"
+                                                            >
+                                                                <path
+                                                                    d="M1 15.2758L15 1"
+                                                                    stroke="#D34329"
+                                                                    strokeWidth="2"
+                                                                    strokeMiterlimit="10"
+                                                                    strokeLinecap="round"
+                                                                />
+                                                                <path
+                                                                    d="M15 12.0761V1.1C15 1.04477 14.9553 1 14.9 1H4.0752"
+                                                                    stroke="#D34329"
+                                                                    strokeWidth="2"
+                                                                    strokeMiterlimit="10"
+                                                                    strokeLinecap="round"
+                                                                />
+                                                            </svg>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
+                                        ))
+                                    ) : (
+                                        <p className={classes.noPlatforms}>
+                                            No platforms available
+                                        </p>
+                                    )}
+                                </div>
+                                {totalPages > 1 && (
+                                    <div className={classes.Pagination}>
+                                        <div className={classes.PaginationBtns}>
+                                            <button
+                                                onClick={handlePrevPage}
+                                                disabled={currentPage === 1}
+                                                className={
+                                                    classes.PaginationBtnPrev
+                                                }
+                                            >
+                                                <svg
+                                                    width="14"
+                                                    height="14"
+                                                    viewBox="0 0 14 14"
+                                                    fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                >
+                                                    <path
+                                                        d="M5.25 10.5L8.75 7L5.25 3.5"
+                                                        stroke="#808080"
+                                                        strokeWidth="1.16667"
+                                                        strokeLinecap="round"
+                                                        strokeLinejoin="round"
+                                                    />
+                                                </svg>
+                                                Previous
+                                            </button>
+                                            {Array.from(
+                                                { length: totalPages },
+                                                (_, index) => {
+                                                    const pageNumber =
+                                                        index + 1;
+                                                    return (
+                                                        <button
+                                                            key={pageNumber}
+                                                            onClick={() =>
+                                                                setCurrentPage(
+                                                                    pageNumber,
+                                                                )
+                                                            }
+                                                            className={`${classes.PaginationBtnNumber} ${currentPage === pageNumber ? classes.active : ''}`}
+                                                        >
+                                                            {pageNumber}
+                                                        </button>
+                                                    );
+                                                },
+                                            )}
+                                            <button
+                                                onClick={handleNextPage}
+                                                disabled={
+                                                    currentPage === totalPages
+                                                }
+                                                className={
+                                                    classes.PaginationBtnNext
+                                                }
+                                            >
+                                                Next
+                                                <svg
+                                                    width="14"
+                                                    height="14"
+                                                    viewBox="0 0 14 14"
+                                                    fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                >
+                                                    <path
+                                                        d="M5.25 10.5L8.75 7L5.25 3.5"
+                                                        stroke="#808080"
+                                                        strokeWidth="1.16667"
+                                                        strokeLinecap="round"
+                                                        strokeLinejoin="round"
+                                                    />
+                                                </svg>
+                                            </button>
                                         </div>
-                                    ))
-                                ) : (
-                                    <p className={classes.noPlatforms}>
-                                        No platforms available
-                                    </p>
+                                    </div>
                                 )}
                             </div>
-                            {totalPages > 1 && (
-                                <div className={classes.Pagination}>
-                                    <div className={classes.PaginationBtns}>
-                                        <button
-                                            onClick={handlePrevPage}
-                                            disabled={currentPage === 1}
-                                            className={
-                                                classes.PaginationBtnPrev
-                                            }
-                                        >
-                                            <svg
-                                                width="14"
-                                                height="14"
-                                                viewBox="0 0 14 14"
-                                                fill="none"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                            >
-                                                <path
-                                                    d="M5.25 10.5L8.75 7L5.25 3.5"
-                                                    stroke="#808080"
-                                                    strokeWidth="1.16667"
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                />
-                                            </svg>
-                                            Previous
-                                        </button>
-                                        {Array.from(
-                                            { length: totalPages },
-                                            (_, index) => {
-                                                const pageNumber = index + 1;
-                                                return (
-                                                    <button
-                                                        key={pageNumber}
-                                                        onClick={() =>
-                                                            setCurrentPage(
-                                                                pageNumber,
-                                                            )
-                                                        }
-                                                        className={`${classes.PaginationBtnNumber} ${currentPage === pageNumber ? classes.active : ''}`}
-                                                    >
-                                                        {pageNumber}
-                                                    </button>
-                                                );
-                                            },
-                                        )}
-                                        <button
-                                            onClick={handleNextPage}
-                                            disabled={
-                                                currentPage === totalPages
-                                            }
-                                            className={
-                                                classes.PaginationBtnNext
-                                            }
-                                        >
-                                            Next
-                                            <svg
-                                                width="14"
-                                                height="14"
-                                                viewBox="0 0 14 14"
-                                                fill="none"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                            >
-                                                <path
-                                                    d="M5.25 10.5L8.75 7L5.25 3.5"
-                                                    stroke="#808080"
-                                                    strokeWidth="1.16667"
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                />
-                                            </svg>
-                                        </button>
-                                    </div>
-                                </div>
-                            )}
                         </div>
                     </div>
-                </div>
-            </section>
-        </main>
+                </section>
+            </main>
+        </>
     );
 };
 

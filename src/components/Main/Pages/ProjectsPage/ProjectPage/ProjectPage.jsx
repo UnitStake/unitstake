@@ -8,6 +8,8 @@ import {
 } from '../../../../../lib/appwrite';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Thumbs } from 'swiper/modules';
+import { Helmet } from 'react-helmet-async';
+
 import AssetsPageFaq from '../../AssetsPage/AssetsPageFaq/AssetsPageFaq';
 import ReadMoreSection from '../../../../ReadMoreText/ReadMoreText';
 import ExternalLink from '../../../../ExternalLink/ExternalLink';
@@ -340,680 +342,779 @@ const ProjectPage = () => {
     };
 
     return (
-        <main className={classes.projectPage}>
-            <section className={classes.info}>
-                <div className="wrapper">
-                    <div className={classes.legalTxt}>
-                        This content is for informational purposes only and does
-                        not constitute a financial promotion, investment advice,
-                        or a recommendation to buy or sell any asset.
-                        Information on this page is sourced from the issuer and
-                        displayed as provided.
-                    </div>
-                    <div className={classes.mainInfoContainer}>
-                        <div className={classes.mainInfo}>
-                            <p className={classes.updatedDate}>
-                                The information on this page was updated on{' '}
-                                {dateFormatter(data.$updatedAt)}
-                            </p>
-                            <div className={classes.identity}>
-                                <div className={classes.name}>{data.name}</div>
-                            </div>
-                            <div className={classes.identityDescription}>
-                                {data.description}
-                            </div>
-                            {data.filters && (
-                                <div className={classes.mainInfoFilters}>
-                                    {data.filters.map((item, index) => (
-                                        <div
-                                            key={index}
-                                            className={classes.mainInfoFilter}
-                                        >
-                                            {item}
-                                        </div>
-                                    ))}
-                                    {data.investor_type.map((item, index) => (
-                                        <div
-                                            key={index}
-                                            className={classes.mainInfoFilter}
-                                        >
-                                            {item}
-                                        </div>
-                                    ))}
-                                    {data.category.map((item, index) => (
-                                        <div
-                                            key={index}
-                                            className={classes.mainInfoFilter}
-                                        >
-                                            {item}
-                                        </div>
-                                    ))}
-                                    {data.country.map((item, index) => (
-                                        <div
-                                            key={index}
-                                            className={classes.mainInfoFilter}
-                                        >
-                                            {item}
-                                        </div>
-                                    ))}
+        <>
+            <Helmet>
+                <title>
+                    {data.name ? `${data.name} | UnitStake` : 'Project Details'}
+                </title>
+                <meta
+                    name="description"
+                    content={
+                        data.description
+                            ? data.description.slice(0, 160)
+                            : 'Project overview and details.'
+                    }
+                />
+            </Helmet>
+            <main className={classes.projectPage}>
+                <section className={classes.info}>
+                    <div className="wrapper">
+                        <div className={classes.legalTxt}>
+                            This content is for informational purposes only and
+                            does not constitute a financial promotion,
+                            investment advice, or a recommendation to buy or
+                            sell any asset. Information on this page is sourced
+                            from the issuer and displayed as provided.
+                        </div>
+                        <div className={classes.mainInfoContainer}>
+                            <div className={classes.mainInfo}>
+                                <p className={classes.updatedDate}>
+                                    The information on this page was updated on{' '}
+                                    {dateFormatter(data.$updatedAt)}
+                                </p>
+                                <div className={classes.identity}>
+                                    <div className={classes.name}>
+                                        {data.name}
+                                    </div>
                                 </div>
-                            )}
-                        </div>
-                        <div className={classes.shareButtons}>
-                            Share
-                            <a
-                                href={`https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className={classes.shareBtn}
-                            >
-                                <img src={linkedinIcon} alt="linkedin" />
-                            </a>
-                            <a
-                                href={`https://t.me/share/url?url=${shareUrl}`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className={classes.shareBtn}
-                            >
-                                <img src={telegramIcon} alt="telegram" />
-                            </a>
-                            <a
-                                href={`https://x.com/intent/tweet?url=${shareUrl}`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className={classes.shareBtn}
-                            >
-                                <img src={twitterIcon} alt="twitter" />
-                            </a>
-                            <div
-                                onClick={copyToClipboard}
-                                className={classes.shareBtn}
-                            >
-                                <img src={shareBtnCopyIcon} alt="share link" />
+                                <div className={classes.identityDescription}>
+                                    {data.description}
+                                </div>
+                                {data.filters && (
+                                    <div className={classes.mainInfoFilters}>
+                                        {data.filters.map((item, index) => (
+                                            <div
+                                                key={index}
+                                                className={
+                                                    classes.mainInfoFilter
+                                                }
+                                            >
+                                                {item}
+                                            </div>
+                                        ))}
+                                        {data.investor_type.map(
+                                            (item, index) => (
+                                                <div
+                                                    key={index}
+                                                    className={
+                                                        classes.mainInfoFilter
+                                                    }
+                                                >
+                                                    {item}
+                                                </div>
+                                            ),
+                                        )}
+                                        {data.category.map((item, index) => (
+                                            <div
+                                                key={index}
+                                                className={
+                                                    classes.mainInfoFilter
+                                                }
+                                            >
+                                                {item}
+                                            </div>
+                                        ))}
+                                        {data.country.map((item, index) => (
+                                            <div
+                                                key={index}
+                                                className={
+                                                    classes.mainInfoFilter
+                                                }
+                                            >
+                                                {item}
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+                            <div className={classes.shareButtons}>
+                                Share
+                                <a
+                                    href={`https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className={classes.shareBtn}
+                                >
+                                    <img src={linkedinIcon} alt="linkedin" />
+                                </a>
+                                <a
+                                    href={`https://t.me/share/url?url=${shareUrl}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className={classes.shareBtn}
+                                >
+                                    <img src={telegramIcon} alt="telegram" />
+                                </a>
+                                <a
+                                    href={`https://x.com/intent/tweet?url=${shareUrl}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className={classes.shareBtn}
+                                >
+                                    <img src={twitterIcon} alt="twitter" />
+                                </a>
+                                <div
+                                    onClick={copyToClipboard}
+                                    className={classes.shareBtn}
+                                >
+                                    <img
+                                        src={shareBtnCopyIcon}
+                                        alt="share link"
+                                    />
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </section>
-            <section className={classes.preview}>
-                <div className="wrapper">
-                    <div className={classes.contecntPreview}>
-                        <div className={classes.contentGalery}>
-                            <Swiper
-                                style={{
-                                    '--swiper-navigation-color': '#fff',
-                                    '--swiper-navigation-size': '24px',
-                                }}
-                                loop={contentBlocksImages.length > 4}
-                                spaceBetween={10}
-                                navigation={true}
-                                thumbs={{
-                                    swiper:
-                                        thumbsSwiper && !thumbsSwiper.destroyed
-                                            ? thumbsSwiper
-                                            : null,
-                                }}
-                                modules={[Navigation, Thumbs]}
-                                className={classes.mainSwiper}
-                            >
-                                {contentBlocksImages.map((slide, index) => (
-                                    <SwiperSlide key={index}>
-                                        <div className={classes.mainSwiperBox}>
-                                            <img
-                                                src={slide.value}
-                                                alt="galery image"
-                                            />
-                                        </div>
-                                    </SwiperSlide>
-                                ))}
-                            </Swiper>
-                            <Swiper
-                                onSwiper={setThumbsSwiper}
-                                loop={contentBlocksImages.length > 4}
-                                spaceBetween={12}
-                                slidesPerView={3}
-                                watchSlidesProgress={true}
-                                modules={[Navigation, Thumbs]}
-                                className={classes.thumbsSwiper}
-                            >
-                                {contentBlocksImages.map((slide, index) => (
-                                    <SwiperSlide
-                                        key={index}
-                                        className={classes.thumbsSwiperBox}
-                                    >
-                                        <div
-                                            className={classes.thumbsSwiperItem}
+                </section>
+                <section className={classes.preview}>
+                    <div className="wrapper">
+                        <div className={classes.contecntPreview}>
+                            <div className={classes.contentGalery}>
+                                <Swiper
+                                    style={{
+                                        '--swiper-navigation-color': '#fff',
+                                        '--swiper-navigation-size': '24px',
+                                    }}
+                                    loop={contentBlocksImages.length > 4}
+                                    spaceBetween={10}
+                                    navigation={true}
+                                    thumbs={{
+                                        swiper:
+                                            thumbsSwiper &&
+                                            !thumbsSwiper.destroyed
+                                                ? thumbsSwiper
+                                                : null,
+                                    }}
+                                    modules={[Navigation, Thumbs]}
+                                    className={classes.mainSwiper}
+                                >
+                                    {contentBlocksImages.map((slide, index) => (
+                                        <SwiperSlide key={index}>
+                                            <div
+                                                className={
+                                                    classes.mainSwiperBox
+                                                }
+                                            >
+                                                <img
+                                                    src={slide.value}
+                                                    alt="galery image"
+                                                />
+                                            </div>
+                                        </SwiperSlide>
+                                    ))}
+                                </Swiper>
+                                <Swiper
+                                    onSwiper={setThumbsSwiper}
+                                    loop={contentBlocksImages.length > 4}
+                                    spaceBetween={12}
+                                    slidesPerView={3}
+                                    watchSlidesProgress={true}
+                                    modules={[Navigation, Thumbs]}
+                                    className={classes.thumbsSwiper}
+                                >
+                                    {contentBlocksImages.map((slide, index) => (
+                                        <SwiperSlide
+                                            key={index}
+                                            className={classes.thumbsSwiperBox}
                                         >
-                                            <img
-                                                src={slide.value}
-                                                alt="galery image"
-                                            />
-                                        </div>
-                                    </SwiperSlide>
-                                ))}
-                            </Swiper>
-                        </div>
-                        <div className={classes.contentMainNumbers}>
-                            <div className={classes.currentInvestments}>
-                                {data.current_investments
-                                    ? `$${formatAssetLabel(data.current_investments)}`
-                                    : '$0'}
+                                            <div
+                                                className={
+                                                    classes.thumbsSwiperItem
+                                                }
+                                            >
+                                                <img
+                                                    src={slide.value}
+                                                    alt="galery image"
+                                                />
+                                            </div>
+                                        </SwiperSlide>
+                                    ))}
+                                </Swiper>
                             </div>
-                            <div className={classes.progress}>
-                                {data.current_investments && data.funding_goal
-                                    ? `${Math.round(
-                                          (data.current_investments /
-                                              data.funding_goal) *
-                                              100,
-                                      )}% raised of $${formatAssetLabel(data.funding_goal)}`
-                                    : '$0'}
-                                <div className={classes.progressBar}>
-                                    <div
-                                        className={classes.progressBarProcent}
-                                        style={{
-                                            width: `${Math.round(
-                                                (data.current_investments /
-                                                    data.funding_goal) *
-                                                    100,
-                                            )}%`,
-                                        }}
-                                    ></div>
+                            <div className={classes.contentMainNumbers}>
+                                <div className={classes.currentInvestments}>
+                                    {data.current_investments
+                                        ? `$${formatAssetLabel(data.current_investments)}`
+                                        : '$0'}
                                 </div>
-                                {data.number_investors && (
-                                    <div className={classes.nunumberInvestors}>
+                                <div className={classes.progress}>
+                                    {data.current_investments &&
+                                    data.funding_goal
+                                        ? `${Math.round(
+                                              (data.current_investments /
+                                                  data.funding_goal) *
+                                                  100,
+                                          )}% raised of $${formatAssetLabel(data.funding_goal)}`
+                                        : '$0'}
+                                    <div className={classes.progressBar}>
                                         <div
                                             className={
-                                                classes.nunumberInvestorsNum
+                                                classes.progressBarProcent
+                                            }
+                                            style={{
+                                                width: `${Math.round(
+                                                    (data.current_investments /
+                                                        data.funding_goal) *
+                                                        100,
+                                                )}%`,
+                                            }}
+                                        ></div>
+                                    </div>
+                                    {data.number_investors && (
+                                        <div
+                                            className={
+                                                classes.nunumberInvestors
                                             }
                                         >
-                                            {data.number_investors}
+                                            <div
+                                                className={
+                                                    classes.nunumberInvestorsNum
+                                                }
+                                            >
+                                                {data.number_investors}
+                                            </div>
+                                            Investors
                                         </div>
-                                        Investors
-                                    </div>
-                                )}
-                                {data.deadline ? (
-                                    <div className={classes.deadline}>
-                                        <div className={classes.daysUntil}>
-                                            {daysUntil(data.deadline)}
+                                    )}
+                                    {data.deadline ? (
+                                        <div className={classes.deadline}>
+                                            <div className={classes.daysUntil}>
+                                                {daysUntil(data.deadline)}
+                                            </div>
+                                            Left to invest
                                         </div>
-                                        Left to invest
-                                    </div>
-                                ) : (
-                                    <div className={classes.deadline}>
-                                        <div className={classes.daysUntil}>
-                                            *****
+                                    ) : (
+                                        <div className={classes.deadline}>
+                                            <div className={classes.daysUntil}>
+                                                *****
+                                            </div>
+                                            Left to invest
                                         </div>
-                                        Left to invest
-                                    </div>
-                                )}
+                                    )}
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </section>
-            <section className={classes.content}>
-                <div className="wrapper">
-                    <div className={classes.contentContainer}>
-                        <div className={classes.contentBlocks}>
-                            {sections.map((section, sIndex) => {
-                                if (!section.isCollapsible) {
+                </section>
+                <section className={classes.content}>
+                    <div className="wrapper">
+                        <div className={classes.contentContainer}>
+                            <div className={classes.contentBlocks}>
+                                {sections.map((section, sIndex) => {
+                                    if (!section.isCollapsible) {
+                                        return (
+                                            <div key={sIndex}>
+                                                {section.blocks.map(
+                                                    (block, bIndex) =>
+                                                        renderBlock(
+                                                            block,
+                                                            bIndex,
+                                                        ),
+                                                )}
+                                            </div>
+                                        );
+                                    }
+
                                     return (
-                                        <div key={sIndex}>
+                                        <ReadMoreSection
+                                            key={sIndex}
+                                            maxLines={10}
+                                        >
+                                            {section.titleBlock &&
+                                                renderBlock(
+                                                    section.titleBlock,
+                                                    'title',
+                                                )}
                                             {section.blocks.map(
                                                 (block, bIndex) =>
                                                     renderBlock(block, bIndex),
                                             )}
-                                        </div>
+                                        </ReadMoreSection>
                                     );
-                                }
-
-                                return (
-                                    <ReadMoreSection key={sIndex} maxLines={10}>
-                                        {section.titleBlock &&
-                                            renderBlock(
-                                                section.titleBlock,
-                                                'title',
-                                            )}
-                                        {section.blocks.map((block, bIndex) =>
-                                            renderBlock(block, bIndex),
-                                        )}
-                                    </ReadMoreSection>
-                                );
-                            })}
-                        </div>
-                        <aside>
-                            {data.is_verified && (
-                                <div className={classes.verified}>
-                                    <p>Verified by UnitStake</p>
+                                })}
+                            </div>
+                            <aside>
+                                {data.is_verified && (
+                                    <div className={classes.verified}>
+                                        <p>Verified by UnitStake</p>
+                                        <ul>
+                                            <li>
+                                                Legal
+                                                <div
+                                                    className={classes.checked}
+                                                >
+                                                    {checkMark}
+                                                </div>
+                                            </li>
+                                            <li>
+                                                Financials
+                                                <div
+                                                    className={classes.checked}
+                                                >
+                                                    {checkMark}
+                                                </div>
+                                            </li>
+                                            <li>
+                                                Team KYC
+                                                <div
+                                                    className={classes.checked}
+                                                >
+                                                    {checkMark}
+                                                </div>
+                                            </li>
+                                            <li>
+                                                Reputation
+                                                <div
+                                                    className={classes.checked}
+                                                >
+                                                    {checkMark}
+                                                </div>
+                                            </li>
+                                            <li>
+                                                Tech Verification
+                                                <div
+                                                    className={classes.checked}
+                                                >
+                                                    {checkMark}
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                )}
+                                <div className={classes.dealTerms}>
+                                    <p>Deal terms</p>
                                     <ul>
                                         <li>
-                                            Legal
-                                            <div className={classes.checked}>
-                                                {checkMark}
+                                            Minimum investment
+                                            <div>
+                                                $
+                                                {data.min_investment
+                                                    ? formatAssetLabel(
+                                                          data.min_investment,
+                                                      )
+                                                    : 0}
                                             </div>
                                         </li>
                                         <li>
-                                            Financials
-                                            <div className={classes.checked}>
-                                                {checkMark}
+                                            Maximum investment
+                                            <div>
+                                                $
+                                                {data.max_investment
+                                                    ? formatAssetLabel(
+                                                          data.max_investment,
+                                                      )
+                                                    : 0}
                                             </div>
                                         </li>
                                         <li>
-                                            Team KYC
-                                            <div className={classes.checked}>
-                                                {checkMark}
+                                            Funding goal
+                                            <div>
+                                                $
+                                                {data.funding_goal
+                                                    ? formatAssetLabel(
+                                                          data.funding_goal,
+                                                      )
+                                                    : 0}
                                             </div>
                                         </li>
                                         <li>
-                                            Reputation
-                                            <div className={classes.checked}>
-                                                {checkMark}
-                                            </div>
-                                        </li>
-                                        <li>
-                                            Tech Verification
-                                            <div className={classes.checked}>
-                                                {checkMark}
+                                            Deadline
+                                            <div>
+                                                {data.deadline &&
+                                                    dateFormatter(
+                                                        data.deadline,
+                                                    )}
                                             </div>
                                         </li>
                                     </ul>
                                 </div>
-                            )}
-                            <div className={classes.dealTerms}>
-                                <p>Deal terms</p>
-                                <ul>
-                                    <li>
-                                        Minimum investment
-                                        <div>
-                                            $
-                                            {data.min_investment
-                                                ? formatAssetLabel(
-                                                      data.min_investment,
-                                                  )
-                                                : 0}
-                                        </div>
-                                    </li>
-                                    <li>
-                                        Maximum investment
-                                        <div>
-                                            $
-                                            {data.max_investment
-                                                ? formatAssetLabel(
-                                                      data.max_investment,
-                                                  )
-                                                : 0}
-                                        </div>
-                                    </li>
-                                    <li>
-                                        Funding goal
-                                        <div>
-                                            $
-                                            {data.funding_goal
-                                                ? formatAssetLabel(
-                                                      data.funding_goal,
-                                                  )
-                                                : 0}
-                                        </div>
-                                    </li>
-                                    <li>
-                                        Deadline
-                                        <div>
-                                            {data.deadline &&
-                                                dateFormatter(data.deadline)}
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                            {data.website_url && (
-                                <div className={classes.platform}>
-                                    <p>
-                                        {data.platform_id
-                                            ? 'Platform'
-                                            : 'Project website'}
-                                    </p>
-                                    {data.platform_id && (
-                                        <div
-                                            className={classes.platformIdentify}
-                                        >
+                                {data.website_url && (
+                                    <div className={classes.platform}>
+                                        <p>
+                                            {data.platform_id
+                                                ? 'Platform'
+                                                : 'Project website'}
+                                        </p>
+                                        {data.platform_id && (
                                             <div
-                                                className={classes.platformImg}
+                                                className={
+                                                    classes.platformIdentify
+                                                }
                                             >
-                                                {platform.image_url ? (
-                                                    <img
-                                                        src={platform.image_url}
-                                                        alt="platform logo"
-                                                    />
-                                                ) : (
-                                                    <img
-                                                        src={platformImgNone}
-                                                        alt="platform logo"
-                                                    />
-                                                )}
+                                                <div
+                                                    className={
+                                                        classes.platformImg
+                                                    }
+                                                >
+                                                    {platform.image_url ? (
+                                                        <img
+                                                            src={
+                                                                platform.image_url
+                                                            }
+                                                            alt="platform logo"
+                                                        />
+                                                    ) : (
+                                                        <img
+                                                            src={
+                                                                platformImgNone
+                                                            }
+                                                            alt="platform logo"
+                                                        />
+                                                    )}
+                                                </div>
+                                                <div
+                                                    className={
+                                                        classes.platformName
+                                                    }
+                                                >
+                                                    <h4>{platform.name}</h4>
+                                                    <span>
+                                                        {platform.description}
+                                                    </span>
+                                                </div>
                                             </div>
-                                            <div
-                                                className={classes.platformName}
-                                            >
-                                                <h4>{platform.name}</h4>
-                                                <span>
-                                                    {platform.description}
-                                                </span>
-                                            </div>
-                                        </div>
-                                    )}
-                                    <a
-                                        href={data.website_url}
-                                        onClick={(e) =>
-                                            handleExternalLinkClick(
-                                                e,
-                                                data.website_url,
-                                            )
-                                        }
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                    >
-                                        Visit the project
-                                        <svg
-                                            width="19"
-                                            height="19"
-                                            viewBox="0 0 19 19"
-                                            fill="none"
-                                            xmlns="http://www.w3.org/2000/svg"
+                                        )}
+                                        <a
+                                            href={data.website_url}
+                                            onClick={(e) =>
+                                                handleExternalLinkClick(
+                                                    e,
+                                                    data.website_url,
+                                                )
+                                            }
+                                            target="_blank"
+                                            rel="noopener noreferrer"
                                         >
-                                            <path
-                                                d="M1.14307 17.4583L17.143 1.14307"
-                                                stroke="white"
-                                                strokeWidth="2.28571"
-                                                strokeMiterlimit="10"
-                                                strokeLinecap="round"
-                                            />
-                                            <path
-                                                d="M17.1433 13.8014V1.25735C17.1433 1.19423 17.0921 1.14307 17.029 1.14307H4.65771"
-                                                stroke="white"
-                                                strokeWidth="2.28571"
-                                                strokeMiterlimit="10"
-                                                strokeLinecap="round"
-                                            />
-                                        </svg>
-                                    </a>
-                                </div>
-                            )}
-                            {contentBlocksDocuments.length > 0 && (
-                                <div className={classes.documents}>
-                                    <p>Documents</p>
-                                    <div
-                                        className={classes.documentsDescription}
-                                    >
-                                        {data.legal_name}
+                                            Visit the project
+                                            <svg
+                                                width="19"
+                                                height="19"
+                                                viewBox="0 0 19 19"
+                                                fill="none"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                            >
+                                                <path
+                                                    d="M1.14307 17.4583L17.143 1.14307"
+                                                    stroke="white"
+                                                    strokeWidth="2.28571"
+                                                    strokeMiterlimit="10"
+                                                    strokeLinecap="round"
+                                                />
+                                                <path
+                                                    d="M17.1433 13.8014V1.25735C17.1433 1.19423 17.0921 1.14307 17.029 1.14307H4.65771"
+                                                    stroke="white"
+                                                    strokeWidth="2.28571"
+                                                    strokeMiterlimit="10"
+                                                    strokeLinecap="round"
+                                                />
+                                            </svg>
+                                        </a>
                                     </div>
-                                    <div className={classes.documentsList}>
-                                        <p>Company documents</p>
-                                        <ul>
-                                            {contentBlocksDocuments.map(
-                                                (document, index) => (
-                                                    <li key={index}>
+                                )}
+                                {contentBlocksDocuments.length > 0 && (
+                                    <div className={classes.documents}>
+                                        <p>Documents</p>
+                                        <div
+                                            className={
+                                                classes.documentsDescription
+                                            }
+                                        >
+                                            {data.legal_name}
+                                        </div>
+                                        <div className={classes.documentsList}>
+                                            <p>Company documents</p>
+                                            <ul>
+                                                {contentBlocksDocuments.map(
+                                                    (document, index) => (
+                                                        <li key={index}>
+                                                            <a
+                                                                href={
+                                                                    document.value
+                                                                }
+                                                                target="_blank"
+                                                                rel="noopener noreferrer"
+                                                            >
+                                                                {documentIcon}
+                                                                <span>
+                                                                    {
+                                                                        document.name
+                                                                    }
+                                                                </span>
+                                                            </a>
+                                                        </li>
+                                                    ),
+                                                )}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                )}
+                                {parseTokenData.length > 0 && (
+                                    <div className={classes.tokens}>
+                                        <div className={classes.tokensHeader}>
+                                            <p>Blockchain Addresses</p>
+                                            <span>
+                                                Verified on-chain contract
+                                                details.
+                                            </span>
+                                        </div>
+                                        <div
+                                            className={classes.tokensContainer}
+                                        >
+                                            {parseTokenData.map(
+                                                (item, index) => (
+                                                    <div
+                                                        key={index}
+                                                        className={
+                                                            classes.token
+                                                        }
+                                                    >
+                                                        <p>{item.name}</p>
+                                                        <div
+                                                            onClick={() =>
+                                                                copyToken(
+                                                                    item.address,
+                                                                )
+                                                            }
+                                                            className={
+                                                                classes.shareBtnToken
+                                                            }
+                                                        >
+                                                            <span>
+                                                                {item.address}
+                                                            </span>
+                                                            <svg
+                                                                width="15"
+                                                                height="15"
+                                                                viewBox="0 0 15 15"
+                                                                fill="none"
+                                                                xmlns="http://www.w3.org/2000/svg"
+                                                            >
+                                                                <path
+                                                                    d="M5.725 0.0249996C5.29167 0.0749998 4.94167 0.158333 4.675 0.275C4.55833 0.341666 4.4375 0.433333 4.3125 0.55C4.1875 0.666666 4.09583 0.783333 4.0375 0.9C3.97917 1.01667 3.925 1.1875 3.875 1.4125C3.825 1.6375 3.79167 1.85833 3.775 2.075L3.75 2.5H5.25L5.3 2.075C5.33333 1.79167 5.36667 1.63333 5.4 1.6C5.43333 1.56667 5.74167 1.54167 6.325 1.525C6.90833 1.50833 7.925 1.5 9.375 1.5C10.975 1.5 12.0292 1.50833 12.5375 1.525C13.0458 1.54167 13.325 1.58333 13.375 1.65C13.425 1.71667 13.4583 1.98333 13.475 2.45C13.4917 2.91667 13.5 3.97083 13.5 5.6125C13.5 7.25417 13.4917 8.3125 13.475 8.7875C13.4583 9.2625 13.4292 9.525 13.3875 9.575C13.3458 9.625 13.1917 9.66667 12.925 9.7L12.525 9.75L12.5 11.225L12.875 11.2C13.8583 11.1667 14.4833 10.85 14.75 10.25C14.8333 10.0667 14.8917 9.85833 14.925 9.625C14.9583 9.35833 14.9833 8.925 15 8.325C15 7.825 15 6.925 15 5.625C15 4.15833 14.9917 3.13333 14.975 2.55C14.9583 1.96667 14.925 1.575 14.875 1.375C14.7917 1.00833 14.6375 0.720833 14.4125 0.5125C14.1875 0.304167 13.875 0.158333 13.475 0.0749998C13.3417 0.0583334 13.0417 0.0458326 12.575 0.0374994C12.1083 0.0291662 11.125 0.0166664 9.625 0C7.275 0 5.975 0.00833321 5.725 0.0249996ZM1.475 3.775C1.15833 3.84167 0.858333 4.01667 0.575 4.3C0.291667 4.58333 0.116667 4.89167 0.05 5.225C0.0166667 5.39167 0 6.775 0 9.375C0 11.975 0.0166667 13.35 0.05 13.5C0.116667 13.8333 0.291667 14.1417 0.575 14.425C0.858333 14.7083 1.16667 14.8833 1.5 14.95C1.65 14.9833 3.025 15 5.625 15C8.225 15 9.60833 14.9833 9.775 14.95C10.1083 14.8833 10.4167 14.7083 10.7 14.425C10.9833 14.1417 11.1583 13.8333 11.225 13.5C11.2417 13.35 11.25 11.975 11.25 9.375C11.25 6.775 11.2417 5.39167 11.225 5.225C11.1583 4.89167 10.9833 4.58333 10.7 4.3C10.4167 4.01667 10.1083 3.84167 9.775 3.775C9.625 3.75833 8.2375 3.75 5.6125 3.75C2.9875 3.75 1.60833 3.75833 1.475 3.775ZM9.65 5.35L9.75 5.475V13.25L9.525 13.5H1.75L1.5 13.25V5.475L1.75 5.25H9.525L9.65 5.35Z"
+                                                                    fill="#19191c"
+                                                                />
+                                                            </svg>
+                                                        </div>
                                                         <a
                                                             href={
-                                                                document.value
+                                                                item.blockchainAddress
                                                             }
                                                             target="_blank"
                                                             rel="noopener noreferrer"
+                                                            onClick={(e) =>
+                                                                handleExternalLinkClick(
+                                                                    e,
+                                                                    item.blockchainAddress,
+                                                                )
+                                                            }
                                                         >
-                                                            {documentIcon}
-                                                            <span>
-                                                                {document.name}
-                                                            </span>
+                                                            View on{' '}
+                                                            {item.network}
+                                                            <svg
+                                                                width="16"
+                                                                height="17"
+                                                                viewBox="0 0 16 17"
+                                                                fill="none"
+                                                                xmlns="http://www.w3.org/2000/svg"
+                                                            >
+                                                                <path
+                                                                    d="M1 15.2758L15 1"
+                                                                    stroke="#D34329"
+                                                                    strokeWidth="2"
+                                                                    strokeMiterlimit="10"
+                                                                    strokeLinecap="round"
+                                                                />
+                                                                <path
+                                                                    d="M15 12.0761V1.1C15 1.04477 14.9553 1 14.9 1H4.0752"
+                                                                    stroke="#D34329"
+                                                                    strokeWidth="2"
+                                                                    strokeMiterlimit="10"
+                                                                    strokeLinecap="round"
+                                                                />
+                                                            </svg>
                                                         </a>
-                                                    </li>
+                                                    </div>
                                                 ),
                                             )}
-                                        </ul>
+                                        </div>
                                     </div>
-                                </div>
-                            )}
-                            {parseTokenData.length > 0 && (
-                                <div className={classes.tokens}>
-                                    <div className={classes.tokensHeader}>
-                                        <p>Blockchain Addresses</p>
-                                        <span>
-                                            Verified on-chain contract details.
-                                        </span>
-                                    </div>
-                                    <div className={classes.tokensContainer}>
-                                        {parseTokenData.map((item, index) => (
-                                            <div
-                                                key={index}
-                                                className={classes.token}
-                                            >
-                                                <p>{item.name}</p>
-                                                <div
-                                                    onClick={() =>
-                                                        copyToken(item.address)
-                                                    }
-                                                    className={
-                                                        classes.shareBtnToken
-                                                    }
-                                                >
-                                                    <span>{item.address}</span>
-                                                    <svg
-                                                        width="15"
-                                                        height="15"
-                                                        viewBox="0 0 15 15"
-                                                        fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                    >
-                                                        <path
-                                                            d="M5.725 0.0249996C5.29167 0.0749998 4.94167 0.158333 4.675 0.275C4.55833 0.341666 4.4375 0.433333 4.3125 0.55C4.1875 0.666666 4.09583 0.783333 4.0375 0.9C3.97917 1.01667 3.925 1.1875 3.875 1.4125C3.825 1.6375 3.79167 1.85833 3.775 2.075L3.75 2.5H5.25L5.3 2.075C5.33333 1.79167 5.36667 1.63333 5.4 1.6C5.43333 1.56667 5.74167 1.54167 6.325 1.525C6.90833 1.50833 7.925 1.5 9.375 1.5C10.975 1.5 12.0292 1.50833 12.5375 1.525C13.0458 1.54167 13.325 1.58333 13.375 1.65C13.425 1.71667 13.4583 1.98333 13.475 2.45C13.4917 2.91667 13.5 3.97083 13.5 5.6125C13.5 7.25417 13.4917 8.3125 13.475 8.7875C13.4583 9.2625 13.4292 9.525 13.3875 9.575C13.3458 9.625 13.1917 9.66667 12.925 9.7L12.525 9.75L12.5 11.225L12.875 11.2C13.8583 11.1667 14.4833 10.85 14.75 10.25C14.8333 10.0667 14.8917 9.85833 14.925 9.625C14.9583 9.35833 14.9833 8.925 15 8.325C15 7.825 15 6.925 15 5.625C15 4.15833 14.9917 3.13333 14.975 2.55C14.9583 1.96667 14.925 1.575 14.875 1.375C14.7917 1.00833 14.6375 0.720833 14.4125 0.5125C14.1875 0.304167 13.875 0.158333 13.475 0.0749998C13.3417 0.0583334 13.0417 0.0458326 12.575 0.0374994C12.1083 0.0291662 11.125 0.0166664 9.625 0C7.275 0 5.975 0.00833321 5.725 0.0249996ZM1.475 3.775C1.15833 3.84167 0.858333 4.01667 0.575 4.3C0.291667 4.58333 0.116667 4.89167 0.05 5.225C0.0166667 5.39167 0 6.775 0 9.375C0 11.975 0.0166667 13.35 0.05 13.5C0.116667 13.8333 0.291667 14.1417 0.575 14.425C0.858333 14.7083 1.16667 14.8833 1.5 14.95C1.65 14.9833 3.025 15 5.625 15C8.225 15 9.60833 14.9833 9.775 14.95C10.1083 14.8833 10.4167 14.7083 10.7 14.425C10.9833 14.1417 11.1583 13.8333 11.225 13.5C11.2417 13.35 11.25 11.975 11.25 9.375C11.25 6.775 11.2417 5.39167 11.225 5.225C11.1583 4.89167 10.9833 4.58333 10.7 4.3C10.4167 4.01667 10.1083 3.84167 9.775 3.775C9.625 3.75833 8.2375 3.75 5.6125 3.75C2.9875 3.75 1.60833 3.75833 1.475 3.775ZM9.65 5.35L9.75 5.475V13.25L9.525 13.5H1.75L1.5 13.25V5.475L1.75 5.25H9.525L9.65 5.35Z"
-                                                            fill="#19191c"
-                                                        />
-                                                    </svg>
-                                                </div>
-                                                <a
-                                                    href={
-                                                        item.blockchainAddress
-                                                    }
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    onClick={(e) =>
-                                                        handleExternalLinkClick(
-                                                            e,
-                                                            item.blockchainAddress,
-                                                        )
-                                                    }
-                                                >
-                                                    View on {item.network}
-                                                    <svg
-                                                        width="16"
-                                                        height="17"
-                                                        viewBox="0 0 16 17"
-                                                        fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                    >
-                                                        <path
-                                                            d="M1 15.2758L15 1"
-                                                            stroke="#D34329"
-                                                            strokeWidth="2"
-                                                            strokeMiterlimit="10"
-                                                            strokeLinecap="round"
-                                                        />
-                                                        <path
-                                                            d="M15 12.0761V1.1C15 1.04477 14.9553 1 14.9 1H4.0752"
-                                                            stroke="#D34329"
-                                                            strokeWidth="2"
-                                                            strokeMiterlimit="10"
-                                                            strokeLinecap="round"
-                                                        />
-                                                    </svg>
-                                                </a>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                            )}
-                        </aside>
+                                )}
+                            </aside>
+                        </div>
                     </div>
-                </div>
-            </section>
-            <section className={classes.about}>
-                <div className="wrapper">
-                    <h2>About Project</h2>
-                    <div className={classes.aboutContainer}>
-                        <div className={classes.aboutInfo}>
-                            <div className={classes.aboutInfoItem}>
-                                <p>Legal Name</p>
-                                <div className={classes.aboutInfoItemValue}>
-                                    {data.legal_name}
+                </section>
+                <section className={classes.about}>
+                    <div className="wrapper">
+                        <h2>About Project</h2>
+                        <div className={classes.aboutContainer}>
+                            <div className={classes.aboutInfo}>
+                                <div className={classes.aboutInfoItem}>
+                                    <p>Legal Name</p>
+                                    <div className={classes.aboutInfoItemValue}>
+                                        {data.legal_name}
+                                    </div>
                                 </div>
-                            </div>
-                            <div className={classes.aboutInfoItem}>
-                                <p>Employees</p>
-                                <div className={classes.aboutInfoItemValue}>
-                                    {data.employees_count}
+                                <div className={classes.aboutInfoItem}>
+                                    <p>Employees</p>
+                                    <div className={classes.aboutInfoItemValue}>
+                                        {data.employees_count}
+                                    </div>
                                 </div>
-                            </div>
-                            <div className={classes.aboutInfoItem}>
-                                <p>Founded</p>
-                                <div className={classes.aboutInfoItemValue}>
-                                    {data.founded_date ? data.founded_date : ''}
+                                <div className={classes.aboutInfoItem}>
+                                    <p>Founded</p>
+                                    <div className={classes.aboutInfoItemValue}>
+                                        {data.founded_date
+                                            ? data.founded_date
+                                            : ''}
+                                    </div>
                                 </div>
-                            </div>
-                            <div className={classes.aboutInfoItem}>
-                                <p>Website</p>
-                                <div className={classes.aboutInfoItemValue}>
-                                    <a
-                                        href={data.website_url}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        onClick={(e) =>
-                                            handleExternalLinkClick(
-                                                e,
-                                                data.website_url,
-                                            )
+                                <div className={classes.aboutInfoItem}>
+                                    <p>Website</p>
+                                    <div className={classes.aboutInfoItemValue}>
+                                        <a
+                                            href={data.website_url}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            onClick={(e) =>
+                                                handleExternalLinkClick(
+                                                    e,
+                                                    data.website_url,
+                                                )
+                                            }
+                                        >
+                                            Project website
+                                        </a>
+                                    </div>
+                                </div>
+                                <div className={classes.aboutInfoItem}>
+                                    <p>Form</p>
+                                    <div className={classes.aboutInfoItemValue}>
+                                        {data.country &&
+                                            data.country.join(', ')}
+                                    </div>
+                                </div>
+                                <div className={classes.aboutInfoItem}>
+                                    <p>Social Media</p>
+                                    <div
+                                        className={
+                                            classes.aboutInfoItemValueSocial
                                         }
                                     >
-                                        Project website
-                                    </a>
+                                        {data.linkedin_url && (
+                                            <a
+                                                href={data.linkedin_url}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                            >
+                                                <img
+                                                    src={linkedinSocial}
+                                                    alt="linkedin"
+                                                />
+                                            </a>
+                                        )}
+                                        {data.x_url && (
+                                            <a
+                                                href={data.x_url}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                            >
+                                                <img
+                                                    src={twitterSocial}
+                                                    alt="twitter"
+                                                />
+                                            </a>
+                                        )}
+                                        {data.instagram_url && (
+                                            <a
+                                                href={data.instagram_url}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                            >
+                                                <img
+                                                    src={instagramSocial}
+                                                    alt="instagram"
+                                                />
+                                            </a>
+                                        )}
+                                        {data.facebook_url && (
+                                            <a
+                                                href={data.facebook_url}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                            >
+                                                <img
+                                                    src={facebookSocial}
+                                                    alt="facebook"
+                                                />
+                                            </a>
+                                        )}
+                                        {data.youtube_url && (
+                                            <a
+                                                href={data.youtube_url}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                            >
+                                                <img
+                                                    src={youtubeSocial}
+                                                    alt="youtube"
+                                                />
+                                            </a>
+                                        )}
+                                    </div>
                                 </div>
                             </div>
-                            <div className={classes.aboutInfoItem}>
-                                <p>Form</p>
-                                <div className={classes.aboutInfoItemValue}>
-                                    {data.country && data.country.join(', ')}
-                                </div>
-                            </div>
-                            <div className={classes.aboutInfoItem}>
-                                <p>Social Media</p>
-                                <div
-                                    className={classes.aboutInfoItemValueSocial}
-                                >
-                                    {data.linkedin_url && (
-                                        <a
-                                            href={data.linkedin_url}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                        >
-                                            <img
-                                                src={linkedinSocial}
-                                                alt="linkedin"
-                                            />
-                                        </a>
-                                    )}
-                                    {data.x_url && (
-                                        <a
-                                            href={data.x_url}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                        >
-                                            <img
-                                                src={twitterSocial}
-                                                alt="twitter"
-                                            />
-                                        </a>
-                                    )}
-                                    {data.instagram_url && (
-                                        <a
-                                            href={data.instagram_url}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                        >
-                                            <img
-                                                src={instagramSocial}
-                                                alt="instagram"
-                                            />
-                                        </a>
-                                    )}
-                                    {data.facebook_url && (
-                                        <a
-                                            href={data.facebook_url}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                        >
-                                            <img
-                                                src={facebookSocial}
-                                                alt="facebook"
-                                            />
-                                        </a>
-                                    )}
-                                    {data.youtube_url && (
-                                        <a
-                                            href={data.youtube_url}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                        >
-                                            <img
-                                                src={youtubeSocial}
-                                                alt="youtube"
-                                            />
-                                        </a>
-                                    )}
-                                </div>
+                            <div className={classes.map}>
+                                {data.google_maps_url && (
+                                    <iframe
+                                        src={data.google_maps_url}
+                                        allowFullScreen=""
+                                        loading="lazy"
+                                        referrerPolicy="no-referrer-when-downgrade"
+                                    ></iframe>
+                                )}
                             </div>
                         </div>
-                        <div className={classes.map}>
-                            {data.google_maps_url && (
-                                <iframe
-                                    src={data.google_maps_url}
-                                    allowFullScreen=""
-                                    loading="lazy"
-                                    referrerPolicy="no-referrer-when-downgrade"
-                                ></iframe>
+                    </div>
+                </section>
+                <section className={classes.faq}>
+                    <AssetsPageFaq pageName="project" />
+                </section>
+
+                <section className={classes.download}>
+                    <div className="wrapper">
+                        <div className={classes.downloadContainer}>
+                            <h2>
+                                Explore the Full Project on the Official Website
+                            </h2>
+                            <p>
+                                Get complete details directly from the source.
+                            </p>
+                            {data.website_url && (
+                                <a
+                                    href={data.website_url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    onClick={(e) =>
+                                        handleExternalLinkClick(
+                                            e,
+                                            data.website_url,
+                                        )
+                                    }
+                                >
+                                    View project
+                                </a>
                             )}
                         </div>
                     </div>
-                </div>
-            </section>
-            <section className={classes.faq}>
-                <AssetsPageFaq pageName="project" />
-            </section>
-
-            <section className={classes.download}>
-                <div className="wrapper">
-                    <div className={classes.downloadContainer}>
-                        <h2>
-                            Explore the Full Project on the Official Website
-                        </h2>
-                        <p>Get complete details directly from the source.</p>
-                        {data.website_url && (
-                            <a
-                                href={data.website_url}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                onClick={(e) =>
-                                    handleExternalLinkClick(e, data.website_url)
-                                }
-                            >
-                                View project
-                            </a>
-                        )}
-                    </div>
-                </div>
-            </section>
-            <ExternalLink
-                isOpen={isModalOpen}
-                url={targetUrl}
-                onClose={() => setIsModalOpen(false)}
-                onConfirm={handleConfirmTransition}
-            />
-        </main>
+                </section>
+                <ExternalLink
+                    isOpen={isModalOpen}
+                    url={targetUrl}
+                    onClose={() => setIsModalOpen(false)}
+                    onConfirm={handleConfirmTransition}
+                />
+            </main>
+        </>
     );
 };
 

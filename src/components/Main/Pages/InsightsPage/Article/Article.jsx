@@ -6,6 +6,7 @@ import {
     DATABASE_ID,
     TABLE_ID_NEWS,
 } from '../../../../../lib/appwrite';
+import { Helmet } from 'react-helmet-async';
 import ArticleFaq from './ArticleFaq/ArticleFaq';
 import MainPageForm from '../../MainPage/MainPageForm/MainPageForm';
 import ReadNext from './ReadNext/ReadNext';
@@ -138,151 +139,171 @@ const Article = () => {
     };
 
     return (
-        <main className={classes.articlePage}>
-            <section className={classes.article}>
-                <div className="wrapper">
-                    <div className={classes.articleContainer}>
-                        <div className={classes.articleContent}>
-                            <div className={classes.articleContentMain}>
-                                <p className={classes.articleDate}>
-                                    {articleData.publication_date
-                                        ? dateFormatter(
-                                              articleData.publication_date,
-                                          )
-                                        : dateFormatter(articleData.$updatedAt)}
-                                    {articleData.min_read && (
-                                        <span>
-                                            {' '}
-                                            • {articleData.min_read} min read
-                                        </span>
-                                    )}
-                                </p>
-                                <h2>{articleData.title}</h2>
-                                <h3>{articleData.description}</h3>
-                                <div className={classes.articleAuthorShare}>
-                                    <div className={classes.articleAuthor}>
-                                        {articleData.author}
-                                    </div>
-                                    <div className={classes.shareButtons}>
-                                        Share
-                                        <a
-                                            href={`https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}`}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className={classes.shareBtn}
-                                        >
-                                            <img
-                                                src={linkedinIcon}
-                                                alt="linkedin"
-                                            />
-                                        </a>
-                                        <a
-                                            href={`https://x.com/intent/tweet?url=${shareUrl}`}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className={classes.shareBtn}
-                                        >
-                                            <img
-                                                src={twitterIcon}
-                                                alt="twitter"
-                                            />
-                                        </a>
-                                        <div
-                                            onClick={copyToClipboard}
-                                            className={classes.shareBtn}
-                                        >
-                                            <img
-                                                src={shareBtnCopyIcon}
-                                                alt="share link"
-                                            />
+        <>
+            <Helmet>
+                <title>
+                    {articleData.title
+                        ? `${articleData.title} | UnitStake`
+                        : 'Article Details'}
+                </title>
+                <meta
+                    name="description"
+                    content={
+                        articleData.description
+                            ? articleData.description.slice(0, 160)
+                            : 'Article overview and details.'
+                    }
+                />
+            </Helmet>
+            <main className={classes.articlePage}>
+                <section className={classes.article}>
+                    <div className="wrapper">
+                        <div className={classes.articleContainer}>
+                            <div className={classes.articleContent}>
+                                <div className={classes.articleContentMain}>
+                                    <p className={classes.articleDate}>
+                                        {articleData.publication_date
+                                            ? dateFormatter(
+                                                  articleData.publication_date,
+                                              )
+                                            : dateFormatter(
+                                                  articleData.$updatedAt,
+                                              )}
+                                        {articleData.min_read && (
+                                            <span>
+                                                {' '}
+                                                • {articleData.min_read} min
+                                                read
+                                            </span>
+                                        )}
+                                    </p>
+                                    <h2>{articleData.title}</h2>
+                                    <h3>{articleData.description}</h3>
+                                    <div className={classes.articleAuthorShare}>
+                                        <div className={classes.articleAuthor}>
+                                            {articleData.author}
+                                        </div>
+                                        <div className={classes.shareButtons}>
+                                            Share
+                                            <a
+                                                href={`https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}`}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className={classes.shareBtn}
+                                            >
+                                                <img
+                                                    src={linkedinIcon}
+                                                    alt="linkedin"
+                                                />
+                                            </a>
+                                            <a
+                                                href={`https://x.com/intent/tweet?url=${shareUrl}`}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className={classes.shareBtn}
+                                            >
+                                                <img
+                                                    src={twitterIcon}
+                                                    alt="twitter"
+                                                />
+                                            </a>
+                                            <div
+                                                onClick={copyToClipboard}
+                                                className={classes.shareBtn}
+                                            >
+                                                <img
+                                                    src={shareBtnCopyIcon}
+                                                    alt="share link"
+                                                />
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                {articleData.image_url && (
-                                    <div className={classes.articleImage}>
-                                        <img
-                                            src={articleData.image_url}
-                                            alt="article image"
-                                        />
+                                    {articleData.image_url && (
+                                        <div className={classes.articleImage}>
+                                            <img
+                                                src={articleData.image_url}
+                                                alt="article image"
+                                            />
+                                        </div>
+                                    )}
+                                    <div className={classes.articleText}>
+                                        {contentBlocks.map((block, index) => {
+                                            const headingId = `heading${index}`;
+                                            switch (block.type) {
+                                                case 'heading':
+                                                    return (
+                                                        <h4
+                                                            key={index}
+                                                            id={headingId}
+                                                            ref={(el) =>
+                                                                (headingRefs.current[
+                                                                    headingId
+                                                                ] = el)
+                                                            }
+                                                            className={
+                                                                classes.contentHeading
+                                                            }
+                                                        >
+                                                            {block.value}
+                                                        </h4>
+                                                    );
+                                                case 'text':
+                                                    return (
+                                                        <p
+                                                            key={index}
+                                                            className={
+                                                                classes.contentText
+                                                            }
+                                                        >
+                                                            {block.value}
+                                                        </p>
+                                                    );
+                                                default:
+                                                    return null;
+                                            }
+                                        })}
                                     </div>
-                                )}
-                                <div className={classes.articleText}>
+                                </div>
+                                <ArticleFaq />
+                            </div>
+                            <div className={classes.articleTable}>
+                                <div className={classes.articleTableContainer}>
+                                    <h5>Table of Contents</h5>
                                     {contentBlocks.map((block, index) => {
                                         const headingId = `heading${index}`;
                                         switch (block.type) {
                                             case 'heading':
                                                 return (
-                                                    <h4
+                                                    <HashLink
                                                         key={index}
-                                                        id={headingId}
-                                                        ref={(el) =>
-                                                            (headingRefs.current[
-                                                                headingId
-                                                            ] = el)
-                                                        }
-                                                        className={
-                                                            classes.contentHeading
-                                                        }
+                                                        smooth
+                                                        to={`#${headingId}`}
+                                                        className={`${classes.hashLink} ${
+                                                            activeHeadingId ===
+                                                            headingId
+                                                                ? classes.activeHashLink
+                                                                : ''
+                                                        }`}
                                                     >
                                                         {block.value}
-                                                    </h4>
+                                                    </HashLink>
                                                 );
-                                            case 'text':
-                                                return (
-                                                    <p
-                                                        key={index}
-                                                        className={
-                                                            classes.contentText
-                                                        }
-                                                    >
-                                                        {block.value}
-                                                    </p>
-                                                );
+
                                             default:
                                                 return null;
                                         }
                                     })}
                                 </div>
                             </div>
-                            <ArticleFaq />
-                        </div>
-                        <div className={classes.articleTable}>
-                            <div className={classes.articleTableContainer}>
-                                <h5>Table of Contents</h5>
-                                {contentBlocks.map((block, index) => {
-                                    const headingId = `heading${index}`;
-                                    switch (block.type) {
-                                        case 'heading':
-                                            return (
-                                                <HashLink
-                                                    key={index}
-                                                    smooth
-                                                    to={`#${headingId}`}
-                                                    className={`${classes.hashLink} ${
-                                                        activeHeadingId ===
-                                                        headingId
-                                                            ? classes.activeHashLink
-                                                            : ''
-                                                    }`}
-                                                >
-                                                    {block.value}
-                                                </HashLink>
-                                            );
-
-                                        default:
-                                            return null;
-                                    }
-                                })}
-                            </div>
                         </div>
                     </div>
+                </section>
+                <div className={classes.darkBg}>
+                    <MainPageForm />
+                    <ReadNext articleId={articleId} />
                 </div>
-            </section>
-            <div className={classes.darkBg}>
-                <MainPageForm />
-                <ReadNext articleId={articleId} />
-            </div>
-        </main>
+            </main>
+        </>
     );
 };
 

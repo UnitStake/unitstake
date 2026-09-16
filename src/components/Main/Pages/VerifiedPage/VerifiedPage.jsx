@@ -1,3 +1,4 @@
+import { Helmet } from 'react-helmet-async';
 import VerifiedPageHeroSection from './VerifiedPageHeroSection/VerifiedPageHeroSection';
 import VerifiedPageWeDo from './VerifiedPageWeDo/VerifiedPageWeDo';
 import VerifiedPageMatters from './VerifiedPageMatters/VerifiedPageMatters';
@@ -43,16 +44,25 @@ const secondDisclaimerTxt = (
 
 const VerifiedPage = () => {
     return (
-        <main className={classes.verifiedPage}>
-            <VerifiedPageHeroSection />
-            <VerifiedPageWeDo />
-            <VerifiedPageMatters />
-            <VerifiedPageDisclaimer text={firstDisclaimerTxt} />
-            <VerifiedPageStatus />
-            <VerifiedPageDisclaimer text={secondDisclaimerTxt} />
-            <VerifiedPageCategories />
-            <VerifiedPagePlatform />
-        </main>
+        <>
+            <Helmet>
+                <title>Verified by UnitStake: RWA Project Verification</title>
+                <meta
+                    name="description"
+                    content="A structured verification framework for tokenized assets: legal, financials, team KYC, reputation and tech checks. Not a rating, score or endorsement."
+                />
+            </Helmet>
+            <main className={classes.verifiedPage}>
+                <VerifiedPageHeroSection />
+                <VerifiedPageWeDo />
+                <VerifiedPageMatters />
+                <VerifiedPageDisclaimer text={firstDisclaimerTxt} />
+                <VerifiedPageStatus />
+                <VerifiedPageDisclaimer text={secondDisclaimerTxt} />
+                <VerifiedPageCategories />
+                <VerifiedPagePlatform />
+            </main>
+        </>
     );
 };
 

@@ -5,6 +5,8 @@ import {
     DATABASE_ID,
     TABLE_ID_ACADEMY,
 } from '../../../../lib/appwrite';
+import { Helmet } from 'react-helmet-async';
+
 import classes from './Academy.module.css';
 
 const Academy = () => {
@@ -140,184 +142,204 @@ const Academy = () => {
     }
 
     return (
-        <main className={classes.academyPage}>
-            <section className={classes.heroSection}>
-                <div className="wrapper">
-                    <div className={classes.heroSectionContainer}>
-                        <div className={classes.fakeBtn}>
-                            <div className={classes.fakeBtnContainer}>
-                                <div className={classes.fakeBtnCircle}></div>
-                                <p>Beyond Tokens: Structure Matters</p>
+        <>
+            <Helmet>
+                <title>What Is Asset Tokenization? | UnitStake Academy</title>
+                <meta
+                    name="description"
+                    content="Learn what tokenization is and how tokenized real-world assets work: legal structure, token types, liquidity, risks and how to analyse a project."
+                />
+            </Helmet>
+            <main className={classes.academyPage}>
+                <section className={classes.heroSection}>
+                    <div className="wrapper">
+                        <div className={classes.heroSectionContainer}>
+                            <div className={classes.fakeBtn}>
+                                <div className={classes.fakeBtnContainer}>
+                                    <div
+                                        className={classes.fakeBtnCircle}
+                                    ></div>
+                                    <p>Beyond Tokens: Structure Matters</p>
+                                </div>
                             </div>
+                            <h2>
+                                Understand how tokenized assets really work -
+                                before you trust them
+                            </h2>
+                            <p className={classes.secondaryTxt}>
+                                This Academy explains how real-world asset
+                                tokenization works - from legal architecture to
+                                capital flows - so you can evaluate projects
+                                based on structure, not assumptions.
+                            </p>
                         </div>
-                        <h2>
-                            Understand how tokenized assets really work - before
-                            you trust them
-                        </h2>
-                        <p className={classes.secondaryTxt}>
-                            This Academy explains how real-world asset
-                            tokenization works - from legal architecture to
-                            capital flows - so you can evaluate projects based
-                            on structure, not assumptions.
-                        </p>
                     </div>
-                </div>
-            </section>
-            <section className={classes.content}>
-                <div className="wrapper">
-                    <div className={classes.contentContainer}>
-                        <aside>
-                            <div className={classes.HashLinks} id="hashLinks">
+                </section>
+                <section className={classes.content}>
+                    <div className="wrapper">
+                        <div className={classes.contentContainer}>
+                            <aside>
+                                <div
+                                    className={classes.HashLinks}
+                                    id="hashLinks"
+                                >
+                                    {contentBlocks.map((block, index) => {
+                                        const blockId = `block-${index}`;
+                                        switch (block.type) {
+                                            case 'h3':
+                                                return (
+                                                    <HashLink
+                                                        key={index}
+                                                        smooth
+                                                        to={`#${blockId}`}
+                                                        className={`${classes.hashLink} ${
+                                                            activeHeadingId ===
+                                                            blockId
+                                                                ? classes.activeHashLink
+                                                                : ''
+                                                        }`}
+                                                    >
+                                                        {block.value}
+                                                    </HashLink>
+                                                );
+                                            case 'h4': {
+                                                let parentH3Index = -1;
+                                                for (
+                                                    let i = index;
+                                                    i >= 0;
+                                                    i--
+                                                ) {
+                                                    if (
+                                                        contentBlocks[i]
+                                                            ?.type === 'h3'
+                                                    ) {
+                                                        parentH3Index = i;
+                                                        break;
+                                                    }
+                                                }
+
+                                                if (
+                                                    parentH3Index !==
+                                                        activeH3Index ||
+                                                    activeH3Index === -1
+                                                ) {
+                                                    return null;
+                                                }
+
+                                                return (
+                                                    <HashLink
+                                                        key={index}
+                                                        smooth
+                                                        to={`#${blockId}`}
+                                                        className={`${classes.secondaryHashLink} ${
+                                                            activeHeadingId ===
+                                                            blockId
+                                                                ? classes.activeSecondaryHashLink
+                                                                : ''
+                                                        }`}
+                                                    >
+                                                        {block.value}
+                                                    </HashLink>
+                                                );
+                                            }
+                                            default:
+                                                return null;
+                                        }
+                                    })}
+                                </div>
+                            </aside>
+                            <div className={classes.contentBlocks}>
                                 {contentBlocks.map((block, index) => {
                                     const blockId = `block-${index}`;
                                     switch (block.type) {
                                         case 'h3':
                                             return (
-                                                <HashLink
+                                                <h3
                                                     key={index}
-                                                    smooth
-                                                    to={`#${blockId}`}
-                                                    className={`${classes.hashLink} ${
-                                                        activeHeadingId ===
-                                                        blockId
-                                                            ? classes.activeHashLink
-                                                            : ''
-                                                    }`}
+                                                    id={blockId}
+                                                    ref={(el) =>
+                                                        (headingRefs.current[
+                                                            blockId
+                                                        ] = el)
+                                                    }
+                                                    className={
+                                                        classes.contentHeading
+                                                    }
                                                 >
                                                     {block.value}
-                                                </HashLink>
+                                                </h3>
                                             );
-                                        case 'h4': {
-                                            let parentH3Index = -1;
-                                            for (let i = index; i >= 0; i--) {
-                                                if (
-                                                    contentBlocks[i]?.type ===
-                                                    'h3'
-                                                ) {
-                                                    parentH3Index = i;
-                                                    break;
-                                                }
-                                            }
-
-                                            if (
-                                                parentH3Index !==
-                                                    activeH3Index ||
-                                                activeH3Index === -1
-                                            ) {
-                                                return null;
-                                            }
-
+                                        case 'h4':
                                             return (
-                                                <HashLink
+                                                <h4
                                                     key={index}
-                                                    smooth
-                                                    to={`#${blockId}`}
-                                                    className={`${classes.secondaryHashLink} ${
-                                                        activeHeadingId ===
-                                                        blockId
-                                                            ? classes.activeSecondaryHashLink
-                                                            : ''
-                                                    }`}
+                                                    id={blockId}
+                                                    ref={(el) =>
+                                                        (headingRefs.current[
+                                                            blockId
+                                                        ] = el)
+                                                    }
+                                                    className={
+                                                        classes.contentSubtitle
+                                                    }
                                                 >
                                                     {block.value}
-                                                </HashLink>
+                                                </h4>
                                             );
-                                        }
+                                        case 'strong':
+                                            return (
+                                                <b
+                                                    key={index}
+                                                    className={
+                                                        classes.contentBoldTxt
+                                                    }
+                                                >
+                                                    {block.value}
+                                                </b>
+                                            );
+                                        case 'p':
+                                            return (
+                                                <p
+                                                    key={index}
+                                                    className={
+                                                        classes.contentText
+                                                    }
+                                                >
+                                                    {block.value}
+                                                </p>
+                                            );
                                         default:
                                             return null;
                                     }
                                 })}
                             </div>
-                        </aside>
-                        <div className={classes.contentBlocks}>
-                            {contentBlocks.map((block, index) => {
-                                const blockId = `block-${index}`;
-                                switch (block.type) {
-                                    case 'h3':
-                                        return (
-                                            <h3
-                                                key={index}
-                                                id={blockId}
-                                                ref={(el) =>
-                                                    (headingRefs.current[
-                                                        blockId
-                                                    ] = el)
-                                                }
-                                                className={
-                                                    classes.contentHeading
-                                                }
-                                            >
-                                                {block.value}
-                                            </h3>
-                                        );
-                                    case 'h4':
-                                        return (
-                                            <h4
-                                                key={index}
-                                                id={blockId}
-                                                ref={(el) =>
-                                                    (headingRefs.current[
-                                                        blockId
-                                                    ] = el)
-                                                }
-                                                className={
-                                                    classes.contentSubtitle
-                                                }
-                                            >
-                                                {block.value}
-                                            </h4>
-                                        );
-                                    case 'strong':
-                                        return (
-                                            <b
-                                                key={index}
-                                                className={
-                                                    classes.contentBoldTxt
-                                                }
-                                            >
-                                                {block.value}
-                                            </b>
-                                        );
-                                    case 'p':
-                                        return (
-                                            <p
-                                                key={index}
-                                                className={classes.contentText}
-                                            >
-                                                {block.value}
-                                            </p>
-                                        );
-                                    default:
-                                        return null;
-                                }
-                            })}
                         </div>
                     </div>
-                </div>
-            </section>
-            {showScrollTop && (
-                <HashLink
-                    smooth
-                    to="#hashLinks"
-                    className={classes.scrollToTop}
-                >
-                    <svg
-                        width="17"
-                        height="9"
-                        viewBox="0 0 17 9"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
+                </section>
+                {showScrollTop && (
+                    <HashLink
+                        smooth
+                        to="#hashLinks"
+                        className={classes.scrollToTop}
                     >
-                        <path
-                            d="M1.08203 7.82568L8.08203 1.46205L15.082 7.82568"
-                            stroke="white"
-                            strokeWidth="2.16364"
-                            strokeLinecap="round"
-                        />
-                    </svg>
-                </HashLink>
-            )}
-        </main>
+                        <svg
+                            width="17"
+                            height="9"
+                            viewBox="0 0 17 9"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path
+                                d="M1.08203 7.82568L8.08203 1.46205L15.082 7.82568"
+                                stroke="white"
+                                strokeWidth="2.16364"
+                                strokeLinecap="round"
+                            />
+                        </svg>
+                    </HashLink>
+                )}
+            </main>
+        </>
     );
 };
 

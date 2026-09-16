@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { tablesDB, DATABASE_ID, ID } from '../../../../lib/appwrite';
 import { useNavigate, NavLink } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 
 import classes from './ContactUs.module.css';
 
@@ -174,223 +175,245 @@ const ContactUs = () => {
     };
 
     return (
-        <div className={classes.contactContainer}>
-            <div className="wrapper">
-                <div className={classes.contactHeader}>
-                    <h2>Contact Information</h2>
-                    <p>
-                        Lorem ipsum dolor sit amet, consetetur sadipscing elitr.
-                    </p>
-                </div>
+        <>
+            <Helmet>
+                <title>Contact UnitStake: List, Verify or Tokenize</title>
+                <meta
+                    name="description"
+                    content="Get in touch to submit a project to the UnitStake aggregator, apply for Verified by UnitStake, or discuss tokenizing a real-world asset with our team."
+                />
+            </Helmet>
+            <main className={classes.contactContainer}>
+                <div className="wrapper">
+                    <div className={classes.contactHeader}>
+                        <h2>Contact Information</h2>
+                        <p>
+                            Lorem ipsum dolor sit amet, consetetur sadipscing
+                            elitr.
+                        </p>
+                    </div>
 
-                <form
-                    onSubmit={handleSubmit}
-                    className={classes.contactForm}
-                    id="form"
-                >
-                    <div className={classes.formGrid}>
-                        <div className={classes.formGroup}>
-                            <input
-                                type="text"
-                                name="fullName"
-                                placeholder="Full Name*"
-                                value={formData.fullName}
-                                onChange={handleInputChange}
-                                className={classes.formInput}
-                                required
-                            />
-                        </div>
-
-                        <div className={classes.formGroup}>
-                            <input
-                                type="text"
-                                name="projectName"
-                                placeholder="Project / Company Name"
-                                value={formData.projectName}
-                                onChange={handleInputChange}
-                                className={classes.formInput}
-                            />
-                        </div>
-
-                        <div className={classes.formGroup}>
-                            <input
-                                type="email"
-                                name="email"
-                                placeholder="Email*"
-                                value={formData.email}
-                                onChange={handleInputChange}
-                                className={classes.formInput}
-                                required
-                            />
-                        </div>
-
-                        <div className={classes.formGroup}>
-                            <input
-                                type="text"
-                                name="contactValue"
-                                placeholder="WhatsApp / Telegram*"
-                                value={formData.contactValue}
-                                onChange={handleInputChange}
-                                className={classes.formInput}
-                                required
-                            />
-                        </div>
-
-                        <div className={classes.formGroup}>
-                            <input
-                                type="text"
-                                name="country"
-                                placeholder="Country"
-                                value={formData.country}
-                                onChange={handleInputChange}
-                                className={classes.formInput}
-                            />
-                        </div>
-
-                        <div className={classes.formGroup} ref={dropdownRef}>
-                            <div
-                                className={classes.customDropdown}
-                                onClick={() =>
-                                    setIsDropdownOpen(!isDropdownOpen)
-                                }
-                            >
-                                <span className={classes.dropdownPlaceholder}>
-                                    {selectedCategories.length > 0
-                                        ? selectedCategories.join(', ')
-                                        : 'Industry / Asset Type*'}
-                                </span>
-                                <span
-                                    className={`${classes.dropdownArrow} ${isDropdownOpen ? classes.arrowOpen : ''}`}
-                                >
-                                    {arrowDown}
-                                </span>
+                    <form
+                        onSubmit={handleSubmit}
+                        className={classes.contactForm}
+                        id="form"
+                    >
+                        <div className={classes.formGrid}>
+                            <div className={classes.formGroup}>
+                                <input
+                                    type="text"
+                                    name="fullName"
+                                    placeholder="Full Name*"
+                                    value={formData.fullName}
+                                    onChange={handleInputChange}
+                                    className={classes.formInput}
+                                    required
+                                />
                             </div>
 
-                            {isDropdownOpen && (
-                                <div className={classes.dropdownMenu}>
-                                    {categories.length === 0 ? (
-                                        <div
-                                            className={classes.dropdownLoading}
-                                        >
-                                            Loading categories...
-                                        </div>
-                                    ) : (
-                                        categories.map((category) => (
-                                            <label
-                                                key={category}
-                                                className={classes.dropdownItem}
-                                            >
-                                                <input
-                                                    type="checkbox"
-                                                    checked={selectedCategories.includes(
-                                                        category,
-                                                    )}
-                                                    onChange={() =>
-                                                        handleCategoryToggle(
-                                                            category,
-                                                        )
-                                                    }
-                                                    className={
-                                                        classes.checkboxInput
-                                                    }
-                                                />
-                                                <span>{category}</span>
-                                            </label>
-                                        ))
-                                    )}
+                            <div className={classes.formGroup}>
+                                <input
+                                    type="text"
+                                    name="projectName"
+                                    placeholder="Project / Company Name"
+                                    value={formData.projectName}
+                                    onChange={handleInputChange}
+                                    className={classes.formInput}
+                                />
+                            </div>
+
+                            <div className={classes.formGroup}>
+                                <input
+                                    type="email"
+                                    name="email"
+                                    placeholder="Email*"
+                                    value={formData.email}
+                                    onChange={handleInputChange}
+                                    className={classes.formInput}
+                                    required
+                                />
+                            </div>
+
+                            <div className={classes.formGroup}>
+                                <input
+                                    type="text"
+                                    name="contactValue"
+                                    placeholder="WhatsApp / Telegram*"
+                                    value={formData.contactValue}
+                                    onChange={handleInputChange}
+                                    className={classes.formInput}
+                                    required
+                                />
+                            </div>
+
+                            <div className={classes.formGroup}>
+                                <input
+                                    type="text"
+                                    name="country"
+                                    placeholder="Country"
+                                    value={formData.country}
+                                    onChange={handleInputChange}
+                                    className={classes.formInput}
+                                />
+                            </div>
+
+                            <div
+                                className={classes.formGroup}
+                                ref={dropdownRef}
+                            >
+                                <div
+                                    className={classes.customDropdown}
+                                    onClick={() =>
+                                        setIsDropdownOpen(!isDropdownOpen)
+                                    }
+                                >
+                                    <span
+                                        className={classes.dropdownPlaceholder}
+                                    >
+                                        {selectedCategories.length > 0
+                                            ? selectedCategories.join(', ')
+                                            : 'Industry / Asset Type*'}
+                                    </span>
+                                    <span
+                                        className={`${classes.dropdownArrow} ${isDropdownOpen ? classes.arrowOpen : ''}`}
+                                    >
+                                        {arrowDown}
+                                    </span>
                                 </div>
-                            )}
-                        </div>
-                    </div>
 
-                    <div className={classes.actionSection}>
-                        <p className={classes.actionSectionTitle}>
-                            What would you like to do?*
-                        </p>
-
-                        <div className={classes.checkboxGrid}>
-                            {[
-                                'Apply for Asset Tokenization',
-                                'Submit Asset to UnitStake Aggregator',
-                                'Apply for Verification',
-                                'Other',
-                            ].map((option) => (
-                                <label
-                                    key={option}
-                                    className={classes.actionCheckboxLabel}
-                                >
-                                    <input
-                                        type="checkbox"
-                                        checked={todoOptions.includes(option)}
-                                        onChange={() =>
-                                            handleTodoToggle(option)
-                                        }
-                                        className={classes.checkboxInput}
-                                    />
-                                    <span>{option}</span>
-                                </label>
-                            ))}
+                                {isDropdownOpen && (
+                                    <div className={classes.dropdownMenu}>
+                                        {categories.length === 0 ? (
+                                            <div
+                                                className={
+                                                    classes.dropdownLoading
+                                                }
+                                            >
+                                                Loading categories...
+                                            </div>
+                                        ) : (
+                                            categories.map((category) => (
+                                                <label
+                                                    key={category}
+                                                    className={
+                                                        classes.dropdownItem
+                                                    }
+                                                >
+                                                    <input
+                                                        type="checkbox"
+                                                        checked={selectedCategories.includes(
+                                                            category,
+                                                        )}
+                                                        onChange={() =>
+                                                            handleCategoryToggle(
+                                                                category,
+                                                            )
+                                                        }
+                                                        className={
+                                                            classes.checkboxInput
+                                                        }
+                                                    />
+                                                    <span>{category}</span>
+                                                </label>
+                                            ))
+                                        )}
+                                    </div>
+                                )}
+                            </div>
                         </div>
-                    </div>
-                    <div className={classes.legalCheckbox}>
-                        <label className={classes.actionCheckboxLabel}>
-                            <input
-                                type="checkbox"
-                                required
-                                className={classes.checkboxInput}
-                            />
-                            <span>
-                                By entering your email address, you agree to our{' '}
-                                <NavLink
-                                    to="/term-services"
-                                    className={classes.legalCheckboxLink}
-                                >
-                                    Terms of Use
-                                </NavLink>{' '}
-                                and{' '}
-                                <NavLink
-                                    to="/privacy-policy"
-                                    className={classes.legalCheckboxLink}
-                                >
-                                    Privacy Policy
-                                </NavLink>{' '}
-                                and consent to receive emails from Unitstake
-                                about market insights, industry news, and
-                                updates. You may unsubscribe at any time by
-                                clicking the unsubscribe link included in each
-                                newsletter. <br />
-                                <br />
-                                By submitting this form, you acknowledge that
-                                your personal data will be processed in
-                                accordance with our{' '}
-                                <NavLink
-                                    to="/privacy-policy"
-                                    className={classes.legalCheckboxLink}
-                                >
-                                    Privacy Policy
-                                </NavLink>
-                                .
-                            </span>
-                        </label>
-                    </div>
-                    <div className={classes.formFooter}>
-                        {submitError && (
-                            <p className={classes.errorMessage}>
-                                {submitError}
+
+                        <div className={classes.actionSection}>
+                            <p className={classes.actionSectionTitle}>
+                                What would you like to do?*
                             </p>
-                        )}
 
-                        <button
-                            type="submit"
-                            disabled={isSubmitting}
-                            className={classes.submitBtn}
-                        >
-                            {isSubmitting ? 'Sending...' : 'Submit'}
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
+                            <div className={classes.checkboxGrid}>
+                                {[
+                                    'Apply for Asset Tokenization',
+                                    'Submit Asset to UnitStake Aggregator',
+                                    'Apply for Verification',
+                                    'Other',
+                                ].map((option) => (
+                                    <label
+                                        key={option}
+                                        className={classes.actionCheckboxLabel}
+                                    >
+                                        <input
+                                            type="checkbox"
+                                            checked={todoOptions.includes(
+                                                option,
+                                            )}
+                                            onChange={() =>
+                                                handleTodoToggle(option)
+                                            }
+                                            className={classes.checkboxInput}
+                                        />
+                                        <span>{option}</span>
+                                    </label>
+                                ))}
+                            </div>
+                        </div>
+                        <div className={classes.legalCheckbox}>
+                            <label className={classes.actionCheckboxLabel}>
+                                <input
+                                    type="checkbox"
+                                    required
+                                    className={classes.checkboxInput}
+                                />
+                                <span>
+                                    By entering your email address, you agree to
+                                    our{' '}
+                                    <NavLink
+                                        to="/term-services"
+                                        className={classes.legalCheckboxLink}
+                                    >
+                                        Terms of Use
+                                    </NavLink>{' '}
+                                    and{' '}
+                                    <NavLink
+                                        to="/privacy-policy"
+                                        className={classes.legalCheckboxLink}
+                                    >
+                                        Privacy Policy
+                                    </NavLink>{' '}
+                                    and consent to receive emails from Unitstake
+                                    about market insights, industry news, and
+                                    updates. You may unsubscribe at any time by
+                                    clicking the unsubscribe link included in
+                                    each newsletter. <br />
+                                    <br />
+                                    By submitting this form, you acknowledge
+                                    that your personal data will be processed in
+                                    accordance with our{' '}
+                                    <NavLink
+                                        to="/privacy-policy"
+                                        className={classes.legalCheckboxLink}
+                                    >
+                                        Privacy Policy
+                                    </NavLink>
+                                    .
+                                </span>
+                            </label>
+                        </div>
+                        <div className={classes.formFooter}>
+                            {submitError && (
+                                <p className={classes.errorMessage}>
+                                    {submitError}
+                                </p>
+                            )}
+
+                            <button
+                                type="submit"
+                                disabled={isSubmitting}
+                                className={classes.submitBtn}
+                            >
+                                {isSubmitting ? 'Sending...' : 'Submit'}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </main>
+        </>
     );
 };
 

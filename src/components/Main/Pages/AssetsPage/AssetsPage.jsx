@@ -1,3 +1,4 @@
+import { Helmet } from 'react-helmet-async';
 import AssetsPageHeroSection from './AssetsPageHeroSection/AssetsPageHeroSection';
 import AssetsPageTokenizing from './AssetsPageTokenizing/AssetsPageTokenizing';
 import AssetsPageTypes from './AssetsPageTypes/AssetsPageTypes';
@@ -18,23 +19,34 @@ import classes from './AssetsPage.module.css';
 
 const AssetsPage = () => {
     return (
-        <main className={classes.assetsPage}>
-            <AssetsPageHeroSection />
-            <AssetsPageTokenizing />
-            <AssetsPageTypes />
-            <AssetsPageMarket />
-            <AssetsPagePath />
-            <AssetsPageChoice />
-            <AssetsPageCards />
-            <AssetsPageEngine />
-            <AssetsPageBuilt />
-            {/* <AssetsPageMarketingPartners /> */}
-            {/* <AssetsPageLegalPartners /> */}
-            <AssetsPageInstitutional />
-            <AssetsPageDownload />
-            <AssetsPageFaq pageName="assets_owners" />
-            <MainPageNews />
-        </main>
+        <>
+            <Helmet>
+                <title>
+                    How to Tokenize an Asset: Owner's Guide | UnitStake
+                </title>
+                <meta
+                    name="description"
+                    content="How to tokenize real estate, businesses and other real-world assets: asset selection, SPV structuring, token issuance and platform listing, step by step."
+                />
+            </Helmet>
+            <main className={classes.assetsPage}>
+                <AssetsPageHeroSection />
+                <AssetsPageTokenizing />
+                <AssetsPageTypes />
+                <AssetsPageMarket />
+                <AssetsPagePath />
+                <AssetsPageChoice />
+                <AssetsPageCards />
+                <AssetsPageEngine />
+                <AssetsPageBuilt />
+                {/* <AssetsPageMarketingPartners /> */}
+                {/* <AssetsPageLegalPartners /> */}
+                <AssetsPageInstitutional />
+                <AssetsPageDownload />
+                <AssetsPageFaq pageName="assets_owners" />
+                <MainPageNews />
+            </main>
+        </>
     );
 };
 

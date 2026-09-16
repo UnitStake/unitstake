@@ -7,6 +7,7 @@ import {
     TABLE_ID_PROJECTS,
 } from '../../../../lib/appwrite';
 import Loader from '../../../Loader/Loader';
+import { Helmet } from 'react-helmet-async';
 
 import classes from './ProjectsPage.module.css';
 import verifeidIcon from '../../../../assets/images/icons/verifeid.svg';
@@ -337,208 +338,420 @@ const ProjectsPage = () => {
     }
 
     return (
-        <main className={classes.projectsPage}>
-            <section className={classes.header}>
-                <div className="wrapper">
-                    <h2>Projects</h2>
-                    <p>Discover projects with public and structured data</p>
-                </div>
-            </section>
-            <section className={classes.projects}>
-                <div className="wrapper">
-                    <button
-                        className={`${classes.mobileFiltersBtn} ${isMobileFiltersOpen ? classes.btnActive : ''}`}
-                        onClick={() => setIsMobileFiltersOpen((prev) => !prev)}
-                    >
-                        <span>Filters</span>
-                    </button>
+        <>
+            <Helmet>
+                <title>Tokenized Real Estate & RWA Projects | UnitStake</title>
+                <meta
+                    name="description"
+                    content="Browse tokenized real estate and RWA projects with structured data: token price, minimum ticket, jurisdiction, legal structure and funding progress."
+                />
+            </Helmet>
+            <main className={classes.projectsPage}>
+                <section className={classes.header}>
+                    <div className="wrapper">
+                        <h2>Projects</h2>
+                        <p>Discover projects with public and structured data</p>
+                    </div>
+                </section>
+                <section className={classes.projects}>
+                    <div className="wrapper">
+                        <button
+                            className={`${classes.mobileFiltersBtn} ${isMobileFiltersOpen ? classes.btnActive : ''}`}
+                            onClick={() =>
+                                setIsMobileFiltersOpen((prev) => !prev)
+                            }
+                        >
+                            <span>Filters</span>
+                        </button>
 
-                    <div
-                        className={`${classes.filtersWrapper} ${isMobileFiltersOpen ? classes.mobileOpen : ''}`}
-                    >
-                        <div className={classes.desktopFilters}>
-                            <div className={classes.projectsFilters}>
-                                <div className={classes.projectsFilter}>
-                                    <div
-                                        className={`${classes.projectsFilterName} ${activeFilter === 'jurisdiction' ? classes.active : ''}`}
-                                        onClick={() =>
-                                            toggleFilterPopup('jurisdiction')
-                                        }
-                                    >
-                                        Jurisdiction{' '}
-                                        {activeFilter === 'jurisdiction'
-                                            ? arrowUp
-                                            : arrowDown}
+                        <div
+                            className={`${classes.filtersWrapper} ${isMobileFiltersOpen ? classes.mobileOpen : ''}`}
+                        >
+                            <div className={classes.desktopFilters}>
+                                <div className={classes.projectsFilters}>
+                                    <div className={classes.projectsFilter}>
+                                        <div
+                                            className={`${classes.projectsFilterName} ${activeFilter === 'jurisdiction' ? classes.active : ''}`}
+                                            onClick={() =>
+                                                toggleFilterPopup(
+                                                    'jurisdiction',
+                                                )
+                                            }
+                                        >
+                                            Jurisdiction{' '}
+                                            {activeFilter === 'jurisdiction'
+                                                ? arrowUp
+                                                : arrowDown}
+                                        </div>
+                                    </div>
+                                    <div className={classes.projectsFilter}>
+                                        <div
+                                            className={`${classes.projectsFilterName} ${activeFilter === 'assetType' ? classes.active : ''}`}
+                                            onClick={() =>
+                                                toggleFilterPopup('assetType')
+                                            }
+                                        >
+                                            Asset Type{' '}
+                                            {activeFilter === 'assetType'
+                                                ? arrowUp
+                                                : arrowDown}
+                                        </div>
+                                    </div>
+                                    <div className={classes.projectsFilter}>
+                                        <div
+                                            className={`${classes.projectsFilterName} ${activeFilter === 'types' ? classes.active : ''}`}
+                                            onClick={() =>
+                                                toggleFilterPopup('types')
+                                            }
+                                        >
+                                            Token Types{' '}
+                                            {activeFilter === 'types'
+                                                ? arrowUp
+                                                : arrowDown}
+                                        </div>
+                                    </div>
+                                    <div className={classes.projectsFilter}>
+                                        <div
+                                            className={`${classes.projectsFilterName} ${activeFilter === 'investorType' ? classes.active : ''}`}
+                                            onClick={() =>
+                                                toggleFilterPopup(
+                                                    'investorType',
+                                                )
+                                            }
+                                        >
+                                            Investor Type{' '}
+                                            {activeFilter === 'investorType'
+                                                ? arrowUp
+                                                : arrowDown}
+                                        </div>
+                                    </div>
+                                    <div className={classes.projectsFilter}>
+                                        <div
+                                            className={`${classes.projectsFilterName} ${activeFilter === 'minTicket' ? classes.active : ''}`}
+                                            onClick={() =>
+                                                toggleFilterPopup('minTicket')
+                                            }
+                                        >
+                                            Minimum Ticket{' '}
+                                            {activeFilter === 'minTicket'
+                                                ? arrowUp
+                                                : arrowDown}
+                                        </div>
                                     </div>
                                 </div>
-                                <div className={classes.projectsFilter}>
+
+                                {activeFilter === 'jurisdiction' && (
                                     <div
-                                        className={`${classes.projectsFilterName} ${activeFilter === 'assetType' ? classes.active : ''}`}
-                                        onClick={() =>
-                                            toggleFilterPopup('assetType')
-                                        }
+                                        className={classes.projectsFilterValues}
                                     >
-                                        Asset Type{' '}
-                                        {activeFilter === 'assetType'
-                                            ? arrowUp
-                                            : arrowDown}
+                                        {availableFilters.jurisdictions.length >
+                                        0 ? (
+                                            availableFilters.jurisdictions.map(
+                                                (country) => (
+                                                    <label key={country}>
+                                                        <input
+                                                            type="checkbox"
+                                                            checked={selectedJurisdictions.includes(
+                                                                country,
+                                                            )}
+                                                            onChange={() =>
+                                                                handleJurisdictionChange(
+                                                                    country,
+                                                                )
+                                                            }
+                                                        />
+                                                        <span>{country}</span>
+                                                    </label>
+                                                ),
+                                            )
+                                        ) : (
+                                            <p className={classes.noFilters}>
+                                                No active jurisdictions
+                                            </p>
+                                        )}
                                     </div>
-                                </div>
-                                <div className={classes.projectsFilter}>
+                                )}
+                                {activeFilter === 'assetType' && (
                                     <div
-                                        className={`${classes.projectsFilterName} ${activeFilter === 'types' ? classes.active : ''}`}
-                                        onClick={() =>
-                                            toggleFilterPopup('types')
-                                        }
+                                        className={classes.projectsFilterValues}
                                     >
-                                        Token Types{' '}
-                                        {activeFilter === 'types'
-                                            ? arrowUp
-                                            : arrowDown}
+                                        {availableFilters.categories.length >
+                                        0 ? (
+                                            availableFilters.categories.map(
+                                                (cat) => (
+                                                    <label key={cat}>
+                                                        <input
+                                                            type="checkbox"
+                                                            checked={selectedCategories.includes(
+                                                                cat,
+                                                            )}
+                                                            onChange={() =>
+                                                                handleCategoryChange(
+                                                                    cat,
+                                                                )
+                                                            }
+                                                        />
+                                                        <span>{cat}</span>
+                                                    </label>
+                                                ),
+                                            )
+                                        ) : (
+                                            <p className={classes.noFilters}>
+                                                No active Asset Types
+                                            </p>
+                                        )}
                                     </div>
-                                </div>
-                                <div className={classes.projectsFilter}>
+                                )}
+                                {activeFilter === 'types' && (
                                     <div
-                                        className={`${classes.projectsFilterName} ${activeFilter === 'investorType' ? classes.active : ''}`}
-                                        onClick={() =>
-                                            toggleFilterPopup('investorType')
-                                        }
+                                        className={classes.projectsFilterValues}
                                     >
-                                        Investor Type{' '}
-                                        {activeFilter === 'investorType'
-                                            ? arrowUp
-                                            : arrowDown}
+                                        {availableFilters.types.length > 0 ? (
+                                            availableFilters.types.map(
+                                                (type) => (
+                                                    <label key={type}>
+                                                        <input
+                                                            type="checkbox"
+                                                            checked={selectedTypes.includes(
+                                                                type,
+                                                            )}
+                                                            onChange={() =>
+                                                                handleTypeChange(
+                                                                    type,
+                                                                )
+                                                            }
+                                                        />
+                                                        <span>{type}</span>
+                                                    </label>
+                                                ),
+                                            )
+                                        ) : (
+                                            <p className={classes.noFilters}>
+                                                No active Types
+                                            </p>
+                                        )}
                                     </div>
-                                </div>
-                                <div className={classes.projectsFilter}>
+                                )}
+                                {activeFilter === 'investorType' && (
                                     <div
-                                        className={`${classes.projectsFilterName} ${activeFilter === 'minTicket' ? classes.active : ''}`}
-                                        onClick={() =>
-                                            toggleFilterPopup('minTicket')
-                                        }
+                                        className={classes.projectsFilterValues}
                                     >
-                                        Minimum Ticket{' '}
-                                        {activeFilter === 'minTicket'
-                                            ? arrowUp
-                                            : arrowDown}
+                                        {availableFilters.investorTypes.length >
+                                        0 ? (
+                                            availableFilters.investorTypes.map(
+                                                (type) => (
+                                                    <label key={type}>
+                                                        <input
+                                                            type="checkbox"
+                                                            checked={selectedInvestorTypes.includes(
+                                                                type,
+                                                            )}
+                                                            onChange={() =>
+                                                                handleInvestorTypeChange(
+                                                                    type,
+                                                                )
+                                                            }
+                                                        />
+                                                        <span>{type}</span>
+                                                    </label>
+                                                ),
+                                            )
+                                        ) : (
+                                            <p className={classes.noFilters}>
+                                                No active Investor Types
+                                            </p>
+                                        )}
                                     </div>
-                                </div>
+                                )}
+                                {activeFilter === 'minTicket' && (
+                                    <div
+                                        className={classes.projectsFilterValues}
+                                    >
+                                        <div
+                                            className={
+                                                classes.projectsFilterSlider
+                                            }
+                                        >
+                                            <div
+                                                className={
+                                                    classes.selectedMaxInvestment
+                                                }
+                                            >
+                                                ${selectedMaxInvestment}
+                                            </div>
+                                            <input
+                                                type="range"
+                                                className={classes.slider}
+                                                min={minAvailableInvestment}
+                                                max={maxAvailableInvestment}
+                                                value={selectedMaxInvestment}
+                                                onChange={
+                                                    handleInvestmentSliderChange
+                                                }
+                                            />
+                                            <div
+                                                className={classes.sliderLabels}
+                                            >
+                                                <span>
+                                                    ${minAvailableInvestment}
+                                                </span>
+                                                <span>
+                                                    ${maxAvailableInvestment}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
                             </div>
 
-                            {activeFilter === 'jurisdiction' && (
-                                <div className={classes.projectsFilterValues}>
-                                    {availableFilters.jurisdictions.length >
-                                    0 ? (
-                                        availableFilters.jurisdictions.map(
-                                            (country) => (
-                                                <label key={country}>
-                                                    <input
-                                                        type="checkbox"
-                                                        checked={selectedJurisdictions.includes(
-                                                            country,
-                                                        )}
-                                                        onChange={() =>
-                                                            handleJurisdictionChange(
-                                                                country,
-                                                            )
-                                                        }
-                                                    />
-                                                    <span>{country}</span>
-                                                </label>
-                                            ),
-                                        )
-                                    ) : (
-                                        <p className={classes.noFilters}>
-                                            No active jurisdictions
-                                        </p>
-                                    )}
-                                </div>
-                            )}
-                            {activeFilter === 'assetType' && (
-                                <div className={classes.projectsFilterValues}>
-                                    {availableFilters.categories.length > 0 ? (
-                                        availableFilters.categories.map(
-                                            (cat) => (
-                                                <label key={cat}>
-                                                    <input
-                                                        type="checkbox"
-                                                        checked={selectedCategories.includes(
-                                                            cat,
-                                                        )}
-                                                        onChange={() =>
-                                                            handleCategoryChange(
-                                                                cat,
-                                                            )
-                                                        }
-                                                    />
-                                                    <span>{cat}</span>
-                                                </label>
-                                            ),
-                                        )
-                                    ) : (
-                                        <p className={classes.noFilters}>
-                                            No active Asset Types
-                                        </p>
-                                    )}
-                                </div>
-                            )}
-                            {activeFilter === 'types' && (
-                                <div className={classes.projectsFilterValues}>
-                                    {availableFilters.types.length > 0 ? (
-                                        availableFilters.types.map((type) => (
-                                            <label key={type}>
-                                                <input
-                                                    type="checkbox"
-                                                    checked={selectedTypes.includes(
-                                                        type,
-                                                    )}
-                                                    onChange={() =>
-                                                        handleTypeChange(type)
-                                                    }
-                                                />
-                                                <span>{type}</span>
-                                            </label>
-                                        ))
-                                    ) : (
-                                        <p className={classes.noFilters}>
-                                            No active Types
-                                        </p>
-                                    )}
-                                </div>
-                            )}
-                            {activeFilter === 'investorType' && (
-                                <div className={classes.projectsFilterValues}>
-                                    {availableFilters.investorTypes.length >
-                                    0 ? (
-                                        availableFilters.investorTypes.map(
-                                            (type) => (
-                                                <label key={type}>
-                                                    <input
-                                                        type="checkbox"
-                                                        checked={selectedInvestorTypes.includes(
-                                                            type,
-                                                        )}
-                                                        onChange={() =>
-                                                            handleInvestorTypeChange(
-                                                                type,
-                                                            )
-                                                        }
-                                                    />
-                                                    <span>{type}</span>
-                                                </label>
-                                            ),
-                                        )
-                                    ) : (
-                                        <p className={classes.noFilters}>
-                                            No active Investor Types
-                                        </p>
-                                    )}
-                                </div>
-                            )}
-                            {activeFilter === 'minTicket' && (
-                                <div className={classes.projectsFilterValues}>
+                            <div
+                                className={`${classes.mobileFilters} ${isMobileFiltersOpen ? classes.mobileOpen : ''}`}
+                            >
+                                <div className={classes.mobileFilterSection}>
+                                    <h4>Jurisdiction</h4>
                                     <div
-                                        className={classes.projectsFilterSlider}
+                                        className={
+                                            classes.mobileFilterValuesList
+                                        }
+                                    >
+                                        {availableFilters.jurisdictions.length >
+                                        0 ? (
+                                            availableFilters.jurisdictions.map(
+                                                (country) => (
+                                                    <label key={country}>
+                                                        <input
+                                                            type="checkbox"
+                                                            checked={selectedJurisdictions.includes(
+                                                                country,
+                                                            )}
+                                                            onChange={() =>
+                                                                handleJurisdictionChange(
+                                                                    country,
+                                                                )
+                                                            }
+                                                        />
+                                                        <span>{country}</span>
+                                                    </label>
+                                                ),
+                                            )
+                                        ) : (
+                                            <p className={classes.noFilters}>
+                                                No active jurisdictions
+                                            </p>
+                                        )}
+                                    </div>
+                                </div>
+
+                                <div className={classes.mobileFilterSection}>
+                                    <h4>Asset Type</h4>
+                                    <div
+                                        className={
+                                            classes.mobileFilterValuesList
+                                        }
+                                    >
+                                        {availableFilters.categories.length >
+                                        0 ? (
+                                            availableFilters.categories.map(
+                                                (cat) => (
+                                                    <label key={cat}>
+                                                        <input
+                                                            type="checkbox"
+                                                            checked={selectedCategories.includes(
+                                                                cat,
+                                                            )}
+                                                            onChange={() =>
+                                                                handleCategoryChange(
+                                                                    cat,
+                                                                )
+                                                            }
+                                                        />
+                                                        <span>{cat}</span>
+                                                    </label>
+                                                ),
+                                            )
+                                        ) : (
+                                            <p className={classes.noFilters}>
+                                                No active Asset Types
+                                            </p>
+                                        )}
+                                    </div>
+                                </div>
+
+                                <div className={classes.mobileFilterSection}>
+                                    <h4>Token Types</h4>
+                                    <div
+                                        className={
+                                            classes.mobileFilterValuesList
+                                        }
+                                    >
+                                        {availableFilters.types.length > 0 ? (
+                                            availableFilters.types.map(
+                                                (type) => (
+                                                    <label key={type}>
+                                                        <input
+                                                            type="checkbox"
+                                                            checked={selectedTypes.includes(
+                                                                type,
+                                                            )}
+                                                            onChange={() =>
+                                                                handleTypeChange(
+                                                                    type,
+                                                                )
+                                                            }
+                                                        />
+                                                        <span>{type}</span>
+                                                    </label>
+                                                ),
+                                            )
+                                        ) : (
+                                            <p className={classes.noFilters}>
+                                                No active Token Types
+                                            </p>
+                                        )}
+                                    </div>
+                                </div>
+
+                                <div className={classes.mobileFilterSection}>
+                                    <h4>Investor Type</h4>
+                                    <div
+                                        className={
+                                            classes.mobileFilterValuesList
+                                        }
+                                    >
+                                        {availableFilters.investorTypes.length >
+                                        0 ? (
+                                            availableFilters.investorTypes.map(
+                                                (type) => (
+                                                    <label key={type}>
+                                                        <input
+                                                            type="checkbox"
+                                                            checked={selectedInvestorTypes.includes(
+                                                                type,
+                                                            )}
+                                                            onChange={() =>
+                                                                handleInvestorTypeChange(
+                                                                    type,
+                                                                )
+                                                            }
+                                                        />
+                                                        <span>{type}</span>
+                                                    </label>
+                                                ),
+                                            )
+                                        ) : (
+                                            <p className={classes.noFilters}>
+                                                No active Investor Types
+                                            </p>
+                                        )}
+                                    </div>
+                                </div>
+
+                                <div className={classes.mobileFilterSection}>
+                                    <h4>Minimum Ticket</h4>
+                                    <div
+                                        className={
+                                            classes.mobileFilterSliderBlock
+                                        }
                                     >
                                         <div
                                             className={
@@ -567,443 +780,307 @@ const ProjectsPage = () => {
                                         </div>
                                     </div>
                                 </div>
-                            )}
-                        </div>
-
-                        <div
-                            className={`${classes.mobileFilters} ${isMobileFiltersOpen ? classes.mobileOpen : ''}`}
-                        >
-                            <div className={classes.mobileFilterSection}>
-                                <h4>Jurisdiction</h4>
-                                <div className={classes.mobileFilterValuesList}>
-                                    {availableFilters.jurisdictions.length >
-                                    0 ? (
-                                        availableFilters.jurisdictions.map(
-                                            (country) => (
-                                                <label key={country}>
-                                                    <input
-                                                        type="checkbox"
-                                                        checked={selectedJurisdictions.includes(
-                                                            country,
-                                                        )}
-                                                        onChange={() =>
-                                                            handleJurisdictionChange(
-                                                                country,
-                                                            )
-                                                        }
-                                                    />
-                                                    <span>{country}</span>
-                                                </label>
-                                            ),
-                                        )
-                                    ) : (
-                                        <p className={classes.noFilters}>
-                                            No active jurisdictions
-                                        </p>
-                                    )}
-                                </div>
-                            </div>
-
-                            <div className={classes.mobileFilterSection}>
-                                <h4>Asset Type</h4>
-                                <div className={classes.mobileFilterValuesList}>
-                                    {availableFilters.categories.length > 0 ? (
-                                        availableFilters.categories.map(
-                                            (cat) => (
-                                                <label key={cat}>
-                                                    <input
-                                                        type="checkbox"
-                                                        checked={selectedCategories.includes(
-                                                            cat,
-                                                        )}
-                                                        onChange={() =>
-                                                            handleCategoryChange(
-                                                                cat,
-                                                            )
-                                                        }
-                                                    />
-                                                    <span>{cat}</span>
-                                                </label>
-                                            ),
-                                        )
-                                    ) : (
-                                        <p className={classes.noFilters}>
-                                            No active Asset Types
-                                        </p>
-                                    )}
-                                </div>
-                            </div>
-
-                            <div className={classes.mobileFilterSection}>
-                                <h4>Token Types</h4>
-                                <div className={classes.mobileFilterValuesList}>
-                                    {availableFilters.types.length > 0 ? (
-                                        availableFilters.types.map((type) => (
-                                            <label key={type}>
-                                                <input
-                                                    type="checkbox"
-                                                    checked={selectedTypes.includes(
-                                                        type,
-                                                    )}
-                                                    onChange={() =>
-                                                        handleTypeChange(type)
-                                                    }
-                                                />
-                                                <span>{type}</span>
-                                            </label>
-                                        ))
-                                    ) : (
-                                        <p className={classes.noFilters}>
-                                            No active Token Types
-                                        </p>
-                                    )}
-                                </div>
-                            </div>
-
-                            <div className={classes.mobileFilterSection}>
-                                <h4>Investor Type</h4>
-                                <div className={classes.mobileFilterValuesList}>
-                                    {availableFilters.investorTypes.length >
-                                    0 ? (
-                                        availableFilters.investorTypes.map(
-                                            (type) => (
-                                                <label key={type}>
-                                                    <input
-                                                        type="checkbox"
-                                                        checked={selectedInvestorTypes.includes(
-                                                            type,
-                                                        )}
-                                                        onChange={() =>
-                                                            handleInvestorTypeChange(
-                                                                type,
-                                                            )
-                                                        }
-                                                    />
-                                                    <span>{type}</span>
-                                                </label>
-                                            ),
-                                        )
-                                    ) : (
-                                        <p className={classes.noFilters}>
-                                            No active Investor Types
-                                        </p>
-                                    )}
-                                </div>
-                            </div>
-
-                            <div className={classes.mobileFilterSection}>
-                                <h4>Minimum Ticket</h4>
-                                <div
-                                    className={classes.mobileFilterSliderBlock}
-                                >
-                                    <div
-                                        className={
-                                            classes.selectedMaxInvestment
-                                        }
-                                    >
-                                        ${selectedMaxInvestment}
-                                    </div>
-                                    <input
-                                        type="range"
-                                        className={classes.slider}
-                                        min={minAvailableInvestment}
-                                        max={maxAvailableInvestment}
-                                        value={selectedMaxInvestment}
-                                        onChange={handleInvestmentSliderChange}
-                                    />
-                                    <div className={classes.sliderLabels}>
-                                        <span>${minAvailableInvestment}</span>
-                                        <span>${maxAvailableInvestment}</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <button
-                                className={`${classes.mobileFiltersBtn} ${classes.closeFiltersBtn}`}
-                                onClick={() =>
-                                    setIsMobileFiltersOpen((prev) => !prev)
-                                }
-                            >
-                                <span>Close Filters</span>
-                            </button>
-                        </div>
-                    </div>
-
-                    <div className={classes.projectsContainer}>
-                        {paginatedProjects.length > 0 ? (
-                            paginatedProjects.map((project, index) => (
-                                <div
-                                    key={project.$id || index}
-                                    className={classes.projectsCard}
+                                <button
+                                    className={`${classes.mobileFiltersBtn} ${classes.closeFiltersBtn}`}
                                     onClick={() =>
-                                        navigate(`/projects/${project.$id}`)
+                                        setIsMobileFiltersOpen((prev) => !prev)
                                     }
                                 >
-                                    <div className={classes.projectsCardImage}>
-                                        {getFirstImageUrl(
-                                            project.content_blocks,
-                                        ) ? (
-                                            <img
-                                                src={getFirstImageUrl(
-                                                    project.content_blocks,
-                                                )}
-                                                alt="project image"
-                                                className={
-                                                    classes.projectsCardImg
-                                                }
-                                            />
-                                        ) : (
-                                            <p>Project Image</p>
-                                        )}
-                                        {project.is_verified && (
-                                            <div
-                                                className={
-                                                    classes.projectVerified
-                                                }
-                                            >
-                                                <div className="verifeidBox">
-                                                    <img
-                                                        src={verifeidIcon}
-                                                        alt="verifeid"
-                                                    />
-                                                    Verified By UnitStake
-                                                </div>
-                                            </div>
-                                        )}
-                                    </div>
-                                    <div className={classes.projectsCardInfo}>
-                                        <div
-                                            className={
-                                                classes.projectsCardMainInfo
-                                            }
-                                        >
-                                            <h3>{project.name}</h3>
-                                            <p>{project.description}</p>
-                                        </div>
-                                        <div
-                                            className={
-                                                classes.projectsCardProgressNumbers
-                                            }
-                                        >
-                                            <h4>Funding Progress</h4>
-                                            {project.current_investments > 0 &&
-                                                project.funding_goal > 0 && (
-                                                    <p>
-                                                        $
-                                                        {formatAssetLabel(
-                                                            project.current_investments,
-                                                        )}{' '}
-                                                        / $
-                                                        {formatAssetLabel(
-                                                            project.funding_goal,
-                                                        )}
-                                                    </p>
-                                                )}
-                                        </div>
-                                        <div
-                                            className={
-                                                classes.projectsCardProgressBar
-                                            }
-                                        >
-                                            <div
-                                                className={
-                                                    classes.projectsCardProgressBarLine
-                                                }
-                                                style={{
-                                                    width: `${project.funding_goal ? Math.round((project.current_investments / project.funding_goal) * 100) : 0}%`,
-                                                }}
-                                            ></div>
-                                        </div>
-                                        <div
-                                            className={
-                                                classes.projectsCardStats
-                                            }
-                                        >
-                                            <div
-                                                className={
-                                                    classes.projectsCardStat
-                                                }
-                                            >
-                                                <h4>Progress</h4>
-                                                {project.current_investments &&
-                                                project.funding_goal ? (
-                                                    <p>
-                                                        {Math.round(
-                                                            (project.current_investments /
-                                                                project.funding_goal) *
-                                                                100,
-                                                        )}
-                                                        %
-                                                    </p>
-                                                ) : (
-                                                    <p>0%</p>
-                                                )}
-                                            </div>
-                                            <div
-                                                className={
-                                                    classes.projectsCardStat
-                                                }
-                                            >
-                                                <h4>Token Price</h4>
-                                                {project.min_investment > 0 ? (
-                                                    <p>
-                                                        $
-                                                        {formatAssetLabel(
-                                                            project.min_investment,
-                                                        )}
-                                                    </p>
-                                                ) : (
-                                                    <p>$0</p>
-                                                )}
-                                            </div>
-                                            <div
-                                                className={
-                                                    classes.projectsCardStat
-                                                }
-                                            >
-                                                <h4>Deadline</h4>
-                                                <p>
-                                                    {dateFormatter(
-                                                        project.deadline,
-                                                    ) == '01.01.1970' ||
-                                                    !dateFormatter(
-                                                        project.deadline,
-                                                    )
-                                                        ? '*****'
-                                                        : dateFormatter(
-                                                              project.deadline,
-                                                          )}
-                                                </p>
-                                            </div>
-                                            <div
-                                                className={
-                                                    classes.projectsCardStat
-                                                }
-                                            >
-                                                <h4>Investors</h4>
-                                                <p>
-                                                    {project.number_investors
-                                                        ? project.number_investors
-                                                        : '*'}
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div
-                                            className={classes.projectsCardLink}
-                                        >
-                                            <div
-                                                className={
-                                                    classes.projectsCardLinkBtn
-                                                }
-                                                onClick={() =>
-                                                    navigate(
-                                                        `/projects/${project.$id}`,
-                                                    )
-                                                }
-                                            >
-                                                <p>View Details</p>
-                                                <svg
-                                                    width="16"
-                                                    height="17"
-                                                    viewBox="0 0 16 17"
-                                                    fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                >
-                                                    <path
-                                                        d="M1 15.2758L15 1"
-                                                        stroke="#D34329"
-                                                        strokeWidth="2"
-                                                        strokeMiterlimit="10"
-                                                        strokeLinecap="round"
-                                                    />
-                                                    <path
-                                                        d="M15 12.0761V1.1C15 1.04477 14.9553 1 14.9 1H4.0752"
-                                                        stroke="#D34329"
-                                                        strokeWidth="2"
-                                                        strokeMiterlimit="10"
-                                                        strokeLinecap="round"
-                                                    />
-                                                </svg>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            ))
-                        ) : (
-                            <p className={classes.noProjects}>
-                                No projects available
-                            </p>
-                        )}
-                    </div>
-                    {totalPages > 1 && (
-                        <div className={classes.Pagination}>
-                            <div className={classes.PaginationBtns}>
-                                <button
-                                    onClick={handlePrevPage}
-                                    disabled={currentPage === 1}
-                                    className={classes.PaginationBtnPrev}
-                                >
-                                    <svg
-                                        width="14"
-                                        height="14"
-                                        viewBox="0 0 14 14"
-                                        fill="none"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                        <path
-                                            d="M5.25 10.5L8.75 7L5.25 3.5"
-                                            stroke="#808080"
-                                            strokeWidth="1.16667"
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                        />
-                                    </svg>
-                                    Previous
-                                </button>
-                                {Array.from(
-                                    { length: totalPages },
-                                    (_, index) => {
-                                        const pageNumber = index + 1;
-                                        return (
-                                            <button
-                                                key={pageNumber}
-                                                onClick={() =>
-                                                    setCurrentPage(pageNumber)
-                                                }
-                                                className={`${classes.PaginationBtnNumber} ${currentPage === pageNumber ? classes.active : ''}`}
-                                            >
-                                                {pageNumber}
-                                            </button>
-                                        );
-                                    },
-                                )}
-                                <button
-                                    onClick={handleNextPage}
-                                    disabled={currentPage === totalPages}
-                                    className={classes.PaginationBtnNext}
-                                >
-                                    Next
-                                    <svg
-                                        width="14"
-                                        height="14"
-                                        viewBox="0 0 14 14"
-                                        fill="none"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                        <path
-                                            d="M5.25 10.5L8.75 7L5.25 3.5"
-                                            stroke="#808080"
-                                            strokeWidth="1.16667"
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                        />
-                                    </svg>
+                                    <span>Close Filters</span>
                                 </button>
                             </div>
                         </div>
-                    )}
-                </div>
-            </section>
-        </main>
+
+                        <div className={classes.projectsContainer}>
+                            {paginatedProjects.length > 0 ? (
+                                paginatedProjects.map((project, index) => (
+                                    <div
+                                        key={project.$id || index}
+                                        className={classes.projectsCard}
+                                        onClick={() =>
+                                            navigate(`/projects/${project.$id}`)
+                                        }
+                                    >
+                                        <div
+                                            className={
+                                                classes.projectsCardImage
+                                            }
+                                        >
+                                            {getFirstImageUrl(
+                                                project.content_blocks,
+                                            ) ? (
+                                                <img
+                                                    src={getFirstImageUrl(
+                                                        project.content_blocks,
+                                                    )}
+                                                    alt="project image"
+                                                    className={
+                                                        classes.projectsCardImg
+                                                    }
+                                                />
+                                            ) : (
+                                                <p>Project Image</p>
+                                            )}
+                                            {project.is_verified && (
+                                                <div
+                                                    className={
+                                                        classes.projectVerified
+                                                    }
+                                                >
+                                                    <div className="verifeidBox">
+                                                        <img
+                                                            src={verifeidIcon}
+                                                            alt="verifeid"
+                                                        />
+                                                        Verified By UnitStake
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </div>
+                                        <div
+                                            className={classes.projectsCardInfo}
+                                        >
+                                            <div
+                                                className={
+                                                    classes.projectsCardMainInfo
+                                                }
+                                            >
+                                                <h3>{project.name}</h3>
+                                                <p>{project.description}</p>
+                                            </div>
+                                            <div
+                                                className={
+                                                    classes.projectsCardProgressNumbers
+                                                }
+                                            >
+                                                <h4>Funding Progress</h4>
+                                                {project.current_investments >
+                                                    0 &&
+                                                    project.funding_goal >
+                                                        0 && (
+                                                        <p>
+                                                            $
+                                                            {formatAssetLabel(
+                                                                project.current_investments,
+                                                            )}{' '}
+                                                            / $
+                                                            {formatAssetLabel(
+                                                                project.funding_goal,
+                                                            )}
+                                                        </p>
+                                                    )}
+                                            </div>
+                                            <div
+                                                className={
+                                                    classes.projectsCardProgressBar
+                                                }
+                                            >
+                                                <div
+                                                    className={
+                                                        classes.projectsCardProgressBarLine
+                                                    }
+                                                    style={{
+                                                        width: `${project.funding_goal ? Math.round((project.current_investments / project.funding_goal) * 100) : 0}%`,
+                                                    }}
+                                                ></div>
+                                            </div>
+                                            <div
+                                                className={
+                                                    classes.projectsCardStats
+                                                }
+                                            >
+                                                <div
+                                                    className={
+                                                        classes.projectsCardStat
+                                                    }
+                                                >
+                                                    <h4>Progress</h4>
+                                                    {project.current_investments &&
+                                                    project.funding_goal ? (
+                                                        <p>
+                                                            {Math.round(
+                                                                (project.current_investments /
+                                                                    project.funding_goal) *
+                                                                    100,
+                                                            )}
+                                                            %
+                                                        </p>
+                                                    ) : (
+                                                        <p>0%</p>
+                                                    )}
+                                                </div>
+                                                <div
+                                                    className={
+                                                        classes.projectsCardStat
+                                                    }
+                                                >
+                                                    <h4>Token Price</h4>
+                                                    {project.min_investment >
+                                                    0 ? (
+                                                        <p>
+                                                            $
+                                                            {formatAssetLabel(
+                                                                project.min_investment,
+                                                            )}
+                                                        </p>
+                                                    ) : (
+                                                        <p>$0</p>
+                                                    )}
+                                                </div>
+                                                <div
+                                                    className={
+                                                        classes.projectsCardStat
+                                                    }
+                                                >
+                                                    <h4>Deadline</h4>
+                                                    <p>
+                                                        {dateFormatter(
+                                                            project.deadline,
+                                                        ) == '01.01.1970' ||
+                                                        !dateFormatter(
+                                                            project.deadline,
+                                                        )
+                                                            ? '*****'
+                                                            : dateFormatter(
+                                                                  project.deadline,
+                                                              )}
+                                                    </p>
+                                                </div>
+                                                <div
+                                                    className={
+                                                        classes.projectsCardStat
+                                                    }
+                                                >
+                                                    <h4>Investors</h4>
+                                                    <p>
+                                                        {project.number_investors
+                                                            ? project.number_investors
+                                                            : '*'}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div
+                                                className={
+                                                    classes.projectsCardLink
+                                                }
+                                            >
+                                                <div
+                                                    className={
+                                                        classes.projectsCardLinkBtn
+                                                    }
+                                                    onClick={() =>
+                                                        navigate(
+                                                            `/projects/${project.$id}`,
+                                                        )
+                                                    }
+                                                >
+                                                    <p>View Details</p>
+                                                    <svg
+                                                        width="16"
+                                                        height="17"
+                                                        viewBox="0 0 16 17"
+                                                        fill="none"
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                    >
+                                                        <path
+                                                            d="M1 15.2758L15 1"
+                                                            stroke="#D34329"
+                                                            strokeWidth="2"
+                                                            strokeMiterlimit="10"
+                                                            strokeLinecap="round"
+                                                        />
+                                                        <path
+                                                            d="M15 12.0761V1.1C15 1.04477 14.9553 1 14.9 1H4.0752"
+                                                            stroke="#D34329"
+                                                            strokeWidth="2"
+                                                            strokeMiterlimit="10"
+                                                            strokeLinecap="round"
+                                                        />
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))
+                            ) : (
+                                <p className={classes.noProjects}>
+                                    No projects available
+                                </p>
+                            )}
+                        </div>
+                        {totalPages > 1 && (
+                            <div className={classes.Pagination}>
+                                <div className={classes.PaginationBtns}>
+                                    <button
+                                        onClick={handlePrevPage}
+                                        disabled={currentPage === 1}
+                                        className={classes.PaginationBtnPrev}
+                                    >
+                                        <svg
+                                            width="14"
+                                            height="14"
+                                            viewBox="0 0 14 14"
+                                            fill="none"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                            <path
+                                                d="M5.25 10.5L8.75 7L5.25 3.5"
+                                                stroke="#808080"
+                                                strokeWidth="1.16667"
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                            />
+                                        </svg>
+                                        Previous
+                                    </button>
+                                    {Array.from(
+                                        { length: totalPages },
+                                        (_, index) => {
+                                            const pageNumber = index + 1;
+                                            return (
+                                                <button
+                                                    key={pageNumber}
+                                                    onClick={() =>
+                                                        setCurrentPage(
+                                                            pageNumber,
+                                                        )
+                                                    }
+                                                    className={`${classes.PaginationBtnNumber} ${currentPage === pageNumber ? classes.active : ''}`}
+                                                >
+                                                    {pageNumber}
+                                                </button>
+                                            );
+                                        },
+                                    )}
+                                    <button
+                                        onClick={handleNextPage}
+                                        disabled={currentPage === totalPages}
+                                        className={classes.PaginationBtnNext}
+                                    >
+                                        Next
+                                        <svg
+                                            width="14"
+                                            height="14"
+                                            viewBox="0 0 14 14"
+                                            fill="none"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                            <path
+                                                d="M5.25 10.5L8.75 7L5.25 3.5"
+                                                stroke="#808080"
+                                                strokeWidth="1.16667"
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                            />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                </section>
+            </main>
+        </>
     );
 };
 

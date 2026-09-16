@@ -8,6 +8,7 @@ import {
     Query,
     TABLE_ID_TEAMS,
 } from '../../../../../lib/appwrite';
+import { Helmet } from 'react-helmet-async';
 import ExternalLink from '../../../../ExternalLink/ExternalLink';
 import AssetsPageFaq from '../../AssetsPage/AssetsPageFaq/AssetsPageFaq';
 
@@ -280,471 +281,530 @@ const PlatformPage = () => {
     };
 
     return (
-        <main className={classes.platformPage}>
-            <section className={classes.info}>
-                <div className="wrapper">
-                    <div className={classes.legalTxt}>
-                        This content is for informational purposes only and does
-                        not constitute a financial promotion, investment advice,
-                        or a recommendation to buy or sell any asset.
-                        Information on this page is sourced from the issuer and
-                        displayed as provided.
-                    </div>
-                    <div className={classes.mainInfoContainer}>
-                        <div className={classes.mainInfo}>
-                            <p className={classes.updatedDate}>
-                                The information on this page was updated on{' '}
-                                {dateFormatter(data.$updatedAt)}
-                            </p>
-                            <div className={classes.identity}>
-                                <div className={classes.logo}>
-                                    {data.image_url ? (
-                                        <img src={data.image_url} alt="logo" />
-                                    ) : (
-                                        <img src={platformImgNone} alt="logo" />
-                                    )}
+        <>
+            <Helmet>
+                <title>
+                    {data.name
+                        ? `${data.name} | UnitStake`
+                        : 'Platform Details'}
+                </title>
+                <meta
+                    name="description"
+                    content={
+                        data.description
+                            ? data.description.slice(0, 160)
+                            : 'Platform overview and details.'
+                    }
+                />
+            </Helmet>
+            <main className={classes.platformPage}>
+                <section className={classes.info}>
+                    <div className="wrapper">
+                        <div className={classes.legalTxt}>
+                            This content is for informational purposes only and
+                            does not constitute a financial promotion,
+                            investment advice, or a recommendation to buy or
+                            sell any asset. Information on this page is sourced
+                            from the issuer and displayed as provided.
+                        </div>
+                        <div className={classes.mainInfoContainer}>
+                            <div className={classes.mainInfo}>
+                                <p className={classes.updatedDate}>
+                                    The information on this page was updated on{' '}
+                                    {dateFormatter(data.$updatedAt)}
+                                </p>
+                                <div className={classes.identity}>
+                                    <div className={classes.logo}>
+                                        {data.image_url ? (
+                                            <img
+                                                src={data.image_url}
+                                                alt="logo"
+                                            />
+                                        ) : (
+                                            <img
+                                                src={platformImgNone}
+                                                alt="logo"
+                                            />
+                                        )}
+                                    </div>
+                                    <div className={classes.name}>
+                                        {data.name}
+                                    </div>
                                 </div>
-                                <div className={classes.name}>{data.name}</div>
+                                {data.description && (
+                                    <div
+                                        className={classes.platformDescription}
+                                    >
+                                        {data.description}
+                                    </div>
+                                )}
                             </div>
-                            {data.description && (
-                                <div className={classes.platformDescription}>
-                                    {data.description}
+                            <div className={classes.shareButtons}>
+                                Share
+                                <a
+                                    href={`https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className={classes.shareBtn}
+                                >
+                                    <img src={linkedinIcon} alt="linkedin" />
+                                </a>
+                                <a
+                                    href={`https://t.me/share/url?url=${shareUrl}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className={classes.shareBtn}
+                                >
+                                    <img src={telegramIcon} alt="telegram" />
+                                </a>
+                                <a
+                                    href={`https://x.com/intent/tweet?url=${shareUrl}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className={classes.shareBtn}
+                                >
+                                    <img src={twitterIcon} alt="twitter" />
+                                </a>
+                                <div
+                                    onClick={copyToClipboard}
+                                    className={classes.shareBtn}
+                                >
+                                    <img
+                                        src={shareBtnCopyIcon}
+                                        alt="share link"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div className={classes.secondaryInfo}>
+                            <div className={classes.secondaryInfoNumbers}>
+                                <div
+                                    className={classes.secondaryInfoNumbersBox}
+                                >
+                                    <h3>Total Tokenized Asset Volume</h3>
+                                    <h4>
+                                        {data.assets
+                                            ? `$${formatAssetLabel(data.assets)}`
+                                            : '—'}
+                                    </h4>
+                                </div>
+                                <div
+                                    className={classes.secondaryInfoNumbersBox}
+                                >
+                                    <h3>Operating since</h3>
+                                    <p>
+                                        {data.platform_age
+                                            ? data.platform_age
+                                            : '—'}
+                                    </p>
+                                </div>
+                                <div
+                                    className={classes.secondaryInfoNumbersBox}
+                                >
+                                    <h3>Projects</h3>
+                                    <h4>
+                                        {data.total_projects
+                                            ? data.total_projects
+                                            : '—'}
+                                    </h4>
+                                </div>
+                                <div
+                                    className={classes.secondaryInfoNumbersBox}
+                                >
+                                    <h3>Jurisdiction</h3>
+                                    <p>
+                                        {data.jurisdiction
+                                            ? data.jurisdiction.join(', ')
+                                            : '—'}
+                                    </p>
+                                </div>
+                            </div>
+                            {data.platform_website && (
+                                <div className={classes.secondaryInfoLink}>
+                                    <a
+                                        href={data.platform_website}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        onClick={(e) =>
+                                            handleExternalLinkClick(
+                                                e,
+                                                data.platform_website,
+                                            )
+                                        }
+                                    >
+                                        Visit Platform Website
+                                        {linkIcon}
+                                    </a>
                                 </div>
                             )}
                         </div>
-                        <div className={classes.shareButtons}>
-                            Share
-                            <a
-                                href={`https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className={classes.shareBtn}
-                            >
-                                <img src={linkedinIcon} alt="linkedin" />
-                            </a>
-                            <a
-                                href={`https://t.me/share/url?url=${shareUrl}`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className={classes.shareBtn}
-                            >
-                                <img src={telegramIcon} alt="telegram" />
-                            </a>
-                            <a
-                                href={`https://x.com/intent/tweet?url=${shareUrl}`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className={classes.shareBtn}
-                            >
-                                <img src={twitterIcon} alt="twitter" />
-                            </a>
-                            <div
-                                onClick={copyToClipboard}
-                                className={classes.shareBtn}
-                            >
-                                <img src={shareBtnCopyIcon} alt="share link" />
-                            </div>
-                        </div>
                     </div>
-                    <div className={classes.secondaryInfo}>
-                        <div className={classes.secondaryInfoNumbers}>
-                            <div className={classes.secondaryInfoNumbersBox}>
-                                <h3>Total Tokenized Asset Volume</h3>
-                                <h4>
-                                    {data.assets
-                                        ? `$${formatAssetLabel(data.assets)}`
-                                        : '—'}
-                                </h4>
-                            </div>
-                            <div className={classes.secondaryInfoNumbersBox}>
-                                <h3>Operating since</h3>
-                                <p>
-                                    {data.platform_age
-                                        ? data.platform_age
-                                        : '—'}
-                                </p>
-                            </div>
-                            <div className={classes.secondaryInfoNumbersBox}>
-                                <h3>Projects</h3>
-                                <h4>
-                                    {data.total_projects
-                                        ? data.total_projects
-                                        : '—'}
-                                </h4>
-                            </div>
-                            <div className={classes.secondaryInfoNumbersBox}>
-                                <h3>Jurisdiction</h3>
-                                <p>
-                                    {data.jurisdiction
-                                        ? data.jurisdiction.join(', ')
-                                        : '—'}
-                                </p>
-                            </div>
-                        </div>
-                        {data.platform_website && (
-                            <div className={classes.secondaryInfoLink}>
-                                <a
-                                    href={data.platform_website}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    onClick={(e) =>
-                                        handleExternalLinkClick(
-                                            e,
-                                            data.platform_website,
-                                        )
-                                    }
-                                >
-                                    Visit Platform Website
-                                    {linkIcon}
-                                </a>
-                            </div>
-                        )}
-                    </div>
-                </div>
-            </section>
-            <section className={classes.content}>
-                <div className="wrapper">
-                    <div className={classes.contentContainer}>
-                        {sections.map((section, sIndex) => {
-                            if (!section.isCollapsible) {
+                </section>
+                <section className={classes.content}>
+                    <div className="wrapper">
+                        <div className={classes.contentContainer}>
+                            {sections.map((section, sIndex) => {
+                                if (!section.isCollapsible) {
+                                    return (
+                                        <div key={sIndex}>
+                                            {section.blocks.map(
+                                                (block, bIndex) =>
+                                                    renderBlock(block, bIndex),
+                                            )}
+                                        </div>
+                                    );
+                                }
+
                                 return (
-                                    <div key={sIndex}>
+                                    <ReadMoreSection key={sIndex} maxLines={10}>
+                                        {section.titleBlock &&
+                                            renderBlock(
+                                                section.titleBlock,
+                                                'title',
+                                            )}
                                         {section.blocks.map((block, bIndex) =>
                                             renderBlock(block, bIndex),
                                         )}
-                                    </div>
+                                    </ReadMoreSection>
                                 );
-                            }
-
-                            return (
-                                <ReadMoreSection key={sIndex} maxLines={10}>
-                                    {section.titleBlock &&
-                                        renderBlock(
-                                            section.titleBlock,
-                                            'title',
-                                        )}
-                                    {section.blocks.map((block, bIndex) =>
-                                        renderBlock(block, bIndex),
-                                    )}
-                                </ReadMoreSection>
-                            );
-                        })}
+                            })}
+                        </div>
                     </div>
-                </div>
-            </section>
-            {projects.length > 0 && (
-                <section className={classes.projects}>
-                    <div className="wrapper">
-                        <h2>Projects on the Platform</h2>
-                        <div className={classes.projectsContainer}>
-                            {projects.map((project, index) => (
-                                <div
-                                    key={index}
-                                    className={classes.projectsCard}
-                                    onClick={() =>
-                                        navigate(`/projects/${project.$id}`)
-                                    }
-                                >
-                                    <div className={classes.projectsCardImage}>
-                                        {getFirstImageUrl(
-                                            project.content_blocks,
-                                        ) ? (
-                                            <img
-                                                src={getFirstImageUrl(
-                                                    project.content_blocks,
-                                                )}
-                                                alt="project image"
-                                                className={
-                                                    classes.projectsCardImg
-                                                }
-                                            />
-                                        ) : (
-                                            <p>Project Image</p>
-                                        )}
-                                        {project.is_verified && (
-                                            <div
-                                                className={
-                                                    classes.projectVerified
-                                                }
-                                            >
-                                                <div className="verifeidBox">
-                                                    <img
-                                                        src={verifeidIcon}
-                                                        alt="verifeid"
-                                                    />
-                                                    Verified By UnitStake
+                </section>
+                {projects.length > 0 && (
+                    <section className={classes.projects}>
+                        <div className="wrapper">
+                            <h2>Projects on the Platform</h2>
+                            <div className={classes.projectsContainer}>
+                                {projects.map((project, index) => (
+                                    <div
+                                        key={index}
+                                        className={classes.projectsCard}
+                                        onClick={() =>
+                                            navigate(`/projects/${project.$id}`)
+                                        }
+                                    >
+                                        <div
+                                            className={
+                                                classes.projectsCardImage
+                                            }
+                                        >
+                                            {getFirstImageUrl(
+                                                project.content_blocks,
+                                            ) ? (
+                                                <img
+                                                    src={getFirstImageUrl(
+                                                        project.content_blocks,
+                                                    )}
+                                                    alt="project image"
+                                                    className={
+                                                        classes.projectsCardImg
+                                                    }
+                                                />
+                                            ) : (
+                                                <p>Project Image</p>
+                                            )}
+                                            {project.is_verified && (
+                                                <div
+                                                    className={
+                                                        classes.projectVerified
+                                                    }
+                                                >
+                                                    <div className="verifeidBox">
+                                                        <img
+                                                            src={verifeidIcon}
+                                                            alt="verifeid"
+                                                        />
+                                                        Verified By UnitStake
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        )}
-                                    </div>
-                                    <div className={classes.projectsCardInfo}>
-                                        <div
-                                            className={
-                                                classes.projectsCardMainInfo
-                                            }
-                                        >
-                                            <h3>{project.name}</h3>
-                                            <p>{project.description}</p>
+                                            )}
                                         </div>
                                         <div
-                                            className={
-                                                classes.projectsCardProgressNumbers
-                                            }
-                                        >
-                                            <h4>Funding Progress</h4>
-                                            {project.current_investments > 0 &&
-                                                project.funding_goal > 0 && (
-                                                    <p>
-                                                        $
-                                                        {formatAssetLabel(
-                                                            project.current_investments,
-                                                        )}{' '}
-                                                        / $
-                                                        {formatAssetLabel(
-                                                            project.funding_goal,
-                                                        )}
-                                                    </p>
-                                                )}
-                                        </div>
-                                        <div
-                                            className={
-                                                classes.projectsCardProgressBar
-                                            }
+                                            className={classes.projectsCardInfo}
                                         >
                                             <div
                                                 className={
-                                                    classes.projectsCardProgressBarLine
-                                                }
-                                                style={{
-                                                    width: `${Math.round(
-                                                        (project.current_investments /
-                                                            project.funding_goal) *
-                                                            100,
-                                                    )}%`,
-                                                }}
-                                            ></div>
-                                        </div>
-                                        <div
-                                            className={
-                                                classes.projectsCardStats
-                                            }
-                                        >
-                                            <div
-                                                className={
-                                                    classes.projectsCardStat
+                                                    classes.projectsCardMainInfo
                                                 }
                                             >
-                                                <h4>Progress</h4>
-                                                {project.current_investments &&
-                                                project.funding_goal ? (
-                                                    <p>
-                                                        {Math.round(
+                                                <h3>{project.name}</h3>
+                                                <p>{project.description}</p>
+                                            </div>
+                                            <div
+                                                className={
+                                                    classes.projectsCardProgressNumbers
+                                                }
+                                            >
+                                                <h4>Funding Progress</h4>
+                                                {project.current_investments >
+                                                    0 &&
+                                                    project.funding_goal >
+                                                        0 && (
+                                                        <p>
+                                                            $
+                                                            {formatAssetLabel(
+                                                                project.current_investments,
+                                                            )}{' '}
+                                                            / $
+                                                            {formatAssetLabel(
+                                                                project.funding_goal,
+                                                            )}
+                                                        </p>
+                                                    )}
+                                            </div>
+                                            <div
+                                                className={
+                                                    classes.projectsCardProgressBar
+                                                }
+                                            >
+                                                <div
+                                                    className={
+                                                        classes.projectsCardProgressBarLine
+                                                    }
+                                                    style={{
+                                                        width: `${Math.round(
                                                             (project.current_investments /
                                                                 project.funding_goal) *
                                                                 100,
-                                                        )}
-                                                        %
-                                                    </p>
-                                                ) : (
-                                                    <p>0%</p>
-                                                )}
+                                                        )}%`,
+                                                    }}
+                                                ></div>
                                             </div>
                                             <div
                                                 className={
-                                                    classes.projectsCardStat
+                                                    classes.projectsCardStats
                                                 }
                                             >
-                                                <h4>Token Price</h4>
-                                                {project.min_investment > 0 ? (
-                                                    <p>
-                                                        $
-                                                        {formatAssetLabel(
-                                                            project.min_investment,
-                                                        )}
-                                                    </p>
-                                                ) : (
-                                                    <p>$0</p>
-                                                )}
-                                            </div>
-                                            <div
-                                                className={
-                                                    classes.projectsCardStat
-                                                }
-                                            >
-                                                <h4>Deadline</h4>
-                                                <p>
-                                                    {dateFormatter(
-                                                        project.deadline,
-                                                    ) == '1 January 1970'
-                                                        ? '*'
-                                                        : dateFormatter(
-                                                              project.deadline,
-                                                          )}
-                                                </p>
-                                            </div>
-                                            <div
-                                                className={
-                                                    classes.projectsCardStat
-                                                }
-                                            >
-                                                <h4>Investors</h4>
-                                                <p>
-                                                    {project.number_investors
-                                                        ? project.number_investors
-                                                        : '*'}
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div
-                                            className={classes.projectsCardLink}
-                                        >
-                                            <div
-                                                className={
-                                                    classes.projectsCardLinkBtn
-                                                }
-                                                onClick={() =>
-                                                    navigate(
-                                                        `/projects/${project.$id}`,
-                                                    )
-                                                }
-                                            >
-                                                <p>View Details</p>
-                                                <svg
-                                                    width="16"
-                                                    height="17"
-                                                    viewBox="0 0 16 17"
-                                                    fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg"
+                                                <div
+                                                    className={
+                                                        classes.projectsCardStat
+                                                    }
                                                 >
-                                                    <path
-                                                        d="M1 15.2758L15 1"
-                                                        stroke="#D34329"
-                                                        strokeWidth="2"
-                                                        strokeMiterlimit="10"
-                                                        strokeLinecap="round"
-                                                    />
-                                                    <path
-                                                        d="M15 12.0761V1.1C15 1.04477 14.9553 1 14.9 1H4.0752"
-                                                        stroke="#D34329"
-                                                        strokeWidth="2"
-                                                        strokeMiterlimit="10"
-                                                        strokeLinecap="round"
-                                                    />
-                                                </svg>
+                                                    <h4>Progress</h4>
+                                                    {project.current_investments &&
+                                                    project.funding_goal ? (
+                                                        <p>
+                                                            {Math.round(
+                                                                (project.current_investments /
+                                                                    project.funding_goal) *
+                                                                    100,
+                                                            )}
+                                                            %
+                                                        </p>
+                                                    ) : (
+                                                        <p>0%</p>
+                                                    )}
+                                                </div>
+                                                <div
+                                                    className={
+                                                        classes.projectsCardStat
+                                                    }
+                                                >
+                                                    <h4>Token Price</h4>
+                                                    {project.min_investment >
+                                                    0 ? (
+                                                        <p>
+                                                            $
+                                                            {formatAssetLabel(
+                                                                project.min_investment,
+                                                            )}
+                                                        </p>
+                                                    ) : (
+                                                        <p>$0</p>
+                                                    )}
+                                                </div>
+                                                <div
+                                                    className={
+                                                        classes.projectsCardStat
+                                                    }
+                                                >
+                                                    <h4>Deadline</h4>
+                                                    <p>
+                                                        {dateFormatter(
+                                                            project.deadline,
+                                                        ) == '1 January 1970'
+                                                            ? '*'
+                                                            : dateFormatter(
+                                                                  project.deadline,
+                                                              )}
+                                                    </p>
+                                                </div>
+                                                <div
+                                                    className={
+                                                        classes.projectsCardStat
+                                                    }
+                                                >
+                                                    <h4>Investors</h4>
+                                                    <p>
+                                                        {project.number_investors
+                                                            ? project.number_investors
+                                                            : '*'}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div
+                                                className={
+                                                    classes.projectsCardLink
+                                                }
+                                            >
+                                                <div
+                                                    className={
+                                                        classes.projectsCardLinkBtn
+                                                    }
+                                                    onClick={() =>
+                                                        navigate(
+                                                            `/projects/${project.$id}`,
+                                                        )
+                                                    }
+                                                >
+                                                    <p>View Details</p>
+                                                    <svg
+                                                        width="16"
+                                                        height="17"
+                                                        viewBox="0 0 16 17"
+                                                        fill="none"
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                    >
+                                                        <path
+                                                            d="M1 15.2758L15 1"
+                                                            stroke="#D34329"
+                                                            strokeWidth="2"
+                                                            strokeMiterlimit="10"
+                                                            strokeLinecap="round"
+                                                        />
+                                                        <path
+                                                            d="M15 12.0761V1.1C15 1.04477 14.9553 1 14.9 1H4.0752"
+                                                            stroke="#D34329"
+                                                            strokeWidth="2"
+                                                            strokeMiterlimit="10"
+                                                            strokeLinecap="round"
+                                                        />
+                                                    </svg>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            ))}
-                        </div>
-                        <div className={classes.linkToProjects}>
-                            <button onClick={() => navigate('/projects')}>
-                                View All Projects
-                                <svg
-                                    width="19"
-                                    height="19"
-                                    viewBox="0 0 19 19"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                >
-                                    <path
-                                        d="M1.14307 17.4583L17.143 1.14307"
-                                        stroke="white"
-                                        strokeWidth="2.28571"
-                                        strokeMiterlimit="10"
-                                        strokeLinecap="round"
-                                    />
-                                    <path
-                                        d="M17.1433 13.8014V1.25735C17.1433 1.19423 17.0921 1.14307 17.029 1.14307H4.65771"
-                                        stroke="white"
-                                        strokeWidth="2.28571"
-                                        strokeMiterlimit="10"
-                                        strokeLinecap="round"
-                                    />
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                </section>
-            )}
-            {team.length > 0 && (
-                <section className={classes.team}>
-                    <div className="wrapper">
-                        <div className={classes.teamHeader}>
-                            <h2>Team</h2>
-                            <p>
-                                The platform team comprises experienced
-                                professionals with expertise across multiple
-                                jurisdictions, contributing to governance,
-                                strategic direction, and day-to-day operational
-                                management. All information presented is based
-                                on publicly available sources.
-                            </p>
-                        </div>
-                        <div className={classes.teamContainer}>
-                            {team.map((employer) => (
-                                <div
-                                    key={employer.$id}
-                                    className={classes.employer}
-                                >
-                                    <div className={classes.employerPhoto}>
-                                        {employer.image_url && (
-                                            <img
-                                                src={employer.image_url}
-                                                alt="photo"
-                                            />
-                                        )}
-                                    </div>
-                                    {employer.linkedin_url && (
-                                        <div
-                                            className={classes.employerLinkedin}
-                                        >
-                                            <a
-                                                href={employer.linkedin_url}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                            >
-                                                <img
-                                                    src={linkedinIcon}
-                                                    alt="linkedin Icon"
-                                                />
-                                            </a>
-                                        </div>
-                                    )}
-                                    <div className={classes.employerName}>
-                                        {employer.name}
-                                    </div>
-                                    <div className={classes.employerPosition}>
-                                        {employer.position}
-                                    </div>
-                                    <div
-                                        className={classes.employerDescription}
+                                ))}
+                            </div>
+                            <div className={classes.linkToProjects}>
+                                <button onClick={() => navigate('/projects')}>
+                                    View All Projects
+                                    <svg
+                                        width="19"
+                                        height="19"
+                                        viewBox="0 0 19 19"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
                                     >
-                                        {employer.description}
-                                    </div>
-                                    <div className={classes.employerLocation}>
-                                        <img
-                                            src={locationMarkIcon}
-                                            alt="location Mark Icon"
+                                        <path
+                                            d="M1.14307 17.4583L17.143 1.14307"
+                                            stroke="white"
+                                            strokeWidth="2.28571"
+                                            strokeMiterlimit="10"
+                                            strokeLinecap="round"
                                         />
-                                        {employer.location}
-                                    </div>
-                                </div>
-                            ))}
+                                        <path
+                                            d="M17.1433 13.8014V1.25735C17.1433 1.19423 17.0921 1.14307 17.029 1.14307H4.65771"
+                                            stroke="white"
+                                            strokeWidth="2.28571"
+                                            strokeMiterlimit="10"
+                                            strokeLinecap="round"
+                                        />
+                                    </svg>
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                </section>
-            )}
-            <div className={classes.platformFaq}>
-                <AssetsPageFaq pageName="platform" />
-            </div>
-            <ExternalLink
-                isOpen={isModalOpen}
-                url={targetUrl}
-                onClose={() => setIsModalOpen(false)}
-                onConfirm={handleConfirmTransition}
-            />
-        </main>
+                    </section>
+                )}
+                {team.length > 0 && (
+                    <section className={classes.team}>
+                        <div className="wrapper">
+                            <div className={classes.teamHeader}>
+                                <h2>Team</h2>
+                                <p>
+                                    The platform team comprises experienced
+                                    professionals with expertise across multiple
+                                    jurisdictions, contributing to governance,
+                                    strategic direction, and day-to-day
+                                    operational management. All information
+                                    presented is based on publicly available
+                                    sources.
+                                </p>
+                            </div>
+                            <div className={classes.teamContainer}>
+                                {team.map((employer) => (
+                                    <div
+                                        key={employer.$id}
+                                        className={classes.employer}
+                                    >
+                                        <div className={classes.employerPhoto}>
+                                            {employer.image_url && (
+                                                <img
+                                                    src={employer.image_url}
+                                                    alt="photo"
+                                                />
+                                            )}
+                                        </div>
+                                        {employer.linkedin_url && (
+                                            <div
+                                                className={
+                                                    classes.employerLinkedin
+                                                }
+                                            >
+                                                <a
+                                                    href={employer.linkedin_url}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                >
+                                                    <img
+                                                        src={linkedinIcon}
+                                                        alt="linkedin Icon"
+                                                    />
+                                                </a>
+                                            </div>
+                                        )}
+                                        <div className={classes.employerName}>
+                                            {employer.name}
+                                        </div>
+                                        <div
+                                            className={classes.employerPosition}
+                                        >
+                                            {employer.position}
+                                        </div>
+                                        <div
+                                            className={
+                                                classes.employerDescription
+                                            }
+                                        >
+                                            {employer.description}
+                                        </div>
+                                        <div
+                                            className={classes.employerLocation}
+                                        >
+                                            <img
+                                                src={locationMarkIcon}
+                                                alt="location Mark Icon"
+                                            />
+                                            {employer.location}
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </section>
+                )}
+                <div className={classes.platformFaq}>
+                    <AssetsPageFaq pageName="platform" />
+                </div>
+                <ExternalLink
+                    isOpen={isModalOpen}
+                    url={targetUrl}
+                    onClose={() => setIsModalOpen(false)}
+                    onConfirm={handleConfirmTransition}
+                />
+            </main>
+        </>
     );
 };
 
