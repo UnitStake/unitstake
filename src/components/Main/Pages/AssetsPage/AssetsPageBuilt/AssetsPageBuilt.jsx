@@ -11,38 +11,38 @@ import builtIcon6 from '../../../../../assets/images/assetsPageImages/AssetsPage
 const builtBoxes = [
     {
         id: '01',
-        title: 'Issue and Manage Tokens From Day One',
-        text: 'Create, structure, and control digital shares of your asset inside a ready-to-use infrastructure — no development required.',
+        title: 'DIGITAL PORTAL',
+        text: 'Present your project, its structure, key information and supporting materials through your own branded page.',
         icon: builtIcon1,
     },
     {
         id: '02',
-        title: 'Raise Capital Without Giving Up Control',
-        text: 'Monetise your asset while keeping full ownership and strategic decision-making power.',
+        title: 'INVESTOR ONBOARDING & MANAGEMENT',
+        text: 'Onboard investors, manage KYC processes, investor profiles and essential data through one centralized digital environment.',
         icon: builtIcon2,
     },
     {
         id: '03',
-        title: 'Turn Your Asset Into a Liquid Opportunity',
-        text: 'Enable investor entry and exit through secondary markets — increasing demand and asset value.',
+        title: 'INFORMATION DASHBOARD',
+        text: 'Provide participants with secure access to their holdings records, documents and relevant project information.',
         icon: builtIcon3,
     },
     {
         id: '04',
-        title: 'Access Global Investors — Not Just Local Capital',
-        text: 'Open your asset to international capital and dramatically expand your funding potential.',
+        title: 'REPORTING & UPDATES',
+        text: 'Manage documents, reporting and project updates while keeping important information organized and accessible in one place.',
         icon: builtIcon4,
     },
     {
         id: '05',
-        title: 'Scale Your Investor Base With Fractional Ownership',
-        text: 'Lower entry barriers and attract more investors through digital ownership structure.',
+        title: 'DISTRIBUTIONS',
+        text: 'Use digital infrastructure to record and track distributions and related information for your participants.',
         icon: builtIcon5,
     },
     {
         id: '06',
-        title: 'From Complex Process → Simple System',
-        text: 'Replace months of legal, technical, and operational setup with a single platform built for asset tokenization.',
+        title: 'DIGITAL INVESTMENT PROCESS',
+        text: 'Maintain digital records of the investment process — from participant data and transaction records to token issuance, representing the relevant rights.',
         icon: builtIcon6,
     },
 ];
@@ -53,7 +53,7 @@ const AssetsPageBuilt = () => {
     return (
         <section className={`sectionMarginTop ${classes.built}`}>
             <div className="wrapper">
-                <h2>Everything You Need — Already Built</h2>
+                <h2>Everything You Need - Already Built</h2>
                 <div className={classes.builtContainer}>
                     <div className={classes.builtBoxes}>
                         {builtBoxes.map((item) => (
@@ -75,12 +75,14 @@ const AssetsPageBuilt = () => {
                     </div>
                     <div className={classes.builtMore}>
                         <div className={classes.builtMoreText}>
-                            <h3>
-                                Built for Owners Who Want More From Their Asset
-                            </h3>
-                            <p>More liquidity. More investors. More control.</p>
+                            <h3>Bring Your Project into the Digital Era</h3>
+                            <p>
+                                Use digital ownership to create a modern,
+                                transparent and efficient way to manage project
+                                rights and communicate with a global audience.
+                            </p>
                             <button onClick={() => navigate('/contact-us')}>
-                                Start Tokenizing Your Asset
+                                Start with Digital Ownership
                                 <svg
                                     width="24"
                                     height="24"

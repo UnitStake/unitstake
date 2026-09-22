@@ -95,10 +95,10 @@ const AssetsPageInstitutional = () => {
                     <div className={classes.headerLeft}>
                         <h2>Institutional Momentum</h2>
                         <p className={classes.institutionalHeaderText}>
-                            Major financial institutions, advisory firms, and
-                            jurisdictions are actively shaping tokenized asset
-                            markets — a curated stream of credible adoption
-                            signals.
+                            Leading financial institutions are already exploring
+                            and implementing tokenization, blockchain and
+                            digital ownership infrastructure across global
+                            markets.
                         </p>
                     </div>
                 </div>

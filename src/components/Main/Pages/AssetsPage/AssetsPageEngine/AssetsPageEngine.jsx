@@ -7,26 +7,24 @@ const AssetsPageEngine = () => {
         <section className={`sectionMarginTop ${classes.engine}`}>
             <div className={classes.engineWrapper}>
                 <div className={classes.engineHeader}>
-                    <h2>Tokenization Engine</h2>
-                    <h6>
-                        Turn Your Asset Into a Liquid, Scalable Investment
-                        Product
-                    </h6>
+                    <h2>DIGITAL OWNERSHIP</h2>
+                    <h6>Represent Project Rights in a Digital Format</h6>
                     <p>
-                        Convert property, businesses, or funds into structured
-                        digital tokens and manage everything through one
-                        powerful platform — from issuance to investor operations
-                        and payouts.
+                        Digital Ownership allows rights defined by your
+                        project’s legal documents to be represented digitally
+                        through tokens, blockchain infrastructure and smart
+                        contracts.
                     </p>
                 </div>
                 <div className={classes.engineContainer}>
                     <div className={classes.engineContainerTxt}>
-                        <h3>Stop Losing Time, Capital, and Opportunities</h3>
+                        <h3>HOW DIGITAL OWNERSHIP WORKS</h3>
                         <p>
-                            Traditional structuring is slow, complex, and limits
-                            your access to capital. Tokenization gives you a
-                            faster, more flexible way to unlock liquidity and
-                            scale your asset — without losing control.
+                            Each token may digitally represent rights defined by
+                            your project’s legal structure. Blockchain records
+                            who owns it, while smart contracts help automate
+                            certain administrative functions related to these
+                            rights.
                         </p>
                     </div>
                     <div className={classes.engineContainerImg}>

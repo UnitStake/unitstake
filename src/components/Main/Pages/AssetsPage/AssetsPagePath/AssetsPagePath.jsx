@@ -3,23 +3,23 @@ import classes from './AssetsPagePath.module.css';
 const pathBoxes = [
     {
         id: '1',
-        title: 'Asset Selection',
-        txt: 'Identification of a suitable asset with clear value and revenue potential.',
+        title: 'PROJECT SCREENING',
+        txt: `Check your project's fit with the UnitStake's listing categories and prepare it for the next step.`,
     },
     {
         id: '2',
-        title: 'Legal Structuring',
-        txt: 'Creation of the legal framework, including SPV, ownership structure, and compliance.',
+        title: 'LISTING PREPARATION',
+        txt: 'Structure your project information and materials into a clear, professional format designed for audience review.',
     },
     {
         id: '3',
-        title: 'Marketing & Positioning',
-        txt: 'Preparing the project to attract investor attention.',
+        title: 'AGGREGATOR LISTING & VERIFICATION',
+        txt: 'Present your project on UnitStake Aggregator and strengthen its transperency with Verified by UnitStake status.',
     },
     {
         id: '4',
-        title: 'Platform Listing & Token Issuance',
-        txt: 'Listing the asset on the platform and issuing tokens for investors.',
+        title: 'AUDIENCE DISCOVERY',
+        txt: `Make your project discoverable to relevant members of UnitStake's platform audience, who can independently review and evaluate the information presented.`,
     },
 ];
 
@@ -27,7 +27,7 @@ const AssetsPagePath = () => {
     return (
         <section className={classes.path}>
             <div className="wrapper">
-                <h2>A Clear Path to Raising Capital Through Tokenization</h2>
+                <h2>A Clear Path to Presenting Your Project to Audience</h2>
             </div>
             <div className={classes.pathRow}>
                 <div className={`wrapper ${classes.pathContainer}`}>

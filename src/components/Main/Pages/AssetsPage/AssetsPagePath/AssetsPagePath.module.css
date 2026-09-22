@@ -23,7 +23,7 @@
 }
 
 .pathRow {
-    margin-top: 64px;
+    margin-top: 100px;
     height: 432px;
     background-image: url(/src/assets/images/assetsPageImages/triangleBg.png);
     background-size: cover;
@@ -60,15 +60,15 @@
 }
 
 .pathBox:nth-child(2) .pathBoxInfo {
-    top: 96px;
+    top: 65px;
 }
 
 .pathBox:nth-child(3) .pathBoxInfo {
-    top: -3px;
+    top: -40px;
 }
 
 .pathBox:nth-child(4) .pathBoxInfo {
-    top: -88px;
+    top: -140px;
 }
 
 .pathBoxInfo h3 {

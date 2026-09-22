@@ -16,13 +16,14 @@ const AssetsPageCards = () => {
                                 Get Your Project Listed on UnitStake Aggregator
                             </h2>
                             <p>
-                                Showcase your asset to a global audience through
-                                a structured and trusted data environment.
+                                Showcase your project to a global audience
+                                through a structured and trusted data
+                                environment.
                             </p>
                             <h6>
                                 Increase visibility, build credibility, and
-                                position your project within a growing tokenized
-                                asset ecosystem.
+                                position your project within a growing
+                                ecosystem.
                             </h6>
                             <button onClick={() => navigate('/contact-us')}>
                                 Apply for Listing
@@ -34,18 +35,19 @@ const AssetsPageCards = () => {
                     </div>
                     <div className={classes.card}>
                         <div className={classes.cardInfo}>
-                            <h2>Tokenize Your Asset & Raise Capital</h2>
+                            <h2>YOUR OWN BRANDED DIGITAL PLATFORM</h2>
                             <p>
-                                Transform your asset into a scalable investment
-                                opportunity. Structure, package, and open it to
-                                global investors through tokenization.
+                                Build your own branded digital infrastructure
+                                for presenting project. Manage onboarding,
+                                project information, documentation and
+                                interactions with participants in one place.
                             </p>
                             <h6>
-                                Unlock liquidity, attract capital, and expand
-                                your investor base with the right foundation.
+                                Powered by tokenization, blockchain and smart
+                                contract technology.
                             </h6>
                             <button onClick={() => navigate('/contact-us')}>
-                                Apply for Tokenization
+                                Request Your Platform
                             </button>
                         </div>
                         <div className={classes.cardImg}>

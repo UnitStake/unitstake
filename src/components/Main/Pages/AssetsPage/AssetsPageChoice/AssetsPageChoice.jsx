@@ -10,29 +10,29 @@ const choiceBoxes = [
     {
         id: '1',
         icon: choiceIcon1,
-        title: 'Increase transparency through structured data presentation',
-        subtitle: 'POSITIONING',
+        title: `Increase your project's visibility within an international audience interested in tokenized asset projects.`,
+        subtitle: 'INCREASE PROJECT VISIBILITY',
         text: 'Launched the tokenized fund BUIDL, signaling institutional confidence in blockchain-based fund infrastructure.',
     },
     {
         id: '2',
         icon: choiceIcon2,
-        title: 'Simplify access to key information for interested market participants',
-        subtitle: 'MARKET READINESS',
+        title: 'Structure your project, its structure, key data and team in a clear and professional format.',
+        subtitle: 'PRESENT INFORMATION CLEARLY',
         text: 'We help package your asset with the right materials and narrative',
     },
     {
         id: '3',
         icon: choiceIcon3,
-        title: 'Make opportunities easier to understand and evaluate',
-        subtitle: 'CLARITY',
+        title: 'Increase transparency through structured project information and the opportunity to obtain Verified by UnitStake status.',
+        subtitle: 'STRENGTHEN TRANSPARENCY',
         text: 'Turn complex structures into clear, understandable opportunities',
     },
     {
         id: '4',
         icon: choiceIcon4,
-        title: 'Increase project visibility among interested market participants',
-        subtitle: 'DISCOVERY',
+        title: 'Give interested investors structured access to the key information they need to independently understand and evaluate your project.',
+        subtitle: 'MAKE AUDIENCE EVALUATION EASIER',
         text: 'Understand where your asset fits within the evolving tokenized market',
     },
 ];
@@ -50,17 +50,17 @@ const AssetsPageChoice = () => {
                     </div>
                     <h2>Why Projects Choose UnitStake Aggregator?</h2>
                     <h3>
-                        UnitStake helps asset owners gain additional visibility
-                        for their projects through the structured presentation
-                        of information. We help make projects more
-                        understandable, transparent, and easier to evaluate for
-                        interested market participants.
+                        UnitStake Aggregator gives projects a structured way to
+                        present themselves within an ecosystem built around an
+                        international audience. It helps make your project more
+                        visible, credible and easier for relevant audiences to
+                        discover and evaluate.
                     </h3>
                 </div>
                 <div className={classes.choiceContainer}>
                     <div className={classes.choiceInfo}>
                         <div className={classes.choiceInfoHeader}>
-                            We help you:
+                            YOUR PROJECT CAN:
                         </div>
                         <ul className={classes.choiceInfoContainer}>
                             {choiceBoxes.map((item) => (
@@ -72,15 +72,17 @@ const AssetsPageChoice = () => {
                                         <img src={item.icon} alt="icon" />
                                     </div>
                                     <div className={classes.choiceInfoBoxTxt}>
+                                        <h5>{item.subtitle}</h5>
                                         <h4>{item.title}</h4>
                                     </div>
                                 </li>
                             ))}
                         </ul>
                         <div className={classes.choiceInfoContainerText}>
-                            Not an issuer. Not a service provider. A structured
-                            visibility layer that helps the market navigate
-                            itself.
+                            Not an issuer. Not a broker-dealer, investment
+                            adviser, or arranger of transactions in investments.
+                            A structured visibility layer that helps the market
+                            navigate itself.
                         </div>
                     </div>
                     <div className={classes.choiceImg}>

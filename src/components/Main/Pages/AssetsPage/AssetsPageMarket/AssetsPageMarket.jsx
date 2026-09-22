@@ -58,8 +58,8 @@ const AssetsPageMarket = () => {
             <div className="wrapper">
                 <h2>Real Market Examples</h2>
                 <p className={classes.marketHeaderText}>
-                    How assets are already being structured and presented to
-                    investors
+                    How projects are already being structured and presented to
+                    audience
                 </p>
                 <div className={classes.marketContainer}>
                     {news.map((item) => (

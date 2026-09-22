@@ -64,8 +64,8 @@ const AssetsPageTypes = () => {
                         </div>
                     </div>
                     <p className={classes.typesHeaderText}>
-                        Tokenization frameworks apply across a broad spectrum of
-                        real-world assets and ownership structures.
+                        Explore the sectors currently within our community’s
+                        investment focus.
                     </p>
                 </div>
                 <div className={classes.typesContainer}>

@@ -10,32 +10,32 @@ const tokenizingCards = [
     {
         id: '01',
         icon: tokenizingIcon1,
-        header: 'Raise Capital',
-        text: 'Unlock access to global capital more efficiently, without the limitations and complexity of traditional financing.',
+        header: 'GLOBAL AUDIENCE',
+        text: 'Present your project within an international audience that includes professionals and organisations following tokenized asset developments',
     },
     {
         id: '02',
         icon: tokenizingIcon2,
-        header: 'Accelerate Growth',
-        text: 'Access funding to scale your business and unlock new growth opportunities.',
+        header: 'UNITSTAKE AGGREGATOR',
+        text: 'List and present your project in a structured format for public discovery and review.',
     },
     {
         id: '03',
         icon: tokenizingIcon3,
-        header: 'Provide Liquidity',
-        text: 'Create more flexible entry and exit opportunities for participants in your project.',
+        header: 'VERIFIED BY UNITSTAKE',
+        text: 'Increase transparency through project document and key team identity verification.',
     },
     {
         id: '04',
         icon: tokenizingIcon4,
-        header: 'Broaden your audience of interested participants',
-        text: 'Open your asset to an international audience and new sources of capital.',
+        header: 'OWN DIGITAL PLATFORM',
+        text: 'Build your own branded digital infrastructure for onboarding, documentation and participant management.',
     },
     {
         id: '05',
         icon: tokenizingIcon5,
-        header: 'Scale Your Assets',
-        text: 'Leverage tokenization to expand your assets and support long-term growth.',
+        header: 'AUDIENCE FOCUS',
+        text: 'Position your project within sectors currently most viewed and searched by Aggregator users.',
     },
 ];
 
@@ -43,7 +43,9 @@ const AssetsPageTokenizing = () => {
     return (
         <section className={classes.tokenizing}>
             <div className="wrapper">
-                <h2>Tokenizing your assets you gain the opportunity:</h2>
+                <h2>
+                    Grow Your Project Opportunities with UnitStake Ecosystem
+                </h2>
                 <div className={classes.tokenizingContainer}>
                     {tokenizingCards.map((item) => (
                         <div key={item.id} className={classes.tokenizingCard}>

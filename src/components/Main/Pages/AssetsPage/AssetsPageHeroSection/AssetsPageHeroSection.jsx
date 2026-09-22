@@ -11,20 +11,21 @@ const AssetsPageHeroSection = () => {
             <div className="wrapper">
                 <div className={classes.heroSectionContainer}>
                     <div className={classes.heroSectionTxt}>
-                        <h2>Unlock New Opportunity of your Real Assets</h2>
+                        <h2>Unlock New Opportunities for Your Project</h2>
                         <p className={classes.heroSectionSecondaryTxt}>
-                            Explore how tokenization becomes a strategic tool
-                            for raising capital into assets and scaling
-                            businesses — unlocking new formats of investor
-                            participation, liquidity, and capital growth, while
-                            enabling access to a global pool of investors
+                            UnitStake Aggregator is part of a digital ecosystem
+                            that creates a unified space for projects and
+                            audience interested in tokenized asset projects. Use
+                            the Aggregator to present your project, showcase its
+                            potential and key information, and increase its
+                            visibility globally.
                         </p>
                         <div className={classes.heroSectionBtns}>
                             <button
                                 className={classes.heroSectionBtnProjects}
                                 onClick={() => navigate('/contact-us')}
                             >
-                                Explore Tokenization Path
+                                Submit Your Project
                             </button>
                             <a
                                 href={ChecklistUnitStake}

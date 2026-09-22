@@ -187,10 +187,6 @@ const ContactUs = () => {
                 <div className="wrapper">
                     <div className={classes.contactHeader}>
                         <h2>Contact Information</h2>
-                        <p>
-                            Lorem ipsum dolor sit amet, consetetur sadipscing
-                            elitr.
-                        </p>
                     </div>
 
                     <form

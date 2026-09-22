@@ -7,10 +7,11 @@ const AssetsPageDownload = () => {
         <section className={`sectionMarginTop ${classes.download}`}>
             <div className="wrapper">
                 <div className={classes.downloadContainer}>
-                    <h2>The Path to Tokenization</h2>
+                    <h2>Your Path to Digital Ownership</h2>
                     <p>
-                        Download the checklist that shows how to prepare your
-                        asset for tokenization
+                        Download the step-by-step checklist to understand how to
+                        prepare your project for tokenization and digital
+                        infrastructure.
                     </p>
                     <a href={ChecklistUnitStake} download={ChecklistUnitStake}>
                         <svg
@@ -36,9 +37,7 @@ const AssetsPageDownload = () => {
                                 </clipPath>
                             </defs>
                         </svg>
-                        <strong>
-                            Download <span>Check-List of Tokenization</span>
-                        </strong>
+                        <strong>Download the Checklist</strong>
                     </a>
                 </div>
             </div>
