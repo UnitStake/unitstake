@@ -10,8 +10,8 @@ const tokenizingCards = [
     {
         id: '01',
         icon: tokenizingIcon1,
-        header: 'GLOBAL AUDIENCE',
-        text: 'Present your project within an international audience that includes professionals and organisations following tokenized asset developments',
+        header: 'INVESTOR COMMUNITY',
+        text: 'Present your project within an international community of private investors, family offices and funds',
     },
     {
         id: '02',
@@ -28,14 +28,14 @@ const tokenizingCards = [
     {
         id: '04',
         icon: tokenizingIcon4,
-        header: 'OWN DIGITAL PLATFORM',
-        text: 'Build your own branded digital infrastructure for onboarding, documentation and participant management.',
+        header: 'OWN INVESTMENT PLATFORM',
+        text: 'Build your own branded digital infrastructure for onboarding, documentation and investor management.',
     },
     {
         id: '05',
         icon: tokenizingIcon5,
-        header: 'AUDIENCE FOCUS',
-        text: 'Position your project within sectors currently most viewed and searched by Aggregator users.',
+        header: 'COMMUNITY INVESTMENT FOCUS',
+        text: 'Position your project within sectors currently aligned with our community’s investment interests.',
     },
 ];
 

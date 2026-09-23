@@ -14,11 +14,10 @@ const AssetsPageHeroSection = () => {
                         <h2>Unlock New Opportunities for Your Project</h2>
                         <p className={classes.heroSectionSecondaryTxt}>
                             UnitStake Aggregator is part of a digital ecosystem
-                            that creates a unified space for projects and
-                            audience interested in tokenized asset projects. Use
-                            the Aggregator to present your project, showcase its
-                            potential and key information, and increase its
-                            visibility globally.
+                            that creates a unified space for projects and a
+                            global investment community. Use the Aggregator to
+                            present your project, showcase its potential and key
+                            information, and increase its visibility globally.
                         </p>
                         <div className={classes.heroSectionBtns}>
                             <button

@@ -10,14 +10,14 @@ const choiceBoxes = [
     {
         id: '1',
         icon: choiceIcon1,
-        title: `Increase your project's visibility within an international audience interested in tokenized asset projects.`,
+        title: `Increase your project’s visibility within an international community focused on private-market opportunities.`,
         subtitle: 'INCREASE PROJECT VISIBILITY',
         text: 'Launched the tokenized fund BUIDL, signaling institutional confidence in blockchain-based fund infrastructure.',
     },
     {
         id: '2',
         icon: choiceIcon2,
-        title: 'Structure your project, its structure, key data and team in a clear and professional format.',
+        title: 'Structure your project, team, key data and investment proposition in a clear and professional format.',
         subtitle: 'PRESENT INFORMATION CLEARLY',
         text: 'We help package your asset with the right materials and narrative',
     },
@@ -32,7 +32,7 @@ const choiceBoxes = [
         id: '4',
         icon: choiceIcon4,
         title: 'Give interested investors structured access to the key information they need to independently understand and evaluate your project.',
-        subtitle: 'MAKE AUDIENCE EVALUATION EASIER',
+        subtitle: 'MAKE INVESTOR EVALUATION EASIER',
         text: 'Understand where your asset fits within the evolving tokenized market',
     },
 ];
@@ -52,9 +52,9 @@ const AssetsPageChoice = () => {
                     <h3>
                         UnitStake Aggregator gives projects a structured way to
                         present themselves within an ecosystem built around an
-                        international audience. It helps make your project more
-                        visible, credible and easier for relevant audiences to
-                        discover and evaluate.
+                        international investor community. It helps make your
+                        project more visible, credible and easier for relevant
+                        investors to discover and evaluate.
                     </h3>
                 </div>
                 <div className={classes.choiceContainer}>

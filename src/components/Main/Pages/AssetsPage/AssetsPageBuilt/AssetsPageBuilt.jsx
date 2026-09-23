@@ -11,20 +11,20 @@ import builtIcon6 from '../../../../../assets/images/assetsPageImages/AssetsPage
 const builtBoxes = [
     {
         id: '01',
-        title: 'DIGITAL PORTAL',
-        text: 'Present your project, its structure, key information and supporting materials through your own branded page.',
+        title: 'INVESTMENT PORTAL',
+        text: 'Present your project, investment proposition, key information and supporting materials through your own',
         icon: builtIcon1,
     },
     {
         id: '02',
-        title: 'INVESTOR ONBOARDING & MANAGEMENT',
+        title: 'PARTICIPANT ONBOARDING & MANAGEMENT',
         text: 'Onboard investors, manage KYC processes, investor profiles and essential data through one centralized digital environment.',
         icon: builtIcon2,
     },
     {
         id: '03',
         title: 'INFORMATION DASHBOARD',
-        text: 'Provide participants with secure access to their holdings records, documents and relevant project information.',
+        text: 'Provide investors with secure access to their investments, portfolio information, documents and relevant project information.',
         icon: builtIcon3,
     },
     {
@@ -36,7 +36,7 @@ const builtBoxes = [
     {
         id: '05',
         title: 'DISTRIBUTIONS',
-        text: 'Use digital infrastructure to record and track distributions and related information for your participants.',
+        text: 'Use digital infrastructure to record, manage and track distributions and related information for your investors.',
         icon: builtIcon5,
     },
     {
@@ -79,7 +79,7 @@ const AssetsPageBuilt = () => {
                             <p>
                                 Use digital ownership to create a modern,
                                 transparent and efficient way to manage project
-                                rights and communicate with a global audience.
+                                rights and communicate with your investors.
                             </p>
                             <button onClick={() => navigate('/contact-us')}>
                                 Start with Digital Ownership

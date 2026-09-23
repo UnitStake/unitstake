@@ -4,7 +4,7 @@ const pathBoxes = [
     {
         id: '1',
         title: 'PROJECT SCREENING',
-        txt: `Check your project's fit with the UnitStake's listing categories and prepare it for the next step.`,
+        txt: `Check your project’s fit with the UnitStake Community Investment Focus and prepare it for the next step.`,
     },
     {
         id: '2',
@@ -18,8 +18,8 @@ const pathBoxes = [
     },
     {
         id: '4',
-        title: 'AUDIENCE DISCOVERY',
-        txt: `Make your project discoverable to relevant members of UnitStake's platform audience, who can independently review and evaluate the information presented.`,
+        title: 'INVESTOR DISCOVERY',
+        txt: `Make your project discoverable to relevant members of the UnitStake investor community, who can independently review and evaluate the opportunity.`,
     },
 ];
 
@@ -27,7 +27,7 @@ const AssetsPagePath = () => {
     return (
         <section className={classes.path}>
             <div className="wrapper">
-                <h2>A Clear Path to Presenting Your Project to Audience</h2>
+                <h2>A Clear Path to Presenting Your Project to Investors</h2>
             </div>
             <div className={classes.pathRow}>
                 <div className={`wrapper ${classes.pathContainer}`}>

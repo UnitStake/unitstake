@@ -35,12 +35,12 @@ const AssetsPageCards = () => {
                     </div>
                     <div className={classes.card}>
                         <div className={classes.cardInfo}>
-                            <h2>YOUR OWN BRANDED DIGITAL PLATFORM</h2>
+                            <h2>YOUR OWN BRANDED INVESTMENT PLATFORM</h2>
                             <p>
                                 Build your own branded digital infrastructure
-                                for presenting project. Manage onboarding,
-                                project information, documentation and
-                                interactions with participants in one place.
+                                for working with investors. Manage onboarding,
+                                project information, documentation, reporting
+                                and investor interactions in one place.
                             </p>
                             <h6>
                                 Powered by tokenization, blockchain and smart
