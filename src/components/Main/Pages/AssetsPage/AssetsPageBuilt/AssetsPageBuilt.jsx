@@ -12,7 +12,7 @@ const builtBoxes = [
     {
         id: '01',
         title: 'INVESTMENT PORTAL',
-        text: 'Present your project, investment proposition, key information and supporting materials through your own',
+        text: 'Present your project, investment proposition, key information and supporting materials through your own branded page',
         icon: builtIcon1,
     },
     {

@@ -14,7 +14,7 @@ const pathBoxes = [
     {
         id: '3',
         title: 'AGGREGATOR LISTING & VERIFICATION',
-        txt: 'Present your project on UnitStake Aggregator and strengthen its transperency with Verified by UnitStake status.',
+        txt: 'Present your project on UnitStake Aggregator and strengthen its transparency with Verified by UnitStake status.',
     },
     {
         id: '4',
