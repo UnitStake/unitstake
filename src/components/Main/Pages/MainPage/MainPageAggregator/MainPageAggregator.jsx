@@ -18,7 +18,7 @@ const MainPageAggregator = () => {
                     navigation.
                 </p>
                 <h2>
-                    UnitStake Aggregator — Clear Market Navigation for Tokenized
+                    UnitStake Aggregator - Clear Market Navigation for Tokenized
                     Assets
                 </h2>
                 <div className={classes.aggregatorContainer}>
@@ -27,7 +27,7 @@ const MainPageAggregator = () => {
                             <h3>Everything in one place</h3>
                             <p>
                                 You don’t need to jump between different
-                                websites — we’ve already gathered and organised
+                                websites - we’ve already gathered and organised
                                 everything for you
                             </p>
                             <div className={classes.aggregatorBoxListContainer}>
@@ -180,7 +180,7 @@ const MainPageAggregator = () => {
                             </div>
                             <p>
                                 Certain projects are independently reviewed and
-                                structured — helping you identify stronger, more
+                                structured - helping you identify stronger, more
                                 transparent opportunities.
                             </p>
                             <div className={classes.aggregatorBoxVerifeidList}>

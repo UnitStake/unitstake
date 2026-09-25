@@ -31,7 +31,7 @@ const VerifiedPageMatters = () => {
                         <p>
                             The tokenized asset market is growing rapidly.
                             Alongside this growth comes an increasing amount of
-                            information — varying in quality, completeness, and
+                            information - varying in quality, completeness, and
                             reliability.
                         </p>
                         <h4>

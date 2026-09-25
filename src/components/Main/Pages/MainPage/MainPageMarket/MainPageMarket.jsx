@@ -34,7 +34,7 @@ const tbabsData = [
         label: `Owner's Ecosystem`,
         header: 'Ecosystem Participants',
         paragraph:
-            'The key roles shaping tokenized assets — from infrastructure and legal structuring to market positioning.',
+            'The key roles shaping tokenized assets - from infrastructure and legal structuring to market positioning.',
         fackeBtns: ['Location', 'Structure', 'Platform', 'Asset Type'],
         img: tabPic3,
         btnName: 'View Ecosystem',

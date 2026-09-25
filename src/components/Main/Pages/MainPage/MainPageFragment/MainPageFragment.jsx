@@ -18,7 +18,7 @@ const MainPageFragment = () => {
                             <h3>Looking for Assets?</h3>
                             <p>
                                 Navigate the tokenized asset market with clarity
-                                — using structured insights, project
+                                - using structured insights, project
                                 verification, and standardized data.
                             </p>
                             <div className={classes.fragmentBoxTextFackeBtns}>
