@@ -22,7 +22,10 @@ const MainPage = () => {
                     name="description"
                     content="Compare tokenized real-world asset platforms and projects in one structured view. Independent RWA market data, verification and research, not advice."
                 />
-                <meta property="og:title" content="UnitStake" />
+                <meta
+                    property="og:title"
+                    content="UnitStake — RWA Tokenization Aggregator"
+                />
                 <meta
                     property="og:description"
                     content="Navigate the market of tokenized assets and RWA tokenization with confidence. Discover verified platforms, fractional ownership opportunities, and real-time data in one place."
@@ -30,6 +33,7 @@ const MainPage = () => {
                 <meta property="og:image" content={SOCIAL_IMAGE_URL} />
                 <meta property="og:url" content={SITE_URL} />
                 <meta property="og:type" content="website" />
+                <meta property="og:site_name" content="UnitStake" />
                 <link rel="canonical" href={SITE_URL} />
             </Helmet>
             <main className={classes.mainPage}>
