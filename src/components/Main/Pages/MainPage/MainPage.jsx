@@ -10,7 +10,8 @@ import MainPageForm from './MainPageForm/MainPageForm';
 import MainPageNews from './MainPageNews/MainPageNews';
 import classes from './MainPage.module.css';
 
-import socialImage from '../../../../assets/images/social_image.PNG';
+const SITE_URL = 'https://unitstake.com';
+const SOCIAL_IMAGE_URL = 'https://unitstake.com/social_image.PNG';
 
 const MainPage = () => {
     return (
@@ -26,17 +27,10 @@ const MainPage = () => {
                     property="og:description"
                     content="Navigate the market of tokenized assets and RWA tokenization with confidence. Discover verified platforms, fractional ownership opportunities, and real-time data in one place."
                 />
-                <meta property="og:image" content={socialImage} />
-                <meta
-                    property="og:url"
-                    content={
-                        typeof window !== 'undefined'
-                            ? window.location.href
-                            : ''
-                    }
-                />
+                <meta property="og:image" content={SOCIAL_IMAGE_URL} />
+                <meta property="og:url" content={SITE_URL} />
                 <meta property="og:type" content="website" />
-                <link rel="canonical" href={window.location.href} />
+                <link rel="canonical" href={SITE_URL} />
             </Helmet>
             <main className={classes.mainPage}>
                 <HeroSection />
