@@ -10,7 +10,7 @@ import MainPageForm from './MainPageForm/MainPageForm';
 import MainPageNews from './MainPageNews/MainPageNews';
 import classes from './MainPage.module.css';
 
-import socialImage from '../../../../assets/images/social_image.png';
+import socialImage from '../../../../assets/images/social_image.PNG';
 
 const MainPage = () => {
     return (
