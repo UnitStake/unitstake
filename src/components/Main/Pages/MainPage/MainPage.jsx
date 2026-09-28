@@ -10,6 +10,8 @@ import MainPageForm from './MainPageForm/MainPageForm';
 import MainPageNews from './MainPageNews/MainPageNews';
 import classes from './MainPage.module.css';
 
+import socialImage from '../../../../assets/images/social_image.png';
+
 const MainPage = () => {
     return (
         <>
@@ -19,6 +21,22 @@ const MainPage = () => {
                     name="description"
                     content="Compare tokenized real-world asset platforms and projects in one structured view. Independent RWA market data, verification and research, not advice."
                 />
+                <meta property="og:title" content="UnitStake" />
+                <meta
+                    property="og:description"
+                    content="Navigate the market of tokenized assets and RWA tokenization with confidence. Discover verified platforms, fractional ownership opportunities, and real-time data in one place."
+                />
+                <meta property="og:image" content={socialImage} />
+                <meta
+                    property="og:url"
+                    content={
+                        typeof window !== 'undefined'
+                            ? window.location.href
+                            : ''
+                    }
+                />
+                <meta property="og:type" content="website" />
+                <link rel="canonical" href={window.location.href} />
             </Helmet>
             <main className={classes.mainPage}>
                 <HeroSection />
