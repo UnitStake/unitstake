@@ -247,6 +247,26 @@ const PlatformsPage = () => {
         );
     }
 
+    const schemaData = {
+        '@context': 'https://schema.org',
+        '@graph': [
+            {
+                '@type': 'CollectionPage',
+                '@id': 'https://unitstake.com/platforms',
+                url: 'https://unitstake.com/platforms',
+                name: 'UnitStake',
+                inLanguage: 'en',
+                publisher: {
+                    '@type': 'Organization',
+                    '@id': 'https://unitstake.com/platforms',
+                    name: 'UnitStake',
+                    url: 'https://unitstake.com/platforms',
+                    logo: 'https://unitstake.com/icon-512.png',
+                },
+            },
+        ],
+    };
+
     return (
         <>
             <Helmet>
@@ -255,6 +275,28 @@ const PlatformsPage = () => {
                     name="description"
                     content="Compare RWA and real estate tokenization platforms side by side: tokenized asset volume, jurisdiction, investor type, asset classes and years operating."
                 />
+                <meta
+                    property="og:title"
+                    content="UnitStake — RWA Tokenization Aggregator"
+                />
+                <meta
+                    property="og:description"
+                    content="Navigate the market of tokenized assets and RWA tokenization with confidence. Discover verified platforms, fractional ownership opportunities, and real-time data in one place."
+                />
+                <meta
+                    property="og:image"
+                    content="https://unitstake.com/social_image.PNG"
+                />
+                <meta
+                    property="og:url"
+                    content="https://unitstake.com/platforms"
+                />
+                <meta property="og:type" content="website" />
+                <meta property="og:site_name" content="UnitStake" />
+                <link rel="canonical" href="https://unitstake.com/platforms" />
+                <script type="application/ld+json">
+                    {JSON.stringify(schemaData)}
+                </script>
             </Helmet>
             <main className={classes.platformsPage}>
                 <section className={classes.header}>
@@ -529,7 +571,7 @@ const PlatformsPage = () => {
                                                 className={classes.platformCard}
                                                 onClick={() =>
                                                     navigate(
-                                                        `/platforms/${platform.$id}`,
+                                                        `/platforms/${platform.slug}`,
                                                     )
                                                 }
                                             >
@@ -642,7 +684,7 @@ const PlatformsPage = () => {
                                                             }
                                                             onClick={() =>
                                                                 navigate(
-                                                                    `/platforms/${platform.$id}`,
+                                                                    `/platforms/${platform.slug}`,
                                                                 )
                                                             }
                                                         >

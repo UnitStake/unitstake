@@ -114,7 +114,7 @@ const AdminPlatforms = () => {
                         <tr key={index}>
                             <td className={classes.platformListName}>
                                 <a
-                                    href={`/platforms/${platform.$id}`}
+                                    href={`/platforms/${platform.slug}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                 >

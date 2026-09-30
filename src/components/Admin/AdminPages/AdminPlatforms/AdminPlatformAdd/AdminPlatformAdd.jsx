@@ -9,6 +9,7 @@ import {
     BUCKET_ID,
 } from '../../../../../lib/appwrite';
 import { useNavigate } from 'react-router-dom';
+import { generateSlug } from '../../../../../utils/helpers';
 import classes from './AdminPlatformAdd.module.css';
 
 import upLoadIcon from '../../../../../assets/images/icons/upload.svg';
@@ -254,6 +255,8 @@ const AdminPlatformAdd = () => {
                       .filter((item) => item !== '')
                 : [];
 
+            const slug = generateSlug(name);
+
             const data = {
                 name: name,
                 description: description,
@@ -268,6 +271,7 @@ const AdminPlatformAdd = () => {
                 platform_website: platformWebsite,
                 filters: selectedTypes,
                 investor_type: selectedInvestorTypes,
+                slug: slug,
             };
 
             await tablesDB.createRow({

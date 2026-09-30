@@ -70,7 +70,7 @@ export default async function handler(req, res) {
             .map(
                 (platform) => `
   <url>
-    <loc>${DOMAIN}/platforms/${platform.$id}</loc>
+    <loc>${DOMAIN}/platforms/${platform.slug}</loc>
     <lastmod>${new Date(platform.$updatedAt).toISOString()}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>

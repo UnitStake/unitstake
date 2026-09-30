@@ -10,6 +10,7 @@ import {
     storage,
     BUCKET_ID,
 } from '../../../../../lib/appwrite';
+import { generateSlug } from '../../../../../utils/helpers';
 
 import classes from './AdminProjectAdd.module.css';
 
@@ -335,6 +336,8 @@ const AdminProjectAdd = () => {
                       .filter((item) => item !== '')
                 : [];
 
+            const slug = generateSlug(name);
+
             const projectData = {
                 name,
                 description,
@@ -363,6 +366,7 @@ const AdminProjectAdd = () => {
                 facebook_url: facebookUrl,
                 youtube_url: youtubeUrl,
                 google_maps_url: googleMapsUrl,
+                slug: slug,
             };
 
             await tablesDB.createRow({

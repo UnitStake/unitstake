@@ -141,6 +141,26 @@ const Academy = () => {
         }
     }
 
+    const schemaData = {
+        '@context': 'https://schema.org',
+        '@graph': [
+            {
+                '@type': 'WebPage',
+                '@id': 'https://unitstake.com/academy',
+                url: 'https://unitstake.com/academy',
+                name: 'UnitStake',
+                inLanguage: 'en',
+                publisher: {
+                    '@type': 'Organization',
+                    '@id': 'https://unitstake.com/academy',
+                    name: 'UnitStake',
+                    url: 'https://unitstake.com/academy',
+                    logo: 'https://unitstake.com/icon-512.png',
+                },
+            },
+        ],
+    };
+
     return (
         <>
             <Helmet>
@@ -149,6 +169,28 @@ const Academy = () => {
                     name="description"
                     content="Learn what tokenization is and how tokenized real-world assets work: legal structure, token types, liquidity, risks and how to analyse a project."
                 />
+                <meta
+                    property="og:title"
+                    content="UnitStake — RWA Tokenization Aggregator"
+                />
+                <meta
+                    property="og:description"
+                    content="Navigate the market of tokenized assets and RWA tokenization with confidence. Discover verified platforms, fractional ownership opportunities, and real-time data in one place."
+                />
+                <meta
+                    property="og:image"
+                    content="https://unitstake.com/social_image.PNG"
+                />
+                <meta
+                    property="og:url"
+                    content="https://unitstake.com/academy"
+                />
+                <meta property="og:type" content="website" />
+                <meta property="og:site_name" content="UnitStake" />
+                <link rel="canonical" href="https://unitstake.com/academy" />
+                <script type="application/ld+json">
+                    {JSON.stringify(schemaData)}
+                </script>
             </Helmet>
             <main className={classes.academyPage}>
                 <section className={classes.heroSection}>

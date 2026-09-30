@@ -11,6 +11,26 @@ import MainPageNews from './MainPageNews/MainPageNews';
 import classes from './MainPage.module.css';
 
 const MainPage = () => {
+    const schemaData = {
+        '@context': 'https://schema.org',
+        '@graph': [
+            {
+                '@type': 'WebSite',
+                '@id': 'https://unitstake.com/#website',
+                url: 'https://unitstake.com/',
+                name: 'UnitStake',
+                inLanguage: 'en',
+                publisher: {
+                    '@type': 'Organization',
+                    '@id': 'https://unitstake.com/#organization',
+                    name: 'UnitStake',
+                    url: 'https://unitstake.com/',
+                    logo: 'https://unitstake.com/icon-512.png',
+                },
+            },
+        ],
+    };
+
     return (
         <>
             <Helmet>
@@ -35,6 +55,9 @@ const MainPage = () => {
                 <meta property="og:type" content="website" />
                 <meta property="og:site_name" content="UnitStake" />
                 <link rel="canonical" href="https://unitstake.com" />
+                <script type="application/ld+json">
+                    {JSON.stringify(schemaData)}
+                </script>
             </Helmet>
             <main className={classes.mainPage}>
                 <HeroSection />

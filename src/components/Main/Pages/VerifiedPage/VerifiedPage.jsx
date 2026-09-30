@@ -43,6 +43,26 @@ const secondDisclaimerTxt = (
 );
 
 const VerifiedPage = () => {
+    const schemaData = {
+        '@context': 'https://schema.org',
+        '@graph': [
+            {
+                '@type': 'WebPage',
+                '@id': 'https://unitstake.com/verified',
+                url: 'https://unitstake.com/verified',
+                name: 'UnitStake',
+                inLanguage: 'en',
+                publisher: {
+                    '@type': 'Organization',
+                    '@id': 'https://unitstake.com/verified',
+                    name: 'UnitStake',
+                    url: 'https://unitstake.com/verified',
+                    logo: 'https://unitstake.com/icon-512.png',
+                },
+            },
+        ],
+    };
+
     return (
         <>
             <Helmet>
@@ -51,6 +71,28 @@ const VerifiedPage = () => {
                     name="description"
                     content="A structured verification framework for tokenized assets: legal, financials, team KYC, reputation and tech checks. Not a rating, score or endorsement."
                 />
+                <meta
+                    property="og:title"
+                    content="UnitStake — RWA Tokenization Aggregator"
+                />
+                <meta
+                    property="og:description"
+                    content="Navigate the market of tokenized assets and RWA tokenization with confidence. Discover verified platforms, fractional ownership opportunities, and real-time data in one place."
+                />
+                <meta
+                    property="og:image"
+                    content="https://unitstake.com/social_image.PNG"
+                />
+                <meta
+                    property="og:url"
+                    content="https://unitstake.com/verified"
+                />
+                <meta property="og:type" content="website" />
+                <meta property="og:site_name" content="UnitStake" />
+                <link rel="canonical" href="https://unitstake.com/verified" />
+                <script type="application/ld+json">
+                    {JSON.stringify(schemaData)}
+                </script>
             </Helmet>
             <main className={classes.verifiedPage}>
                 <VerifiedPageHeroSection />

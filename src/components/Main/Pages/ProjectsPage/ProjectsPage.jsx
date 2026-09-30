@@ -337,6 +337,26 @@ const ProjectsPage = () => {
         );
     }
 
+    const schemaData = {
+        '@context': 'https://schema.org',
+        '@graph': [
+            {
+                '@type': 'CollectionPage',
+                '@id': 'https://unitstake.com/projects',
+                url: 'https://unitstake.com/projects',
+                name: 'UnitStake',
+                inLanguage: 'en',
+                publisher: {
+                    '@type': 'Organization',
+                    '@id': 'https://unitstake.com/projects',
+                    name: 'UnitStake',
+                    url: 'https://unitstake.com/projects',
+                    logo: 'https://unitstake.com/icon-512.png',
+                },
+            },
+        ],
+    };
+
     return (
         <>
             <Helmet>
@@ -345,6 +365,28 @@ const ProjectsPage = () => {
                     name="description"
                     content="Browse tokenized real estate and RWA projects with structured data: token price, minimum ticket, jurisdiction, legal structure and funding progress."
                 />
+                <meta
+                    property="og:title"
+                    content="UnitStake — RWA Tokenization Aggregator"
+                />
+                <meta
+                    property="og:description"
+                    content="Navigate the market of tokenized assets and RWA tokenization with confidence. Discover verified platforms, fractional ownership opportunities, and real-time data in one place."
+                />
+                <meta
+                    property="og:image"
+                    content="https://unitstake.com/social_image.PNG"
+                />
+                <meta
+                    property="og:url"
+                    content="https://unitstake.com/projects"
+                />
+                <meta property="og:type" content="website" />
+                <meta property="og:site_name" content="UnitStake" />
+                <link rel="canonical" href="https://unitstake.com/projects" />
+                <script type="application/ld+json">
+                    {JSON.stringify(schemaData)}
+                </script>
             </Helmet>
             <main className={classes.projectsPage}>
                 <section className={classes.header}>

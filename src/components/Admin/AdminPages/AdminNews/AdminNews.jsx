@@ -9,6 +9,7 @@ import {
     storage,
     Query,
 } from '../../../../lib/appwrite';
+import { generateSlug } from '../../../../utils/helpers';
 import classes from './AdminNews.module.css';
 
 import plusIcon from '../../../../assets/images/icons/plus.svg';
@@ -264,6 +265,7 @@ const AdminNews = () => {
                 is_published: isPublished,
                 is_popular: isPopular,
                 trending_topics: selectedTrendingTopics,
+                slug: generateSlug(title),
             };
 
             if (editingNewsId) {

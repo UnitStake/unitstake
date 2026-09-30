@@ -56,7 +56,7 @@ const linkIcon = (
 );
 
 const PlatformPage = () => {
-    const { id: platformId } = useParams();
+    const { id: platformSlug } = useParams();
     const navigate = useNavigate();
 
     const [data, setData] = useState({});
@@ -70,10 +70,10 @@ const PlatformPage = () => {
     useEffect(() => {
         const fetchPlatformData = async () => {
             try {
-                const response = await tablesDB.getRow({
+                const response = await tablesDB.listRows({
                     databaseId: DATABASE_ID,
                     tableId: TABLE_ID_PLATFORMS,
-                    rowId: platformId,
+                    queries: [Query.equal('slug', platformSlug)],
                 });
 
                 const responseProjects = await tablesDB.listRows({
@@ -81,7 +81,7 @@ const PlatformPage = () => {
                     tableId: TABLE_ID_PROJECTS,
                     queries: [
                         Query.equal('is_published', true),
-                        Query.equal('platform_id', platformId),
+                        Query.equal('platform_id', response.rows[0].$id),
                         Query.orderDesc('$createdAt'),
                         Query.limit(3),
                     ],
@@ -90,10 +90,10 @@ const PlatformPage = () => {
                 const responseTeam = await tablesDB.listRows({
                     databaseId: DATABASE_ID,
                     tableId: TABLE_ID_TEAMS,
-                    queries: [Query.equal('platform_id', platformId)],
+                    queries: [Query.equal('platform_id', response.rows[0].$id)],
                 });
 
-                setData(response);
+                setData(response.rows[0]);
                 setProjects(responseProjects.rows);
                 setTeam(responseTeam.rows);
             } catch (error) {
@@ -103,7 +103,7 @@ const PlatformPage = () => {
             }
         };
         fetchPlatformData();
-    }, [platformId, navigate]);
+    }, [platformSlug, navigate]);
 
     const dateFormatter = (dateString) => {
         const date = new Date(dateString);
@@ -280,6 +280,26 @@ const PlatformPage = () => {
         }
     };
 
+    const schemaData = {
+        '@context': 'https://schema.org',
+        '@graph': [
+            {
+                '@type': 'WebPage',
+                '@id': `https://unitstake.com/platforms/${data.slug}`,
+                url: `https://unitstake.com/platforms/${data.slug}`,
+                name: 'UnitStake',
+                inLanguage: 'en',
+                publisher: {
+                    '@type': 'Organization',
+                    '@id': `https://unitstake.com/platforms/${data.slug}`,
+                    name: 'UnitStake',
+                    url: `https://unitstake.com/platforms/${data.slug}`,
+                    logo: 'https://unitstake.com/icon-512.png',
+                },
+            },
+        ],
+    };
+
     return (
         <>
             <Helmet>
@@ -296,6 +316,31 @@ const PlatformPage = () => {
                             : 'Platform overview and details.'
                     }
                 />
+                <meta
+                    property="og:title"
+                    content="UnitStake — RWA Tokenization Aggregator"
+                />
+                <meta
+                    property="og:description"
+                    content="Navigate the market of tokenized assets and RWA tokenization with confidence. Discover verified platforms, fractional ownership opportunities, and real-time data in one place."
+                />
+                <meta
+                    property="og:image"
+                    content="https://unitstake.com/social_image.PNG"
+                />
+                <meta
+                    property="og:url"
+                    content={`https://unitstake.com/platforms/${data.slug}`}
+                />
+                <meta property="og:type" content="website" />
+                <meta property="og:site_name" content="UnitStake" />
+                <link
+                    rel="canonical"
+                    href={`https://unitstake.com/platforms/${data.slug}`}
+                />
+                <script type="application/ld+json">
+                    {JSON.stringify(schemaData)}
+                </script>
             </Helmet>
             <main className={classes.platformPage}>
                 <section className={classes.info}>

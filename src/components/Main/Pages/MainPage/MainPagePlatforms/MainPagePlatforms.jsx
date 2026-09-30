@@ -87,7 +87,7 @@ const MainPagePlatforms = () => {
                                 key={platform.$id}
                                 className={classes.platformCard}
                                 onClick={() =>
-                                    navigate(`/platforms/${platform.$id}`)
+                                    navigate(`/platforms/${platform.slug}`)
                                 }
                             >
                                 <div className={classes.platformCardInfo}>
@@ -174,7 +174,7 @@ const MainPagePlatforms = () => {
                                             }
                                             onClick={() =>
                                                 navigate(
-                                                    `/platforms/${platform.$id}`,
+                                                    `/platforms/${platform.slug}`,
                                                 )
                                             }
                                         >
