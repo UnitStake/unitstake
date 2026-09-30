@@ -1,32 +1,47 @@
-import { Client, Databases, Query } from 'node-appwrite';
+import { Client, TablesDB, Query } from 'node-appwrite';
 
 export default async function handler(req, res) {
+    if (req.method !== 'GET') {
+        return res.status(405).send('Method Not Allowed');
+    }
+
     const DOMAIN = 'https://unitstake.com';
 
     const client = new Client()
         .setEndpoint('https://fra.cloud.appwrite.io/v1')
         .setProject(process.env.VITE_APPWRITE_PROJECT_ID);
 
-    const databases = new Databases(client);
+    if (process.env.APPWRITE_API_KEY) {
+        client.setKey(process.env.APPWRITE_API_KEY);
+    }
+
+    const tablesDB = new TablesDB(client);
 
     try {
-        const platformsResponse = await databases.listRows(
-            process.env.VITE_APPWRITE_DATABASE_ID,
-            process.env.VITE_APPWRITE_TABLE_ID_PLATFORMS,
-            [Query.limit(1000)],
-        );
-
-        const projectsResponse = await databases.listRows(
-            process.env.VITE_APPWRITE_DATABASE_ID,
-            process.env.VITE_APPWRITE_TABLE_ID_PROJECTS,
-            [Query.equal('is_published', true), Query.limit(1000)],
-        );
-
-        const insightsResponse = await databases.listRows(
-            process.env.VITE_APPWRITE_DATABASE_ID,
-            process.env.VITE_APPWRITE_TABLE_ID_NEWS,
-            [Query.equal('is_published', true), Query.limit(1000)],
-        );
+        const [platformsResponse, projectsResponse, insightsResponse] =
+            await Promise.all([
+                tablesDB.listRows({
+                    databaseId: process.env.VITE_APPWRITE_DATABASE_ID,
+                    tableId: process.env.VITE_APPWRITE_TABLE_ID_PLATFORMS,
+                    queries: [Query.limit(1000)],
+                }),
+                tablesDB.listRows({
+                    databaseId: process.env.VITE_APPWRITE_DATABASE_ID,
+                    tableId: process.env.VITE_APPWRITE_TABLE_ID_PROJECTS,
+                    queries: [
+                        Query.equal('is_published', true),
+                        Query.limit(1000),
+                    ],
+                }),
+                tablesDB.listRows({
+                    databaseId: process.env.VITE_APPWRITE_DATABASE_ID,
+                    tableId: process.env.VITE_APPWRITE_TABLE_ID_NEWS,
+                    queries: [
+                        Query.equal('is_published', true),
+                        Query.limit(1000),
+                    ],
+                }),
+            ]);
 
         const staticPages = [
             '',
@@ -39,6 +54,7 @@ export default async function handler(req, res) {
             '/verified',
             '/contact-us',
         ];
+
         const staticXml = staticPages
             .map(
                 (path) => `
@@ -94,7 +110,7 @@ ${projectsXml}
 ${insightsXml}
 </urlset>`;
 
-        res.setHeader('Content-Type', 'text/xml');
+        res.setHeader('Content-Type', 'application/xml');
         res.setHeader(
             'Cache-Control',
             's-maxage=86400, stale-while-revalidate',
