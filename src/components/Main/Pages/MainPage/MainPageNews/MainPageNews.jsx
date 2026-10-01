@@ -65,7 +65,7 @@ const MainPageNews = () => {
                                 key={index}
                                 className={classes.article}
                                 onClick={() =>
-                                    navigate(`/insights/${article.$id}`)
+                                    navigate(`/insights/${article.slug}`)
                                 }
                             >
                                 <div className={classes.articleImg}>
@@ -100,7 +100,7 @@ const MainPageNews = () => {
                                             }
                                             onClick={() =>
                                                 navigate(
-                                                    `/insights/${article.$id}`,
+                                                    `/insights/${article.slug}`,
                                                 )
                                             }
                                         >

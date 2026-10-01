@@ -71,7 +71,7 @@ const Reports = () => {
                                 key={report.$id}
                                 className={classes.report}
                                 onClick={() =>
-                                    navigate(`/insights/${report.$id}`)
+                                    navigate(`/insights/${report.slug}`)
                                 }
                             >
                                 <div className={classes.reportInfo}>

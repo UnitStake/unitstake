@@ -840,7 +840,9 @@ const ProjectsPage = () => {
                                         key={project.$id || index}
                                         className={classes.projectsCard}
                                         onClick={() =>
-                                            navigate(`/projects/${project.$id}`)
+                                            navigate(
+                                                `/projects/${project.slug}`,
+                                            )
                                         }
                                     >
                                         <div
@@ -1012,7 +1014,7 @@ const ProjectsPage = () => {
                                                     }
                                                     onClick={() =>
                                                         navigate(
-                                                            `/projects/${project.$id}`,
+                                                            `/projects/${project.slug}`,
                                                         )
                                                     }
                                                 >

@@ -63,7 +63,11 @@ const AssetsPageMarket = () => {
                 </p>
                 <div className={classes.marketContainer}>
                     {news.map((item) => (
-                        <div key={item.$id} className={classes.marketBox}>
+                        <div
+                            key={item.$id}
+                            className={classes.marketBox}
+                            onClick={() => navigate(`/insights/${item.slug}`)}
+                        >
                             <div className={classes.marketBoxImage}>
                                 <img
                                     src={item.image_url}
@@ -82,7 +86,7 @@ const AssetsPageMarket = () => {
                                     <div
                                         className={classes.projectsCardLinkBtn}
                                         onClick={() =>
-                                            navigate(`/insights/${item.$id}`)
+                                            navigate(`/insights/${item.slug}`)
                                         }
                                     >
                                         <p>Read more</p>

@@ -320,7 +320,7 @@ const News = () => {
                                 key={article.$id}
                                 className={classes.article}
                                 onClick={() =>
-                                    navigate(`/insights/${article.$id}`)
+                                    navigate(`/insights/${article.slug}`)
                                 }
                             >
                                 <div className={classes.articlePic}>
@@ -393,7 +393,9 @@ const News = () => {
                                     <li
                                         key={article.$id}
                                         onClick={() =>
-                                            navigate(`/insights/${article.$id}`)
+                                            navigate(
+                                                `/insights/${article.slug}`,
+                                            )
                                         }
                                     >
                                         <h4>{article.title}</h4>

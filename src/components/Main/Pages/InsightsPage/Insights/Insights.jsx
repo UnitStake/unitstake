@@ -71,7 +71,7 @@ const Insights = () => {
                                 key={article.$id}
                                 className={classes.insight}
                                 onClick={() =>
-                                    navigate(`/insights/${article.$id}`)
+                                    navigate(`/insights/${article.slug}`)
                                 }
                             >
                                 <div className={classes.insightImage}>

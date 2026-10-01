@@ -701,7 +701,7 @@ const AdminNews = () => {
                                     >
                                         <h4>
                                             <a
-                                                href={`/insights/${newsItem.$id}`}
+                                                href={`/insights/${newsItem.slug}`}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
                                             >

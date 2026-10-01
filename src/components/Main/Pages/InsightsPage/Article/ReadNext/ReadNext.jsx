@@ -8,30 +8,36 @@ import {
 } from '../../../../../../lib/appwrite';
 import classes from './ReadNext.module.css';
 
-const ReadNext = ({ articleId }) => {
+const ReadNext = ({ articleSlug }) => {
     const [news, setNews] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
     const navigate = useNavigate();
 
     useEffect(() => {
         const fetchNews = async () => {
+            if (!articleSlug) return;
             try {
+                setIsLoading(true);
                 const response = await tablesDB.listRows({
                     databaseId: DATABASE_ID,
                     tableId: TABLE_ID_NEWS,
                     queries: [
                         Query.equal('is_published', true),
-                        Query.notEqual('$id', articleId),
+                        Query.notEqual('slug', articleSlug),
                         Query.orderDesc('$createdAt'),
                         Query.limit(3),
                     ],
                 });
+
                 setNews(response.rows);
             } catch (error) {
                 console.error('Error fetching news:', error);
+            } finally {
+                setIsLoading(false);
             }
         };
         fetchNews();
-    }, [articleId]);
+    }, [articleSlug]);
 
     const dateFormatter = (dateString) => {
         const date = new Date(dateString);
@@ -41,6 +47,10 @@ const ReadNext = ({ articleId }) => {
             year: 'numeric',
         });
     };
+
+    if (isLoading || news.length === 0) {
+        return null;
+    }
 
     return (
         <>
@@ -54,7 +64,7 @@ const ReadNext = ({ articleId }) => {
                                     key={article.$id}
                                     className={classes.article}
                                     onClick={() =>
-                                        navigate(`/insights/${article.$id}`)
+                                        navigate(`/insights/${article.slug}`)
                                     }
                                 >
                                     {article.image_url ? (

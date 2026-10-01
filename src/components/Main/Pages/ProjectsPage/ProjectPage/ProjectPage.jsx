@@ -5,6 +5,7 @@ import {
     DATABASE_ID,
     TABLE_ID_PROJECTS,
     TABLE_ID_PLATFORMS,
+    Query,
 } from '../../../../../lib/appwrite';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Thumbs } from 'swiper/modules';
@@ -68,7 +69,7 @@ const documentIcon = (
 );
 
 const ProjectPage = () => {
-    const { id: projectId } = useParams();
+    const { id: projectSlug } = useParams();
     const navigate = useNavigate();
 
     const [data, setData] = useState({});
@@ -86,18 +87,18 @@ const ProjectPage = () => {
     useEffect(() => {
         const fetchProject = async () => {
             try {
-                const response = await tablesDB.getRow({
+                const response = await tablesDB.listRows({
                     databaseId: DATABASE_ID,
                     tableId: TABLE_ID_PROJECTS,
-                    rowId: projectId,
+                    queries: [Query.equal('slug', projectSlug)],
                 });
 
-                setData(response);
-                if (response.platform_id) {
+                setData(response.rows[0]);
+                if (response.rows[0].platform_id) {
                     const responsePlatform = await tablesDB.getRow({
                         databaseId: DATABASE_ID,
                         tableId: TABLE_ID_PLATFORMS,
-                        rowId: response.platform_id,
+                        rowId: response.rows[0].platform_id,
                     });
                     setPlatform(responsePlatform);
                 }
@@ -108,7 +109,7 @@ const ProjectPage = () => {
             }
         };
         fetchProject();
-    }, [projectId, navigate]);
+    }, [projectSlug, navigate]);
 
     const dateFormatter = (dateString) => {
         const date = new Date(dateString);
@@ -341,6 +342,26 @@ const ProjectPage = () => {
         }
     };
 
+    const schemaData = {
+        '@context': 'https://schema.org',
+        '@graph': [
+            {
+                '@type': 'CollectionPage',
+                '@id': `https://unitstake.com/projects/${projectSlug}`,
+                url: `https://unitstake.com/projects/${projectSlug}`,
+                name: 'UnitStake',
+                inLanguage: 'en',
+                publisher: {
+                    '@type': 'Organization',
+                    '@id': `https://unitstake.com/projects/${projectSlug}`,
+                    name: 'UnitStake',
+                    url: `https://unitstake.com/projects/${projectSlug}`,
+                    logo: 'https://unitstake.com/icon-512.png',
+                },
+            },
+        ],
+    };
+
     return (
         <>
             <Helmet>
@@ -355,6 +376,31 @@ const ProjectPage = () => {
                             : 'Project overview and details.'
                     }
                 />
+                <meta
+                    property="og:title"
+                    content="UnitStake — RWA Tokenization Aggregator"
+                />
+                <meta
+                    property="og:description"
+                    content="Navigate the market of tokenized assets and RWA tokenization with confidence. Discover verified platforms, fractional ownership opportunities, and real-time data in one place."
+                />
+                <meta
+                    property="og:image"
+                    content="https://unitstake.com/social_image.PNG"
+                />
+                <meta
+                    property="og:url"
+                    content={`https://unitstake.com/projects/${projectSlug}`}
+                />
+                <meta property="og:type" content="website" />
+                <meta property="og:site_name" content="UnitStake" />
+                <link
+                    rel="canonical"
+                    href={`https://unitstake.com/projects/${projectSlug}`}
+                />
+                <script type="application/ld+json">
+                    {JSON.stringify(schemaData)}
+                </script>
             </Helmet>
             <main className={classes.projectPage}>
                 <section className={classes.info}>

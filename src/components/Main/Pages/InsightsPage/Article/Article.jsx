@@ -5,6 +5,7 @@ import {
     tablesDB,
     DATABASE_ID,
     TABLE_ID_NEWS,
+    Query,
 } from '../../../../../lib/appwrite';
 import { Helmet } from 'react-helmet-async';
 import ArticleFaq from './ArticleFaq/ArticleFaq';
@@ -18,7 +19,7 @@ import twitterIcon from '../../../../../assets/images/icons/twitter.svg';
 import shareBtnCopyIcon from '../../../../../assets/images/icons/shareBtnCopy.svg';
 
 const Article = () => {
-    const { id: articleId } = useParams();
+    const { id: articleSlug } = useParams();
     const navigate = useNavigate();
 
     const [articleData, setArticleData] = useState({});
@@ -30,12 +31,12 @@ const Article = () => {
     useEffect(() => {
         const fetchArticle = async () => {
             try {
-                const response = await tablesDB.getRow({
+                const response = await tablesDB.listRows({
                     databaseId: DATABASE_ID,
                     tableId: TABLE_ID_NEWS,
-                    rowId: articleId,
+                    queries: [Query.equal('slug', articleSlug)],
                 });
-                setArticleData(response);
+                setArticleData(response.rows[0]);
                 window.scrollTo(0, 0);
             } catch (error) {
                 console.error('Error fetching article data:', error);
@@ -44,7 +45,7 @@ const Article = () => {
             }
         };
         fetchArticle();
-    }, [articleId, navigate]);
+    }, [articleSlug, navigate]);
 
     const contentBlocks = (articleData?.content_blocks || [])
         .map((block) => {
@@ -138,6 +139,26 @@ const Article = () => {
         setTimeout(() => setCopied(false), 2000);
     };
 
+    const schemaData = {
+        '@context': 'https://schema.org',
+        '@graph': [
+            {
+                '@type': 'CollectionPage',
+                '@id': `https://unitstake.com/insights/${articleSlug}`,
+                url: `https://unitstake.com/insights/${articleSlug}`,
+                name: 'UnitStake',
+                inLanguage: 'en',
+                publisher: {
+                    '@type': 'Organization',
+                    '@id': `https://unitstake.com/insights/${articleSlug}`,
+                    name: 'UnitStake',
+                    url: `https://unitstake.com/insights/${articleSlug}`,
+                    logo: 'https://unitstake.com/icon-512.png',
+                },
+            },
+        ],
+    };
+
     return (
         <>
             <Helmet>
@@ -154,6 +175,31 @@ const Article = () => {
                             : 'Article overview and details.'
                     }
                 />
+                <meta
+                    property="og:title"
+                    content="UnitStake — RWA Tokenization Aggregator"
+                />
+                <meta
+                    property="og:description"
+                    content="Navigate the market of tokenized assets and RWA tokenization with confidence. Discover verified platforms, fractional ownership opportunities, and real-time data in one place."
+                />
+                <meta
+                    property="og:image"
+                    content="https://unitstake.com/social_image.PNG"
+                />
+                <meta
+                    property="og:url"
+                    content={`https://unitstake.com/insights/${articleSlug}`}
+                />
+                <meta property="og:type" content="website" />
+                <meta property="og:site_name" content="UnitStake" />
+                <link
+                    rel="canonical"
+                    href={`https://unitstake.com/insights/${articleSlug}`}
+                />
+                <script type="application/ld+json">
+                    {JSON.stringify(schemaData)}
+                </script>
             </Helmet>
             <main className={classes.articlePage}>
                 <section className={classes.article}>
@@ -300,7 +346,7 @@ const Article = () => {
                 </section>
                 <div className={classes.darkBg}>
                     <MainPageForm />
-                    <ReadNext articleId={articleId} />
+                    <ReadNext articleSlug={articleSlug} />
                 </div>
             </main>
         </>
