@@ -316,17 +316,21 @@ const PlatformPage = () => {
                             : 'Platform overview and details.'
                     }
                 />
-                <meta
-                    property="og:title"
-                    content="UnitStake — RWA Tokenization Aggregator"
-                />
+                <meta property="og:title" content={data.name} />
                 <meta
                     property="og:description"
-                    content="Navigate the market of tokenized assets and RWA tokenization with confidence. Discover verified platforms, fractional ownership opportunities, and real-time data in one place."
+                    content={
+                        data.description ||
+                        'Navigate the market of tokenized assets and RWA tokenization with confidence. Discover verified platforms, fractional ownership opportunities, and real-time data in one place.'
+                    }
                 />
                 <meta
                     property="og:image"
-                    content="https://unitstake.com/social_image.png"
+                    content={
+                        data.image_url
+                            ? data.image_url
+                            : 'https://unitstake.com/social_image.png'
+                    }
                 />
                 <meta
                     property="og:url"

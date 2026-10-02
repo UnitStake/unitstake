@@ -175,23 +175,27 @@ const Article = () => {
                             : 'Article overview and details.'
                     }
                 />
-                <meta
-                    property="og:title"
-                    content="UnitStake — RWA Tokenization Aggregator"
-                />
+                <meta property="og:title" content={articleData.title} />
                 <meta
                     property="og:description"
-                    content="Navigate the market of tokenized assets and RWA tokenization with confidence. Discover verified platforms, fractional ownership opportunities, and real-time data in one place."
+                    content={
+                        articleData.description ||
+                        'Navigate the market of tokenized assets and RWA tokenization with confidence. Discover verified platforms, fractional ownership opportunities, and real-time data in one place.'
+                    }
                 />
                 <meta
                     property="og:image"
-                    content="https://unitstake.com/social_image.png"
+                    content={
+                        articleData.image_url
+                            ? articleData.image_url
+                            : 'https://unitstake.com/social_image.png'
+                    }
                 />
                 <meta
                     property="og:url"
                     content={`https://unitstake.com/insights/${articleSlug}`}
                 />
-                <meta property="og:type" content="website" />
+                <meta property="og:type" content="article" />
                 <meta property="og:site_name" content="UnitStake" />
                 <link
                     rel="canonical"

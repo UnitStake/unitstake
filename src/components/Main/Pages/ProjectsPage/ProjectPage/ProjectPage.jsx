@@ -385,10 +385,6 @@ const ProjectPage = () => {
                         'Navigate the market of tokenized assets and RWA tokenization with confidence. Discover verified platforms, fractional ownership opportunities, and real-time data in one place.'
                     }
                 />
-                {/* <meta
-                    property="og:image"
-                    content="https://unitstake.com/social_image.png"
-                /> */}
                 <meta
                     property="og:image"
                     content={
@@ -397,9 +393,6 @@ const ProjectPage = () => {
                             : 'https://unitstake.com/social_image.png'
                     }
                 />
-                {/* <meta property="og:image:type" content="image/png" /> */}
-                {/* <meta property="og:image:width" content="1200" /> */}
-                {/* <meta property="og:image:height" content="630" /> */}
                 <meta
                     property="og:url"
                     content={`https://unitstake.com/projects/${projectSlug}`}
@@ -408,15 +401,6 @@ const ProjectPage = () => {
                 <link
                     rel="canonical"
                     href={`https://unitstake.com/projects/${projectSlug}`}
-                />
-                <meta name="twitter:card" content="summary_large_image" />
-                <meta
-                    name="twitter:image"
-                    content={
-                        contentBlocksImages.length > 0
-                            ? contentBlocksImages[0].value
-                            : 'https://unitstake.com/social_image.png'
-                    }
                 />
                 <script type="application/ld+json">
                     {JSON.stringify(schemaData)}
