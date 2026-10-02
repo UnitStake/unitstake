@@ -386,11 +386,11 @@ const ProjectPage = () => {
                 />
                 <meta
                     property="og:image"
-                    content={contentBlocksImages[0].value}
+                    content="https://unitstake.com/social_image.PNG"
                 />
                 <meta
                     property="og:image:secure_url"
-                    content={contentBlocksImages[0].value}
+                    content="https://unitstake.com/social_image.PNG"
                 />
                 <meta property="og:image:width" content="1200" />
                 <meta property="og:image:height" content="630" />
