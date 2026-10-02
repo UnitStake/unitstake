@@ -376,6 +376,7 @@ const ProjectPage = () => {
                             : 'Project overview and details.'
                     }
                 />
+                <meta property="og:type" content="website" />
                 <meta
                     property="og:title"
                     content="UnitStake — RWA Tokenization Aggregator"
@@ -388,10 +389,7 @@ const ProjectPage = () => {
                     property="og:image"
                     content="https://unitstake.com/social_image.png"
                 />
-                <meta
-                    property="og:image:secure_url"
-                    content="https://unitstake.com/social_image.png"
-                />
+                <meta property="og:image:type" content="image/png" />
                 <meta property="og:image:width" content="1200" />
                 <meta property="og:image:height" content="630" />
                 <meta
