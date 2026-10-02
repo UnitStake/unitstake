@@ -49,11 +49,11 @@ const MainPage = () => {
                 />
                 <meta
                     property="og:image"
-                    content="https://unitstake.com/social_image.PNG"
+                    content="https://unitstake.com/social_image.png"
                 />
                 <meta
                     property="og:image:secure_url"
-                    content="https://unitstake.com/social_image.PNG"
+                    content="https://unitstake.com/social_image.png"
                 />
                 <meta property="og:image:width" content="1200" />
                 <meta property="og:image:height" content="630" />

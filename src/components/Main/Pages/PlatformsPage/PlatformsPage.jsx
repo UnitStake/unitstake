@@ -285,7 +285,7 @@ const PlatformsPage = () => {
                 />
                 <meta
                     property="og:image"
-                    content="https://unitstake.com/social_image.PNG"
+                    content="https://unitstake.com/social_image.png"
                 />
                 <meta
                     property="og:url"
