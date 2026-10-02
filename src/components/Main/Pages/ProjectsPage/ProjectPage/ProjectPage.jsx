@@ -386,8 +386,14 @@ const ProjectPage = () => {
                 />
                 <meta
                     property="og:image"
-                    content="https://unitstake.com/social_image.PNG"
+                    content={contentBlocksImages[0].value}
                 />
+                <meta
+                    property="og:image:secure_url"
+                    content={contentBlocksImages[0].value}
+                />
+                <meta property="og:image:width" content="1200" />
+                <meta property="og:image:height" content="630" />
                 <meta
                     property="og:url"
                     content={`https://unitstake.com/projects/${projectSlug}`}

@@ -378,6 +378,12 @@ const ProjectsPage = () => {
                     content="https://unitstake.com/social_image.PNG"
                 />
                 <meta
+                    property="og:image:secure_url"
+                    content="https://unitstake.com/social_image.PNG"
+                />
+                <meta property="og:image:width" content="1200" />
+                <meta property="og:image:height" content="630" />
+                <meta
                     property="og:url"
                     content="https://unitstake.com/projects"
                 />
