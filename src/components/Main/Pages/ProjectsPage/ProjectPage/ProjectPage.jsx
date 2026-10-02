@@ -377,26 +377,33 @@ const ProjectPage = () => {
                     }
                 />
                 <meta property="og:type" content="website" />
-                <meta
-                    property="og:title"
-                    content="UnitStake — RWA Tokenization Aggregator"
-                />
+                <meta property="og:title" content={data.name} />
                 <meta
                     property="og:description"
-                    content="Navigate the market of tokenized assets and RWA tokenization with confidence. Discover verified platforms, fractional ownership opportunities, and real-time data in one place."
+                    content={
+                        data.description ||
+                        'Navigate the market of tokenized assets and RWA tokenization with confidence. Discover verified platforms, fractional ownership opportunities, and real-time data in one place.'
+                    }
                 />
-                <meta
+                {/* <meta
                     property="og:image"
                     content="https://unitstake.com/social_image.png"
+                /> */}
+                <meta
+                    property="og:image"
+                    content={
+                        contentBlocksImages.length > 0
+                            ? contentBlocksImages[0].value
+                            : 'https://unitstake.com/social_image.png'
+                    }
                 />
-                <meta property="og:image:type" content="image/png" />
-                <meta property="og:image:width" content="1200" />
-                <meta property="og:image:height" content="630" />
+                {/* <meta property="og:image:type" content="image/png" /> */}
+                {/* <meta property="og:image:width" content="1200" /> */}
+                {/* <meta property="og:image:height" content="630" /> */}
                 <meta
                     property="og:url"
                     content={`https://unitstake.com/projects/${projectSlug}`}
                 />
-                <meta property="og:type" content="website" />
                 <meta property="og:site_name" content="UnitStake" />
                 <link
                     rel="canonical"
