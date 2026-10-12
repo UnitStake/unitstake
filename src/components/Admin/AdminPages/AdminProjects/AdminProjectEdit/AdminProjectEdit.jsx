@@ -50,6 +50,7 @@ const AdminProjectEdit = () => {
     const [foundedDate, setFoundedDate] = useState('');
     const [websiteUrl, setWebsiteUrl] = useState('');
     const [country, setCountry] = useState('');
+    const [projectCurrency, setProjectCurrency] = useState('');
 
     const [investorTypesList, setInvestorTypesList] = useState([]);
     const [selectedInvestorTypes, setSelectedInvestorTypes] = useState([]);
@@ -100,7 +101,7 @@ const AdminProjectEdit = () => {
                 setEmployeesCount(data.employees_count || '');
                 setFoundedDate(data.founded_date || '');
                 setWebsiteUrl(data.website_url || '');
-
+                setProjectCurrency(data.project_currency || '');
                 if (data.country) {
                     setCountry(
                         Array.isArray(data.country)
@@ -475,6 +476,7 @@ const AdminProjectEdit = () => {
                 facebook_url: facebookUrl,
                 youtube_url: youtubeUrl,
                 google_maps_url: googleMapsUrl,
+                project_currency: projectCurrency,
             };
 
             await tablesDB.updateRow({
@@ -686,6 +688,27 @@ const AdminProjectEdit = () => {
                             value={country}
                             onChange={(e) => setCountry(e.target.value)}
                         />
+                    </div>
+                    <div className={classes.addPlatformFormIdentityField}>
+                        <label htmlFor="relatedPlatform">
+                            Project Currency (USD, EUR, GBP...)
+                        </label>
+                        <select
+                            id="relatedPlatform"
+                            className={classes.selectInput}
+                            value={projectCurrency}
+                            onChange={(e) => setProjectCurrency(e.target.value)}
+                        >
+                            <option value="">Select currency</option>
+                            <option value="$">USD</option>
+                            <option value="€">EUR</option>
+                            <option value="£">GBP</option>
+                            <option value="₴">UAH</option>
+                            <option value="zł">PLN</option>
+                            <option value="USDT">USDT</option>
+                            <option value="USDC">USDC</option>
+                            <option value="EURC">EURC</option>
+                        </select>
                     </div>
                     <div className={classes.addPlatformFormIdentityField}>
                         <label htmlFor="minInvestment">

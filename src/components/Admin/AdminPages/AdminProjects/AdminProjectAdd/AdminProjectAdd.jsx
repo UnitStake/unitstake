@@ -46,6 +46,7 @@ const AdminProjectAdd = () => {
     const [foundedDate, setFoundedDate] = useState('');
     const [websiteUrl, setWebsiteUrl] = useState('');
     const [country, setCountry] = useState('');
+    const [projectCurrency, setProjectCurrency] = useState('');
 
     const [investorTypesList, setInvestorTypesList] = useState([]);
     const [selectedInvestorTypes, setSelectedInvestorTypes] = useState([]);
@@ -367,6 +368,7 @@ const AdminProjectAdd = () => {
                 youtube_url: youtubeUrl,
                 google_maps_url: googleMapsUrl,
                 slug: slug,
+                project_currency: projectCurrency,
             };
 
             await tablesDB.createRow({
@@ -574,6 +576,28 @@ const AdminProjectAdd = () => {
                             value={country}
                             onChange={(e) => setCountry(e.target.value)}
                         />
+                    </div>
+
+                    <div className={classes.addPlatformFormIdentityField}>
+                        <label htmlFor="relatedPlatform">
+                            Project Currency (USD, EUR, GBP...)
+                        </label>
+                        <select
+                            id="relatedPlatform"
+                            className={classes.selectInput}
+                            value={projectCurrency}
+                            onChange={(e) => setProjectCurrency(e.target.value)}
+                        >
+                            <option value="">Select currency</option>
+                            <option value="$">USD</option>
+                            <option value="€">EUR</option>
+                            <option value="£">GBP</option>
+                            <option value="₴">UAH</option>
+                            <option value="zł">PLN</option>
+                            <option value="USDT">USDT</option>
+                            <option value="USDC">USDC</option>
+                            <option value="EURC">EURC</option>
+                        </select>
                     </div>
 
                     <div className={classes.addPlatformFormIdentityField}>

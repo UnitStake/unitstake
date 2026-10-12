@@ -342,6 +342,34 @@ const ProjectPage = () => {
         }
     };
 
+    const foundFirstCurrencySymbol = (symbol) => {
+        if (!symbol) {
+            return '$';
+        } else if (
+            symbol == '$' ||
+            symbol == '€' ||
+            symbol == '£' ||
+            symbol == '₴'
+        ) {
+            return symbol;
+        } else {
+            return '';
+        }
+    };
+
+    const foundSecondCurrencySymbol = (symbol) => {
+        if (
+            symbol == 'zł' ||
+            symbol == 'USDT' ||
+            symbol == 'USDC' ||
+            symbol == 'EURC'
+        ) {
+            return symbol;
+        } else {
+            return '';
+        }
+    };
+
     const schemaData = {
         '@context': 'https://schema.org',
         '@graph': [
@@ -584,8 +612,8 @@ const ProjectPage = () => {
                             <div className={classes.contentMainNumbers}>
                                 <div className={classes.currentInvestments}>
                                     {data.current_investments
-                                        ? `$${formatAssetLabel(data.current_investments)}`
-                                        : '$0'}
+                                        ? `${foundFirstCurrencySymbol(data.project_currency)}${formatAssetLabel(data.current_investments)} ${foundSecondCurrencySymbol(data.project_currency)}`
+                                        : '*****'}
                                 </div>
                                 <div className={classes.progress}>
                                     {data.current_investments &&
@@ -594,8 +622,8 @@ const ProjectPage = () => {
                                               (data.current_investments /
                                                   data.funding_goal) *
                                                   100,
-                                          )}% raised of $${formatAssetLabel(data.funding_goal)}`
-                                        : '$0'}
+                                          )}% raised of ${foundFirstCurrencySymbol(data.project_currency)}${formatAssetLabel(data.funding_goal)} ${foundSecondCurrencySymbol(data.project_currency)}`
+                                        : '*****'}
                                     <div className={classes.progressBar}>
                                         <div
                                             className={
@@ -737,43 +765,56 @@ const ProjectPage = () => {
                                         <li>
                                             Minimum investment
                                             <div>
-                                                $
+                                                {foundFirstCurrencySymbol(
+                                                    data.project_currency,
+                                                )}
                                                 {data.min_investment
-                                                    ? formatAssetLabel(
+                                                    ? `${formatAssetLabel(
                                                           data.min_investment,
-                                                      )
+                                                      )} ${foundSecondCurrencySymbol(
+                                                          data.project_currency,
+                                                      )}`
                                                     : 0}
                                             </div>
                                         </li>
                                         <li>
                                             Maximum investment
                                             <div>
-                                                $
+                                                {foundFirstCurrencySymbol(
+                                                    data.project_currency,
+                                                )}
                                                 {data.max_investment
-                                                    ? formatAssetLabel(
+                                                    ? `${formatAssetLabel(
                                                           data.max_investment,
-                                                      )
+                                                      )} ${foundSecondCurrencySymbol(
+                                                          data.project_currency,
+                                                      )}`
                                                     : 0}
                                             </div>
                                         </li>
                                         <li>
                                             Funding goal
                                             <div>
-                                                $
+                                                {foundFirstCurrencySymbol(
+                                                    data.project_currency,
+                                                )}
                                                 {data.funding_goal
-                                                    ? formatAssetLabel(
+                                                    ? `${formatAssetLabel(
                                                           data.funding_goal,
-                                                      )
+                                                      )} ${foundSecondCurrencySymbol(
+                                                          data.project_currency,
+                                                      )}`
                                                     : 0}
                                             </div>
                                         </li>
                                         <li>
                                             Deadline
                                             <div>
-                                                {data.deadline &&
-                                                    dateFormatter(
-                                                        data.deadline,
-                                                    )}
+                                                {data.deadline
+                                                    ? dateFormatter(
+                                                          data.deadline,
+                                                      )
+                                                    : '*****'}
                                             </div>
                                         </li>
                                     </ul>

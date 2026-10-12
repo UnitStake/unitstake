@@ -329,6 +329,34 @@ const ProjectsPage = () => {
         }
     };
 
+    const foundFirstCurrencySymbol = (symbol) => {
+        if (!symbol) {
+            return '$';
+        } else if (
+            symbol == '$' ||
+            symbol == '€' ||
+            symbol == '£' ||
+            symbol == '₴'
+        ) {
+            return symbol;
+        } else {
+            return '';
+        }
+    };
+
+    const foundSecondCurrencySymbol = (symbol) => {
+        if (
+            symbol == 'zł' ||
+            symbol == 'USDT' ||
+            symbol == 'USDC' ||
+            symbol == 'EURC'
+        ) {
+            return symbol;
+        } else {
+            return '';
+        }
+    };
+
     if (isLoading) {
         return (
             <main className={classes.projectsPage}>
@@ -473,7 +501,7 @@ const ProjectsPage = () => {
                                                 : arrowDown}
                                         </div>
                                     </div>
-                                    <div className={classes.projectsFilter}>
+                                    {/* <div className={classes.projectsFilter}>
                                         <div
                                             className={`${classes.projectsFilterName} ${activeFilter === 'minTicket' ? classes.active : ''}`}
                                             onClick={() =>
@@ -485,7 +513,7 @@ const ProjectsPage = () => {
                                                 ? arrowUp
                                                 : arrowDown}
                                         </div>
-                                    </div>
+                                    </div> */}
                                 </div>
 
                                 {activeFilter === 'jurisdiction' && (
@@ -909,14 +937,21 @@ const ProjectsPage = () => {
                                                     project.funding_goal >
                                                         0 && (
                                                         <p>
-                                                            $
-                                                            {formatAssetLabel(
+                                                            {`${foundFirstCurrencySymbol(
+                                                                project.project_currency,
+                                                            )}${formatAssetLabel(
                                                                 project.current_investments,
-                                                            )}{' '}
-                                                            / $
-                                                            {formatAssetLabel(
+                                                            )} ${foundSecondCurrencySymbol(
+                                                                project.project_currency,
+                                                            )}`}
+                                                            /{' '}
+                                                            {`${foundFirstCurrencySymbol(
+                                                                project.project_currency,
+                                                            )}${formatAssetLabel(
                                                                 project.funding_goal,
-                                                            )}
+                                                            )} ${foundSecondCurrencySymbol(
+                                                                project.project_currency,
+                                                            )}`}
                                                         </p>
                                                     )}
                                             </div>
@@ -956,7 +991,7 @@ const ProjectsPage = () => {
                                                             %
                                                         </p>
                                                     ) : (
-                                                        <p>0%</p>
+                                                        <p>*****</p>
                                                     )}
                                                 </div>
                                                 <div
@@ -968,13 +1003,16 @@ const ProjectsPage = () => {
                                                     {project.min_investment >
                                                     0 ? (
                                                         <p>
-                                                            $
-                                                            {formatAssetLabel(
+                                                            {`${foundFirstCurrencySymbol(
+                                                                project.project_currency,
+                                                            )}${formatAssetLabel(
                                                                 project.min_investment,
-                                                            )}
+                                                            )} ${foundSecondCurrencySymbol(
+                                                                project.project_currency,
+                                                            )}`}
                                                         </p>
                                                     ) : (
-                                                        <p>$0</p>
+                                                        <p>*****</p>
                                                     )}
                                                 </div>
                                                 <div
