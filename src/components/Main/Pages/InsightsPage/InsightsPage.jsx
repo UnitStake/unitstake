@@ -6,26 +6,6 @@ import Reports from './Reports/Reports';
 import classes from './InsightsPage.module.css';
 
 const InsightsPage = () => {
-    const schemaData = {
-        '@context': 'https://schema.org',
-        '@graph': [
-            {
-                '@type': 'CollectionPage',
-                '@id': 'https://unitstake.com/insights',
-                url: 'https://unitstake.com/insights',
-                name: 'UnitStake',
-                inLanguage: 'en',
-                publisher: {
-                    '@type': 'Organization',
-                    '@id': 'https://unitstake.com/insights',
-                    name: 'UnitStake',
-                    url: 'https://unitstake.com/insights',
-                    logo: 'https://unitstake.com/icon-512.png',
-                },
-            },
-        ],
-    };
-
     return (
         <>
             <Helmet>
@@ -55,9 +35,6 @@ const InsightsPage = () => {
                 <meta property="og:type" content="website" />
                 <meta property="og:site_name" content="UnitStake" />
                 <link rel="canonical" href="https://unitstake.com/insights" />
-                <script type="application/ld+json">
-                    {JSON.stringify(schemaData)}
-                </script>
             </Helmet>
             <main className={classes.insightsPage}>
                 <section className={classes.news}>

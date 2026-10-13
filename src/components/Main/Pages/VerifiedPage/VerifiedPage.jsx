@@ -43,26 +43,6 @@ const secondDisclaimerTxt = (
 );
 
 const VerifiedPage = () => {
-    const schemaData = {
-        '@context': 'https://schema.org',
-        '@graph': [
-            {
-                '@type': 'WebPage',
-                '@id': 'https://unitstake.com/verified',
-                url: 'https://unitstake.com/verified',
-                name: 'UnitStake',
-                inLanguage: 'en',
-                publisher: {
-                    '@type': 'Organization',
-                    '@id': 'https://unitstake.com/verified',
-                    name: 'UnitStake',
-                    url: 'https://unitstake.com/verified',
-                    logo: 'https://unitstake.com/icon-512.png',
-                },
-            },
-        ],
-    };
-
     return (
         <>
             <Helmet>
@@ -90,9 +70,6 @@ const VerifiedPage = () => {
                 <meta property="og:type" content="website" />
                 <meta property="og:site_name" content="UnitStake" />
                 <link rel="canonical" href="https://unitstake.com/verified" />
-                <script type="application/ld+json">
-                    {JSON.stringify(schemaData)}
-                </script>
             </Helmet>
             <main className={classes.verifiedPage}>
                 <VerifiedPageHeroSection />

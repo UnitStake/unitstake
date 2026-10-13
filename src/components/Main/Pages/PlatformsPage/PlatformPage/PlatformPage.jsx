@@ -280,24 +280,44 @@ const PlatformPage = () => {
         }
     };
 
+    const foundFirstCurrencySymbol = (symbol) => {
+        if (!symbol) {
+            return '$';
+        } else if (
+            symbol == '$' ||
+            symbol == '€' ||
+            symbol == '£' ||
+            symbol == '₴'
+        ) {
+            return symbol;
+        } else {
+            return '';
+        }
+    };
+
+    const foundSecondCurrencySymbol = (symbol) => {
+        if (
+            symbol == 'zł' ||
+            symbol == 'USDT' ||
+            symbol == 'USDC' ||
+            symbol == 'EURC'
+        ) {
+            return symbol;
+        } else {
+            return '';
+        }
+    };
+
     const schemaData = {
         '@context': 'https://schema.org',
-        '@graph': [
-            {
-                '@type': 'WebPage',
-                '@id': `https://unitstake.com/platforms/${data.slug}`,
-                url: `https://unitstake.com/platforms/${data.slug}`,
-                name: 'UnitStake',
-                inLanguage: 'en',
-                publisher: {
-                    '@type': 'Organization',
-                    '@id': `https://unitstake.com/platforms/${data.slug}`,
-                    name: 'UnitStake',
-                    url: `https://unitstake.com/platforms/${data.slug}`,
-                    logo: 'https://unitstake.com/icon-512.png',
-                },
-            },
-        ],
+        '@type': 'Organization',
+        '@id': `https://unitstake.com/platforms/${data.slug}#organization`,
+        name: data.name,
+        description: data.description,
+        url: data.platform_website,
+        logo: data.logo,
+        foundingDate: data.platform_age,
+        mainEntityOfPage: `https://unitstake.com/platforms/${data.slug}`,
     };
 
     return (
@@ -433,7 +453,7 @@ const PlatformPage = () => {
                                     <h3>Total Tokenized Asset Volume</h3>
                                     <h4>
                                         {data.assets
-                                            ? `$${formatAssetLabel(data.assets)}`
+                                            ? `${foundFirstCurrencySymbol(data.platform_currency)}${formatAssetLabel(data.assets)} ${foundSecondCurrencySymbol(data.platform_currency)}`
                                             : '—'}
                                     </h4>
                                 </div>
@@ -591,14 +611,9 @@ const PlatformPage = () => {
                                                     project.funding_goal >
                                                         0 && (
                                                         <p>
-                                                            $
-                                                            {formatAssetLabel(
-                                                                project.current_investments,
-                                                            )}{' '}
-                                                            / $
-                                                            {formatAssetLabel(
-                                                                project.funding_goal,
-                                                            )}
+                                                            {`${foundFirstCurrencySymbol(project.project_currency)}${formatAssetLabel(project.current_investments)} ${foundSecondCurrencySymbol(project.project_currency)} `}
+                                                            /
+                                                            {` ${foundFirstCurrencySymbol(project.project_currency)}${formatAssetLabel(project.funding_goal)} ${foundSecondCurrencySymbol(project.project_currency)}`}
                                                         </p>
                                                     )}
                                             </div>
@@ -654,13 +669,10 @@ const PlatformPage = () => {
                                                     {project.min_investment >
                                                     0 ? (
                                                         <p>
-                                                            $
-                                                            {formatAssetLabel(
-                                                                project.min_investment,
-                                                            )}
+                                                            {`${foundFirstCurrencySymbol(project.project_currency)}${formatAssetLabel(project.min_investment)} ${foundSecondCurrencySymbol(project.project_currency)}`}
                                                         </p>
                                                     ) : (
-                                                        <p>$0</p>
+                                                        <p>*****</p>
                                                     )}
                                                 </div>
                                                 <div

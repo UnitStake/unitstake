@@ -82,7 +82,7 @@ export default async function handler(req, res) {
             .map(
                 (project) => `
   <url>
-    <loc>${DOMAIN}/projects/${project.$id}</loc>
+    <loc>${DOMAIN}/projects/${project.slug}</loc>
     <lastmod>${new Date(project.$updatedAt).toISOString()}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -94,7 +94,7 @@ export default async function handler(req, res) {
             .map(
                 (insight) => `
   <url>
-    <loc>${DOMAIN}/insights/${insight.$id}</loc>
+    <loc>${DOMAIN}/insights/${insight.slug}</loc>
     <lastmod>${new Date(insight.$updatedAt).toISOString()}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>

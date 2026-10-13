@@ -18,26 +18,6 @@ import MainPageNews from '../MainPage/MainPageNews/MainPageNews';
 import classes from './AssetsPage.module.css';
 
 const AssetsPage = () => {
-    const schemaData = {
-        '@context': 'https://schema.org',
-        '@graph': [
-            {
-                '@type': 'WebPage',
-                '@id': 'https://unitstake.com/for-assets-owners',
-                url: 'https://unitstake.com/for-assets-owners',
-                name: 'UnitStake',
-                inLanguage: 'en',
-                publisher: {
-                    '@type': 'Organization',
-                    '@id': 'https://unitstake.com/for-assets-owners',
-                    name: 'UnitStake',
-                    url: 'https://unitstake.com/for-assets-owners',
-                    logo: 'https://unitstake.com/icon-512.png',
-                },
-            },
-        ],
-    };
-
     return (
         <>
             <Helmet>
@@ -50,11 +30,11 @@ const AssetsPage = () => {
                 />
                 <meta
                     property="og:title"
-                    content="UnitStake — RWA Tokenization Aggregator"
+                    content="Tokenize Your Asset: Listing & Own Platform"
                 />
                 <meta
                     property="og:description"
-                    content="Navigate the market of tokenized assets and RWA tokenization with confidence. Discover verified platforms, fractional ownership opportunities, and real-time data in one place."
+                    content="Tokenize real estate, a business or other real-world assets: list your project on UnitStake Aggregator, get Verified by UnitStake and launch your own platform"
                 />
                 <meta
                     property="og:image"
@@ -70,9 +50,6 @@ const AssetsPage = () => {
                     rel="canonical"
                     href="https://unitstake.com/for-assets-owners"
                 />
-                <script type="application/ld+json">
-                    {JSON.stringify(schemaData)}
-                </script>
             </Helmet>
             <main className={classes.assetsPage}>
                 <AssetsPageHeroSection />

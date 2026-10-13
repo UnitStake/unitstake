@@ -174,26 +174,6 @@ const ContactUs = () => {
         }
     };
 
-    const schemaData = {
-        '@context': 'https://schema.org',
-        '@graph': [
-            {
-                '@type': 'WebPage',
-                '@id': 'https://unitstake.com/contact-us',
-                url: 'https://unitstake.com/contact-us',
-                name: 'UnitStake',
-                inLanguage: 'en',
-                publisher: {
-                    '@type': 'Organization',
-                    '@id': 'https://unitstake.com/contact-us',
-                    name: 'UnitStake',
-                    url: 'https://unitstake.com/contact-us',
-                    logo: 'https://unitstake.com/icon-512.png',
-                },
-            },
-        ],
-    };
-
     return (
         <>
             <Helmet>
@@ -221,9 +201,6 @@ const ContactUs = () => {
                 <meta property="og:type" content="website" />
                 <meta property="og:site_name" content="UnitStake" />
                 <link rel="canonical" href="https://unitstake.com/contact-us" />
-                <script type="application/ld+json">
-                    {JSON.stringify(schemaData)}
-                </script>
             </Helmet>
             <main className={classes.contactContainer}>
                 <div className="wrapper">

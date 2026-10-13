@@ -37,6 +37,7 @@ const AdminPlatformEdit = () => {
     const [totalProjects, setTotalProjects] = useState('');
     const [jurisdiction, setJurisdiction] = useState('');
     const [platformWebsite, setPlatformWebsite] = useState('');
+    const [platformCurrency, setPlatformCurrency] = useState('');
 
     const [imageFile, setImageFile] = useState(null);
     const [currentImageUrl, setCurrentImageUrl] = useState('');
@@ -83,6 +84,7 @@ const AdminPlatformEdit = () => {
                 setSelectedCategories(data.category || []);
                 setSelectedTypes(data.filters || []);
                 setSelectedInvestorTypes(data.investor_type || []);
+                setPlatformCurrency(data.platform_currency || '');
 
                 if (data.jurisdiction) {
                     setJurisdiction(
@@ -337,6 +339,7 @@ const AdminPlatformEdit = () => {
                 platform_website: platformWebsite,
                 filters: selectedTypes,
                 investor_type: selectedInvestorTypes,
+                platform_currency: platformCurrency,
             };
 
             await tablesDB.updateRow({
@@ -492,7 +495,29 @@ const AdminPlatformEdit = () => {
                             ))}
                         </div>
                     </div>
-
+                    <div className={classes.addPlatformFormIdentityField}>
+                        <label htmlFor="relatedPlatform">
+                            Platform Currency (USD, EUR, GBP...)
+                        </label>
+                        <select
+                            id="relatedPlatform"
+                            className={classes.selectInput}
+                            value={platformCurrency}
+                            onChange={(e) =>
+                                setPlatformCurrency(e.target.value)
+                            }
+                        >
+                            <option value="">Select currency</option>
+                            <option value="$">USD</option>
+                            <option value="€">EUR</option>
+                            <option value="£">GBP</option>
+                            <option value="₴">UAH</option>
+                            <option value="zł">PLN</option>
+                            <option value="USDT">USDT</option>
+                            <option value="USDC">USDC</option>
+                            <option value="EURC">EURC</option>
+                        </select>
+                    </div>
                     <div className={classes.addPlatformFormIdentityField}>
                         <label htmlFor="assets">
                             Total Tokenized Asset Volume

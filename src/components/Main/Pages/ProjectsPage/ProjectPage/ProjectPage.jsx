@@ -370,26 +370,6 @@ const ProjectPage = () => {
         }
     };
 
-    const schemaData = {
-        '@context': 'https://schema.org',
-        '@graph': [
-            {
-                '@type': 'CollectionPage',
-                '@id': `https://unitstake.com/projects/${projectSlug}`,
-                url: `https://unitstake.com/projects/${projectSlug}`,
-                name: 'UnitStake',
-                inLanguage: 'en',
-                publisher: {
-                    '@type': 'Organization',
-                    '@id': `https://unitstake.com/projects/${projectSlug}`,
-                    name: 'UnitStake',
-                    url: `https://unitstake.com/projects/${projectSlug}`,
-                    logo: 'https://unitstake.com/icon-512.png',
-                },
-            },
-        ],
-    };
-
     return (
         <>
             <Helmet>
@@ -430,9 +410,6 @@ const ProjectPage = () => {
                     rel="canonical"
                     href={`https://unitstake.com/projects/${projectSlug}`}
                 />
-                <script type="application/ld+json">
-                    {JSON.stringify(schemaData)}
-                </script>
             </Helmet>
             <main className={classes.projectPage}>
                 <section className={classes.info}>

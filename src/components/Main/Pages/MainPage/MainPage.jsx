@@ -19,14 +19,47 @@ const MainPage = () => {
                 '@id': 'https://unitstake.com/#website',
                 url: 'https://unitstake.com/',
                 name: 'UnitStake',
-                inLanguage: 'en',
-                publisher: {
-                    '@type': 'Organization',
-                    '@id': 'https://unitstake.com/#organization',
-                    name: 'UnitStake',
-                    url: 'https://unitstake.com/',
-                    logo: 'https://unitstake.com/icon-512.png',
+                publisher: { '@id': 'https://unitstake.com/#organization' },
+            },
+            {
+                '@type': 'Organization',
+                '@id': 'https://unitstake.com/#organization',
+                name: 'UnitStake',
+                legalName: 'UNIT STAKE LIMITED',
+                url: 'https://unitstake.com/',
+                logo: 'https://unitstake.com/icon-512.png',
+                description:
+                    'UnitStake Aggregator is an independent informational aggregator focused on tokenized assets, platforms, and projects in the RWA (Real World Assets) space.',
+                email: 'support@unitstake.com',
+                address: {
+                    '@type': 'PostalAddress',
+                    streetAddress: '124 City Road',
+                    addressLocality: 'London',
+                    postalCode: 'EC1V 2NX',
+                    addressCountry: 'GB',
                 },
+                contactPoint: [
+                    {
+                        '@type': 'ContactPoint',
+                        contactType: 'customer support',
+                        email: 'support@unitstake.com',
+                    },
+                    {
+                        '@type': 'ContactPoint',
+                        contactType: 'partnerships',
+                        email: 'partners@unitstake.com',
+                    },
+                    {
+                        '@type': 'ContactPoint',
+                        contactType: 'sales',
+                        email: 'bd@unitstake.com',
+                    },
+                ],
+                sameAs: [
+                    'https://www.linkedin.com/company/unit-stake/',
+                    'https://www.instagram.com/unitstake',
+                    'https://www.threads.com/@unitstake',
+                ],
             },
         ],
     };

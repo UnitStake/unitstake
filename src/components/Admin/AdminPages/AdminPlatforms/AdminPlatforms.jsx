@@ -89,6 +89,46 @@ const AdminPlatforms = () => {
         return date.toLocaleDateString();
     };
 
+    const formatAssetLabel = (value) => {
+        if (value >= 1000 && value <= 999999) {
+            return `${Math.round(value / 1000)}K`;
+        } else if (value >= 1000000 && value <= 999999999) {
+            return `${Math.round(value / 1000000)}M`;
+        } else if (value >= 1000000000 && value <= 999999999999) {
+            return `${Math.round(value / 1000000000)}B`;
+        } else {
+            return value;
+        }
+    };
+
+    const foundFirstCurrencySymbol = (symbol) => {
+        if (!symbol) {
+            return '$';
+        } else if (
+            symbol == '$' ||
+            symbol == '€' ||
+            symbol == '£' ||
+            symbol == '₴'
+        ) {
+            return symbol;
+        } else {
+            return '';
+        }
+    };
+
+    const foundSecondCurrencySymbol = (symbol) => {
+        if (
+            symbol == 'zł' ||
+            symbol == 'USDT' ||
+            symbol == 'USDC' ||
+            symbol == 'EURC'
+        ) {
+            return symbol;
+        } else {
+            return '';
+        }
+    };
+
     return (
         <div className={classes.adminPage}>
             <div className={classes.AdminHeader}>
@@ -125,7 +165,7 @@ const AdminPlatforms = () => {
                                 {platform.category}
                             </td>
                             <td className={classes.platformListCategory}>
-                                ${platform.assets}
+                                {`${foundFirstCurrencySymbol(platform.platform_currency)}${formatAssetLabel(platform.assets)} ${foundSecondCurrencySymbol(platform.platform_currency)}`}
                             </td>
                             <td>
                                 {platform.is_published ? (

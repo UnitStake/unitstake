@@ -235,6 +235,34 @@ const PlatformsPage = () => {
         }
     };
 
+    const foundFirstCurrencySymbol = (symbol) => {
+        if (!symbol) {
+            return '$';
+        } else if (
+            symbol == '$' ||
+            symbol == '€' ||
+            symbol == '£' ||
+            symbol == '₴'
+        ) {
+            return symbol;
+        } else {
+            return '';
+        }
+    };
+
+    const foundSecondCurrencySymbol = (symbol) => {
+        if (
+            symbol == 'zł' ||
+            symbol == 'USDT' ||
+            symbol == 'USDC' ||
+            symbol == 'EURC'
+        ) {
+            return symbol;
+        } else {
+            return '';
+        }
+    };
+
     const openFiltersMenu = () => {
         setIsFiltersActive(!isFiltersActive);
     };
@@ -246,26 +274,6 @@ const PlatformsPage = () => {
             </main>
         );
     }
-
-    const schemaData = {
-        '@context': 'https://schema.org',
-        '@graph': [
-            {
-                '@type': 'CollectionPage',
-                '@id': 'https://unitstake.com/platforms',
-                url: 'https://unitstake.com/platforms',
-                name: 'UnitStake',
-                inLanguage: 'en',
-                publisher: {
-                    '@type': 'Organization',
-                    '@id': 'https://unitstake.com/platforms',
-                    name: 'UnitStake',
-                    url: 'https://unitstake.com/platforms',
-                    logo: 'https://unitstake.com/icon-512.png',
-                },
-            },
-        ],
-    };
 
     return (
         <>
@@ -294,9 +302,6 @@ const PlatformsPage = () => {
                 <meta property="og:type" content="website" />
                 <meta property="og:site_name" content="UnitStake" />
                 <link rel="canonical" href="https://unitstake.com/platforms" />
-                <script type="application/ld+json">
-                    {JSON.stringify(schemaData)}
-                </script>
             </Helmet>
             <main className={classes.platformsPage}>
                 <section className={classes.header}>
@@ -489,7 +494,7 @@ const PlatformsPage = () => {
                                             )}
                                         </div>
                                     </div>
-                                    <div className={classes.platformsFilter}>
+                                    {/* <div className={classes.platformsFilter}>
                                         <h4>Max Asset Volume</h4>
                                         <div
                                             className={
@@ -533,7 +538,7 @@ const PlatformsPage = () => {
                                                 </span>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> */}
                                     <div
                                         className={
                                             classes.platformsFiltersMobileBtn
@@ -623,10 +628,7 @@ const PlatformsPage = () => {
                                                                 Asset Volume
                                                             </h4>
                                                             <h5>
-                                                                $
-                                                                {formatAssetLabel(
-                                                                    platform.assets,
-                                                                )}
+                                                                {`${foundFirstCurrencySymbol(platform.platform_currency)}${formatAssetLabel(platform.assets)} ${foundSecondCurrencySymbol(platform.platform_currency)}`}
                                                             </h5>
                                                         </div>
                                                         <div

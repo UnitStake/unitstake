@@ -141,22 +141,25 @@ const Article = () => {
 
     const schemaData = {
         '@context': 'https://schema.org',
-        '@graph': [
-            {
-                '@type': 'CollectionPage',
-                '@id': `https://unitstake.com/insights/${articleSlug}`,
-                url: `https://unitstake.com/insights/${articleSlug}`,
-                name: 'UnitStake',
-                inLanguage: 'en',
-                publisher: {
-                    '@type': 'Organization',
-                    '@id': `https://unitstake.com/insights/${articleSlug}`,
-                    name: 'UnitStake',
-                    url: `https://unitstake.com/insights/${articleSlug}`,
-                    logo: 'https://unitstake.com/icon-512.png',
-                },
-            },
-        ],
+        '@type': 'Article',
+        '@id': `https://unitstake.com/insights/${articleSlug}#article`,
+        mainEntityOfPage: `https://unitstake.com/insights/${articleSlug}`,
+        headline: articleData.title,
+        image: articleData.image_url || 'https://unitstake.com/icon-512.png',
+        datePublished: articleData.publication_date,
+        dateModified: articleData.$updatedAt,
+        author: {
+            '@type': 'Organization',
+            '@id': 'https://unitstake.com/#organization',
+            name: 'UnitStake',
+            url: 'https://unitstake.com/',
+        },
+        publisher: {
+            '@type': 'Organization',
+            '@id': 'https://unitstake.com/#organization',
+            name: 'UnitStake',
+            url: 'https://unitstake.com/',
+        },
     };
 
     return (

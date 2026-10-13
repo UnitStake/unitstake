@@ -141,26 +141,6 @@ const Academy = () => {
         }
     }
 
-    const schemaData = {
-        '@context': 'https://schema.org',
-        '@graph': [
-            {
-                '@type': 'WebPage',
-                '@id': 'https://unitstake.com/academy',
-                url: 'https://unitstake.com/academy',
-                name: 'UnitStake',
-                inLanguage: 'en',
-                publisher: {
-                    '@type': 'Organization',
-                    '@id': 'https://unitstake.com/academy',
-                    name: 'UnitStake',
-                    url: 'https://unitstake.com/academy',
-                    logo: 'https://unitstake.com/icon-512.png',
-                },
-            },
-        ],
-    };
-
     return (
         <>
             <Helmet>
@@ -188,9 +168,6 @@ const Academy = () => {
                 <meta property="og:type" content="website" />
                 <meta property="og:site_name" content="UnitStake" />
                 <link rel="canonical" href="https://unitstake.com/academy" />
-                <script type="application/ld+json">
-                    {JSON.stringify(schemaData)}
-                </script>
             </Helmet>
             <main className={classes.academyPage}>
                 <section className={classes.heroSection}>

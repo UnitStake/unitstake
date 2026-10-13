@@ -46,6 +46,34 @@ const MainPagePlatforms = () => {
         }
     };
 
+    const foundFirstCurrencySymbol = (symbol) => {
+        if (!symbol) {
+            return '$';
+        } else if (
+            symbol == '$' ||
+            symbol == '€' ||
+            symbol == '£' ||
+            symbol == '₴'
+        ) {
+            return symbol;
+        } else {
+            return '';
+        }
+    };
+
+    const foundSecondCurrencySymbol = (symbol) => {
+        if (
+            symbol == 'zł' ||
+            symbol == 'USDT' ||
+            symbol == 'USDC' ||
+            symbol == 'EURC'
+        ) {
+            return symbol;
+        } else {
+            return '';
+        }
+    };
+
     return (
         <section className={classes.platforms}>
             <div className="wrapper">
@@ -133,10 +161,7 @@ const MainPagePlatforms = () => {
                                                 Total Tokenized Asset Volume
                                             </h4>
                                             <h5>
-                                                $
-                                                {formatAssetLabel(
-                                                    platform.assets,
-                                                )}
+                                                {`${foundFirstCurrencySymbol(platform.platform_currency)}${formatAssetLabel(platform.assets)} ${foundSecondCurrencySymbol(platform.platform_currency)}`}
                                             </h5>
                                         </div>
                                         <div

@@ -365,26 +365,6 @@ const ProjectsPage = () => {
         );
     }
 
-    const schemaData = {
-        '@context': 'https://schema.org',
-        '@graph': [
-            {
-                '@type': 'CollectionPage',
-                '@id': 'https://unitstake.com/projects',
-                url: 'https://unitstake.com/projects',
-                name: 'UnitStake',
-                inLanguage: 'en',
-                publisher: {
-                    '@type': 'Organization',
-                    '@id': 'https://unitstake.com/projects',
-                    name: 'UnitStake',
-                    url: 'https://unitstake.com/projects',
-                    logo: 'https://unitstake.com/icon-512.png',
-                },
-            },
-        ],
-    };
-
     return (
         <>
             <Helmet>
@@ -418,9 +398,6 @@ const ProjectsPage = () => {
                 <meta property="og:type" content="website" />
                 <meta property="og:site_name" content="UnitStake" />
                 <link rel="canonical" href="https://unitstake.com/projects" />
-                <script type="application/ld+json">
-                    {JSON.stringify(schemaData)}
-                </script>
             </Helmet>
             <main className={classes.projectsPage}>
                 <section className={classes.header}>
@@ -822,7 +799,7 @@ const ProjectsPage = () => {
                                     </div>
                                 </div>
 
-                                <div className={classes.mobileFilterSection}>
+                                {/* <div className={classes.mobileFilterSection}>
                                     <h4>Minimum Ticket</h4>
                                     <div
                                         className={
@@ -855,7 +832,7 @@ const ProjectsPage = () => {
                                             </span>
                                         </div>
                                     </div>
-                                </div>
+                                </div> */}
                                 <button
                                     className={`${classes.mobileFiltersBtn} ${classes.closeFiltersBtn}`}
                                     onClick={() =>

@@ -39,6 +39,7 @@ const AdminPlatformAdd = () => {
     const [imageFile, setImageFile] = useState(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [textBlocks, setTextBlocks] = useState([]);
+    const [platformCurrency, setPlatformCurrency] = useState('');
 
     const [draggedIndex, setDraggedIndex] = useState(null);
 
@@ -272,6 +273,7 @@ const AdminPlatformAdd = () => {
                 filters: selectedTypes,
                 investor_type: selectedInvestorTypes,
                 slug: slug,
+                platform_currency: platformCurrency,
             };
 
             await tablesDB.createRow({
@@ -421,7 +423,29 @@ const AdminPlatformAdd = () => {
                             ))}
                         </div>
                     </div>
-
+                    <div className={classes.addPlatformFormIdentityField}>
+                        <label htmlFor="relatedPlatform">
+                            Platform Currency (USD, EUR, GBP...)
+                        </label>
+                        <select
+                            id="relatedPlatform"
+                            className={classes.selectInput}
+                            value={platformCurrency}
+                            onChange={(e) =>
+                                setPlatformCurrency(e.target.value)
+                            }
+                        >
+                            <option value="">Select currency</option>
+                            <option value="$">USD</option>
+                            <option value="€">EUR</option>
+                            <option value="£">GBP</option>
+                            <option value="₴">UAH</option>
+                            <option value="zł">PLN</option>
+                            <option value="USDT">USDT</option>
+                            <option value="USDC">USDC</option>
+                            <option value="EURC">EURC</option>
+                        </select>
+                    </div>
                     <div className={classes.addPlatformFormIdentityField}>
                         <label htmlFor="assets">
                             Total Tokenized Asset Volume
