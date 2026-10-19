@@ -21,12 +21,10 @@ const AssetsPage = () => {
     return (
         <>
             <Helmet>
-                <title>
-                    How to Tokenize an Asset: Owner's Guide | UnitStake
-                </title>
+                <title>Tokenize Your Asset: Listing & Own Platform</title>
                 <meta
                     name="description"
-                    content="How to tokenize real estate, businesses and other real-world assets: asset selection, SPV structuring, token issuance and platform listing, step by step."
+                    content="Tokenize real estate, businesses, and real-world assets. Get verified on UnitStake, list your project, and launch your own tokenization platform."
                 />
                 <meta
                     property="og:title"
@@ -34,7 +32,7 @@ const AssetsPage = () => {
                 />
                 <meta
                     property="og:description"
-                    content="Tokenize real estate, a business or other real-world assets: list your project on UnitStake Aggregator, get Verified by UnitStake and launch your own platform"
+                    content="Tokenize real estate, businesses, and real-world assets. Get verified on UnitStake, list your project, and launch your own tokenization platform."
                 />
                 <meta
                     property="og:image"
