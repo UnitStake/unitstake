@@ -708,6 +708,7 @@ const AdminProjectEdit = () => {
                             <option value="USDT">USDT</option>
                             <option value="USDC">USDC</option>
                             <option value="EURC">EURC</option>
+                            <option value="AED">AED</option>
                         </select>
                     </div>
                     <div className={classes.addPlatformFormIdentityField}>

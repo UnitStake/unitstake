@@ -10,6 +10,11 @@ import {
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Thumbs } from 'swiper/modules';
 import { Helmet } from 'react-helmet-async';
+import {
+    foundFirstCurrencySymbol,
+    foundSecondCurrencySymbol,
+    formatAssetLabel,
+} from '../../../../../utils/helpers';
 
 import AssetsPageFaq from '../../AssetsPage/AssetsPageFaq/AssetsPageFaq';
 import ReadMoreSection from '../../../../ReadMoreText/ReadMoreText';
@@ -185,18 +190,6 @@ const ProjectPage = () => {
         })
         .filter((obj) => obj.type === 'document');
 
-    const formatAssetLabel = (value) => {
-        if (value >= 1000 && value <= 999999) {
-            return `${Math.round(value / 1000)}K`;
-        } else if (value >= 1000000 && value <= 999999999) {
-            return `${Math.round(value / 1000000)}M`;
-        } else if (value >= 1000000000 && value <= 999999999999) {
-            return `${Math.round(value / 1000000000)}B`;
-        } else {
-            return value;
-        }
-    };
-
     const parseTokenData = (data?.token_addresses || [])
         .map((adress) => {
             try {
@@ -339,34 +332,6 @@ const ProjectPage = () => {
                 );
             default:
                 return null;
-        }
-    };
-
-    const foundFirstCurrencySymbol = (symbol) => {
-        if (!symbol) {
-            return '$';
-        } else if (
-            symbol == '$' ||
-            symbol == '€' ||
-            symbol == '£' ||
-            symbol == '₴'
-        ) {
-            return symbol;
-        } else {
-            return '';
-        }
-    };
-
-    const foundSecondCurrencySymbol = (symbol) => {
-        if (
-            symbol == 'zł' ||
-            symbol == 'USDT' ||
-            symbol == 'USDC' ||
-            symbol == 'EURC'
-        ) {
-            return symbol;
-        } else {
-            return '';
         }
     };
 

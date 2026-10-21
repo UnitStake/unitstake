@@ -6,6 +6,11 @@ import {
     Query,
     TABLE_ID_PLATFORMS,
 } from '../../../../../lib/appwrite';
+import {
+    foundFirstCurrencySymbol,
+    foundSecondCurrencySymbol,
+    formatAssetLabel,
+} from '../../../../../utils/helpers';
 import classes from './MainPagePlatforms.module.css';
 
 import platformImgNone from '../../../../../assets/images/mainPageImages/platformImgNone.png';
@@ -33,46 +38,6 @@ const MainPagePlatforms = () => {
         };
         fetchPlatforms();
     }, []);
-
-    const formatAssetLabel = (value) => {
-        if (value >= 1000 && value <= 999999) {
-            return `${Math.round(value / 1000)}K`;
-        } else if (value >= 1000000 && value <= 999999999) {
-            return `${Math.round(value / 1000000)}M`;
-        } else if (value >= 1000000000 && value <= 999999999999) {
-            return `${Math.round(value / 1000000000)}B`;
-        } else {
-            return value;
-        }
-    };
-
-    const foundFirstCurrencySymbol = (symbol) => {
-        if (!symbol) {
-            return '$';
-        } else if (
-            symbol == '$' ||
-            symbol == '€' ||
-            symbol == '£' ||
-            symbol == '₴'
-        ) {
-            return symbol;
-        } else {
-            return '';
-        }
-    };
-
-    const foundSecondCurrencySymbol = (symbol) => {
-        if (
-            symbol == 'zł' ||
-            symbol == 'USDT' ||
-            symbol == 'USDC' ||
-            symbol == 'EURC'
-        ) {
-            return symbol;
-        } else {
-            return '';
-        }
-    };
 
     return (
         <section className={classes.platforms}>

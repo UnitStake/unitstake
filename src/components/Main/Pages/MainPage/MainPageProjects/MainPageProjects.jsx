@@ -6,6 +6,11 @@ import {
     Query,
     TABLE_ID_PROJECTS,
 } from '../../../../../lib/appwrite';
+import {
+    foundFirstCurrencySymbol,
+    foundSecondCurrencySymbol,
+    formatAssetLabel,
+} from '../../../../../utils/helpers';
 import classes from './MainPageProjects.module.css';
 
 const MainPageProjects = () => {
@@ -55,44 +60,6 @@ const MainPageProjects = () => {
     const dateFormatter = (dateString) => {
         const date = new Date(dateString);
         return date.toLocaleDateString();
-    };
-
-    const formatAssetLabel = (value) => {
-        if (value >= 100000 && value <= 100000000) {
-            return `${Math.round(value / 100000) / 10}M`;
-        } else if (value >= 100000000) {
-            return `${Math.round(value / 100000000) / 10}B`;
-        } else {
-            return value;
-        }
-    };
-
-    const foundFirstCurrencySymbol = (symbol) => {
-        if (!symbol) {
-            return '$';
-        } else if (
-            symbol == '$' ||
-            symbol == '€' ||
-            symbol == '£' ||
-            symbol == '₴'
-        ) {
-            return symbol;
-        } else {
-            return '';
-        }
-    };
-
-    const foundSecondCurrencySymbol = (symbol) => {
-        if (
-            symbol == 'zł' ||
-            symbol == 'USDT' ||
-            symbol == 'USDC' ||
-            symbol == 'EURC'
-        ) {
-            return symbol;
-        } else {
-            return '';
-        }
     };
 
     return (
