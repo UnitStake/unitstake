@@ -10,12 +10,14 @@ export const generateSlug = (text) => {
 };
 
 export const formatAssetLabel = (value) => {
+    const format = (num, suffix) => `${parseFloat(num.toFixed(1))}${suffix}`;
+
     if (value >= 1000 && value <= 999999) {
-        return `${Math.round(value / 1000)}K`;
+        return format(value / 1000, 'K');
     } else if (value >= 1000000 && value <= 999999999) {
-        return `${Math.round(value / 1000000)}M`;
+        return format(value / 1000000, 'M');
     } else if (value >= 1000000000 && value <= 999999999999) {
-        return `${Math.round(value / 1000000000)}B`;
+        return format(value / 1000000000, 'B');
     } else {
         return value;
     }
