@@ -515,7 +515,9 @@ const PlatformPage = () => {
                                         key={index}
                                         className={classes.projectsCard}
                                         onClick={() =>
-                                            navigate(`/projects/${project.$id}`)
+                                            navigate(
+                                                `/projects/${project.slug}`,
+                                            )
                                         }
                                     >
                                         <div
@@ -680,7 +682,7 @@ const PlatformPage = () => {
                                                     }
                                                     onClick={() =>
                                                         navigate(
-                                                            `/projects/${project.$id}`,
+                                                            `/projects/${project.slug}`,
                                                         )
                                                     }
                                                 >
