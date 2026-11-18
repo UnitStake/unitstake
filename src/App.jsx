@@ -36,6 +36,7 @@ import TermOfServices from './components/Main/Pages/TermOfServices/TermOfService
 import ContactUs from './components/Main/Pages/ContactUs/ContactUs';
 import NotFound from './components/Main/Pages/NotFound/NotFound';
 import CookieConsent from './components/CookieConsent/CookieConsent';
+import OurPartnersPage from './components/Main/Pages/OurPartnersPage/OurPartnersPage';
 
 import './App.css';
 
@@ -57,6 +58,10 @@ function App() {
                         <Route
                             path="for-assets-owners"
                             element={<AssetsPage />}
+                        />
+                        <Route
+                            path="our-partners"
+                            element={<OurPartnersPage />}
                         />
                         <Route path="partner/:id" element={<PartnerPage />} />
                         <Route path="insights" element={<InsightsPage />} />

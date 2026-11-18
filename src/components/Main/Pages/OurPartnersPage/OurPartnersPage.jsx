@@ -1,0 +1,891 @@
+import { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import {
+    tablesDB,
+    DATABASE_ID,
+    TABLE_ID_PLATFORMS,
+    TABLE_ID_PROJECTS,
+    Query,
+    TABLE_ID_TEAMS,
+} from '../../../../lib/appwrite';
+import { Helmet } from 'react-helmet-async';
+import ExternalLink from '../../../ExternalLink/ExternalLink';
+import AssetsPageFaq from '../AssetsPage/AssetsPageFaq/AssetsPageFaq';
+import {
+    foundFirstCurrencySymbol,
+    foundSecondCurrencySymbol,
+    formatAssetLabel,
+} from '../../../../utils/helpers';
+
+import classes from './OurPartnersPage.module.css';
+
+import platformImgNone from '../../../../assets/images/mainPageImages/platformImgNone.png';
+import linkedinIcon from '../../../../assets/images/icons/linkedin.svg';
+import telegramIcon from '../../../../assets/images/icons/telegram.svg';
+import twitterIcon from '../../../../assets/images/icons/twitter.svg';
+import shareBtnCopyIcon from '../../../../assets/images/icons/shareBtnCopy.svg';
+import verifeidIcon from '../../../../assets/images/icons/verifeid.svg';
+import locationMarkIcon from '../../../../assets/images/icons/locationMark.svg';
+import ReadMoreSection from '../../../ReadMoreText/ReadMoreText';
+
+const linkIcon = (
+    <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <path
+            d="M15 3H21V9"
+            stroke="white"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+        />
+        <path
+            d="M10.001 14L21.001 3"
+            stroke="white"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+        />
+        <path
+            d="M18 13V19C18 19.5304 17.7893 20.0391 17.4142 20.4142C17.0391 20.7893 16.5304 21 16 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V8C3 7.46957 3.21071 6.96086 3.58579 6.58579C3.96086 6.21071 4.46957 6 5 6H11"
+            stroke="white"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+        />
+    </svg>
+);
+
+import statsIcon1 from '../../../../assets/images/partnerPageImages/ourPartnersPage/icon1.svg';
+import statsIcon2 from '../../../../assets/images/partnerPageImages/ourPartnersPage/icon2.svg';
+import statsIcon3 from '../../../../assets/images/partnerPageImages/ourPartnersPage/icon3.svg';
+import statsIcon4 from '../../../../assets/images/partnerPageImages/ourPartnersPage/icon4.svg';
+
+const partnerStats = [
+    {
+        id: 1,
+        title: '$660M+',
+        text: 'Total Tokenized Value',
+        icon: statsIcon1,
+    },
+    {
+        id: 2,
+        title: '150+',
+        text: 'Clients',
+        icon: statsIcon2,
+    },
+    {
+        id: 3,
+        title: '40+',
+        text: 'Countries Served',
+        icon: statsIcon3,
+    },
+    {
+        id: 4,
+        title: 'Since 2020',
+        text: 'Operating',
+        icon: statsIcon4,
+    },
+];
+
+const OurPartnersPage = () => {
+    const platformSlug = 'brickken-partners';
+    const navigate = useNavigate();
+
+    const [data, setData] = useState({});
+    const [projects, setProjects] = useState([]);
+    const [team, setTeam] = useState([]);
+    const [copied, setCopied] = useState(false);
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [targetUrl, setTargetUrl] = useState('');
+
+    useEffect(() => {
+        const fetchPlatformData = async () => {
+            try {
+                const response = await tablesDB.listRows({
+                    databaseId: DATABASE_ID,
+                    tableId: TABLE_ID_PLATFORMS,
+                    queries: [Query.equal('slug', platformSlug)],
+                });
+
+                const responseProjects = await tablesDB.listRows({
+                    databaseId: DATABASE_ID,
+                    tableId: TABLE_ID_PROJECTS,
+                    queries: [
+                        Query.equal('is_published', true),
+                        Query.equal('platform_id', response.rows[0].$id),
+                        Query.orderDesc('$createdAt'),
+                        Query.limit(3),
+                    ],
+                });
+
+                const responseTeam = await tablesDB.listRows({
+                    databaseId: DATABASE_ID,
+                    tableId: TABLE_ID_TEAMS,
+                    queries: [Query.equal('platform_id', response.rows[0].$id)],
+                });
+
+                setData(response.rows[0]);
+                setProjects(responseProjects.rows);
+                setTeam(responseTeam.rows);
+            } catch (error) {
+                console.error('Error fetching platform data:', error);
+                alert('Failed to load platform data.');
+                navigate('/platforms');
+            }
+        };
+        fetchPlatformData();
+    }, [platformSlug, navigate]);
+
+    const dateFormatter = (dateString) => {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('en-GB', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric',
+        });
+    };
+
+    const shareUrl = encodeURIComponent(
+        typeof window !== 'undefined' ? window.location.href : '',
+    );
+
+    const copyToClipboard = () => {
+        navigator.clipboard.writeText(window.location.href);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+    };
+
+    const contentBlocks = (data?.text_blocks || [])
+        .map((block) => {
+            try {
+                return typeof block === 'string' ? JSON.parse(block) : block;
+            } catch (error) {
+                console.error('Content block parsing error:', error);
+                return null;
+            }
+        })
+        .filter(Boolean);
+
+    const getFirstImageUrl = (rawArray) => {
+        if (!Array.isArray(rawArray) || rawArray.length === 0) {
+            return null;
+        }
+
+        for (const jsonString of rawArray) {
+            try {
+                const parsedObj = JSON.parse(jsonString);
+
+                if (parsedObj && parsedObj.type === 'image') {
+                    return parsedObj.value;
+                }
+            } catch (error) {
+                console.error('Error parsing array element:', error);
+            }
+        }
+
+        return null;
+    };
+
+    const handleExternalLinkClick = (e, url) => {
+        e.preventDefault();
+        setTargetUrl(url);
+        setIsModalOpen(true);
+    };
+
+    const handleConfirmTransition = () => {
+        setIsModalOpen(false);
+        window.open(targetUrl, '_blank', 'noopener,noreferrer');
+    };
+
+    const sections = [];
+    let currentSection = null;
+
+    contentBlocks.forEach((block) => {
+        if (block.type === 'h4') {
+            if (currentSection) {
+                sections.push(currentSection);
+            }
+            currentSection = {
+                titleBlock: block,
+                blocks: [],
+                isCollapsible: true,
+            };
+        } else {
+            if (!currentSection) {
+                currentSection = {
+                    titleBlock: null,
+                    blocks: [],
+                    isCollapsible: false,
+                };
+            }
+            currentSection.blocks.push(block);
+        }
+    });
+
+    if (currentSection) {
+        sections.push(currentSection);
+    }
+
+    const renderBlock = (block, index) => {
+        switch (block.type) {
+            case 'h4':
+                return (
+                    <h4 key={index} className={classes.contentHeading}>
+                        {block.value}
+                    </h4>
+                );
+            case 'h5':
+                return (
+                    <h5 key={index} className={classes.contentSubtitle}>
+                        {block.value}
+                    </h5>
+                );
+            case 'b':
+                return (
+                    <b key={index} className={classes.contentBoldTxt}>
+                        {block.value}
+                    </b>
+                );
+            case 'p':
+                return (
+                    <p key={index} className={classes.contentText}>
+                        {block.value}
+                    </p>
+                );
+            case 'ul':
+                return (
+                    <ul key={index} className={classes.contentList}>
+                        {Array.isArray(block.value) &&
+                            block.value.map((item, i) => (
+                                <li key={i} className={classes.contentListItem}>
+                                    <span></span>
+                                    {item}
+                                </li>
+                            ))}
+                    </ul>
+                );
+            case 'image':
+                return (
+                    <div key={index} className={classes.contentImageWrapper}>
+                        <img
+                            src={block.value}
+                            alt="Platform detail"
+                            className={classes.contentImage}
+                        />
+                    </div>
+                );
+            case 'imageTab':
+                return (
+                    <div key={index} className={classes.contentImageWrapperTab}>
+                        <img
+                            src={block.value}
+                            alt="Platform detail"
+                            className={classes.contentImage}
+                        />
+                    </div>
+                );
+            case 'imageMob':
+                return (
+                    <div key={index} className={classes.contentImageWrapperMob}>
+                        <img
+                            src={block.value}
+                            alt="Platform detail"
+                            className={classes.contentImage}
+                        />
+                    </div>
+                );
+            default:
+                return null;
+        }
+    };
+
+    const schemaData = {
+        '@context': 'https://schema.org',
+        '@type': 'Organization',
+        '@id': `https://unitstake.com/platforms/${data.slug}#organization`,
+        name: data.name,
+        description: data.description,
+        url: data.platform_website,
+        logo: data.logo,
+        foundingDate: data.platform_age,
+        mainEntityOfPage: `https://unitstake.com/platforms/${data.slug}`,
+    };
+
+    return (
+        <>
+            <Helmet>
+                <title>
+                    {data.name
+                        ? `${data.name} | UnitStake`
+                        : 'Platform Details'}
+                </title>
+                <meta
+                    name="description"
+                    content={
+                        data.description
+                            ? data.description.slice(0, 160)
+                            : 'Platform overview and details.'
+                    }
+                />
+                <meta property="og:title" content={data.name} />
+                <meta
+                    property="og:description"
+                    content={
+                        data.description ||
+                        'Navigate the market of tokenized assets and RWA tokenization with confidence. Discover verified platforms, fractional ownership opportunities, and real-time data in one place.'
+                    }
+                />
+                <meta
+                    property="og:image"
+                    content={
+                        data.image_url
+                            ? data.image_url
+                            : 'https://unitstake.com/social_image.png'
+                    }
+                />
+                <meta
+                    property="og:url"
+                    content={`https://unitstake.com/platforms/${data.slug}`}
+                />
+                <meta property="og:type" content="website" />
+                <meta property="og:site_name" content="UnitStake" />
+                <link
+                    rel="canonical"
+                    href={`https://unitstake.com/platforms/${data.slug}`}
+                />
+                <script type="application/ld+json">
+                    {JSON.stringify(schemaData)}
+                </script>
+            </Helmet>
+            <main className={classes.platformPage}>
+                <section className={classes.info}>
+                    <div className="wrapper">
+                        <div className={classes.legalTxt}>
+                            This content is for informational purposes only and
+                            does not constitute a financial promotion,
+                            investment advice, or a recommendation to buy or
+                            sell any asset. Information on this page is sourced
+                            from the issuer and displayed as provided.
+                        </div>
+                        <div className={classes.mainInfoContainer}>
+                            <div className={classes.mainInfo}>
+                                {/* <p className={classes.updatedDate}>
+                                    The information on this page was updated on{' '}
+                                    {dateFormatter(data.$updatedAt)}
+                                </p> */}
+                                <div className={classes.identity}>
+                                    <div className={classes.logo}>
+                                        {data.image_url ? (
+                                            <img
+                                                src={data.image_url}
+                                                alt="logo"
+                                            />
+                                        ) : (
+                                            <img
+                                                src={platformImgNone}
+                                                alt="logo"
+                                            />
+                                        )}
+                                    </div>
+                                    <div className={classes.name}>
+                                        {data.name}
+                                    </div>
+                                </div>
+                                <div className={classes.nameDescription}>
+                                    Institutional-grade infrastructure for
+                                    real-world asset tokenization
+                                </div>
+                                {data.description && (
+                                    <div
+                                        className={classes.platformDescription}
+                                    >
+                                        {/* {data.description} */}
+                                        Brickken develops technology for
+                                        issuing, managing, and operating
+                                        tokenized assets across multiple asset
+                                        classes.
+                                    </div>
+                                )}
+                            </div>
+                            <div className={classes.shareButtons}>
+                                Share
+                                <a
+                                    href={`https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className={classes.shareBtn}
+                                >
+                                    <img src={linkedinIcon} alt="linkedin" />
+                                </a>
+                                <a
+                                    href={`https://t.me/share/url?url=${shareUrl}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className={classes.shareBtn}
+                                >
+                                    <img src={telegramIcon} alt="telegram" />
+                                </a>
+                                <a
+                                    href={`https://x.com/intent/tweet?url=${shareUrl}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className={classes.shareBtn}
+                                >
+                                    <img src={twitterIcon} alt="twitter" />
+                                </a>
+                                <div
+                                    onClick={copyToClipboard}
+                                    className={classes.shareBtn}
+                                >
+                                    <img
+                                        src={shareBtnCopyIcon}
+                                        alt="share link"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div className={classes.secondaryInfo}>
+                            {/* <div className={classes.secondaryInfoNumbers}>
+                                <div
+                                    className={classes.secondaryInfoNumbersBox}
+                                >
+                                    <h3>Total Tokenized Asset Volume</h3>
+                                    <h4>
+                                        {data.assets
+                                            ? `${foundFirstCurrencySymbol(data.platform_currency)}${formatAssetLabel(data.assets)} ${foundSecondCurrencySymbol(data.platform_currency)}`
+                                            : '—'}
+                                    </h4>
+                                </div>
+                                <div
+                                    className={classes.secondaryInfoNumbersBox}
+                                >
+                                    <h3>Operating since</h3>
+                                    <p>
+                                        {data.platform_age
+                                            ? data.platform_age
+                                            : '—'}
+                                    </p>
+                                </div>
+                                <div
+                                    className={classes.secondaryInfoNumbersBox}
+                                >
+                                    <h3>Projects</h3>
+                                    <h4>
+                                        {data.total_projects
+                                            ? data.total_projects
+                                            : '—'}
+                                    </h4>
+                                </div>
+                                <div
+                                    className={classes.secondaryInfoNumbersBox}
+                                >
+                                    <h3>Jurisdiction</h3>
+                                    <p>
+                                        {data.jurisdiction
+                                            ? data.jurisdiction.join(', ')
+                                            : '—'}
+                                    </p>
+                                </div>
+                            </div> */}
+                            {data.platform_website && (
+                                <div className={classes.secondaryInfoLink}>
+                                    <a
+                                        href={data.platform_website}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        onClick={(e) =>
+                                            handleExternalLinkClick(
+                                                e,
+                                                data.platform_website,
+                                            )
+                                        }
+                                    >
+                                        Visit Platform Website
+                                        {linkIcon}
+                                    </a>
+                                </div>
+                            )}
+                        </div>
+                        <div className={classes.partnerStats}>
+                            {partnerStats.map((item) => (
+                                <div
+                                    key={item.id}
+                                    className={classes.statsItem}
+                                >
+                                    <img src={item.icon} alt={item.text} />
+                                    <h4>{item.title}</h4>
+                                    <p>{item.text}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+                <section className={classes.content}>
+                    <div className="wrapper">
+                        <div className={classes.contentContainer}>
+                            {sections.map((section, sIndex) => {
+                                if (!section.isCollapsible) {
+                                    return (
+                                        <div key={sIndex}>
+                                            {section.blocks.map(
+                                                (block, bIndex) =>
+                                                    renderBlock(block, bIndex),
+                                            )}
+                                        </div>
+                                    );
+                                }
+
+                                return (
+                                    <ReadMoreSection key={sIndex} maxLines={10}>
+                                        {section.titleBlock &&
+                                            renderBlock(
+                                                section.titleBlock,
+                                                'title',
+                                            )}
+                                        {section.blocks.map((block, bIndex) =>
+                                            renderBlock(block, bIndex),
+                                        )}
+                                    </ReadMoreSection>
+                                );
+                            })}
+                        </div>
+                    </div>
+                </section>
+                {projects.length > 0 && (
+                    <section className={classes.projects}>
+                        <div className="wrapper">
+                            <h2>Projects on the Platform</h2>
+                            <div className={classes.projectsContainer}>
+                                {projects.map((project, index) => (
+                                    <div
+                                        key={index}
+                                        className={classes.projectsCard}
+                                        onClick={() =>
+                                            navigate(
+                                                `/projects/${project.slug}`,
+                                            )
+                                        }
+                                    >
+                                        <div
+                                            className={
+                                                classes.projectsCardImage
+                                            }
+                                        >
+                                            {getFirstImageUrl(
+                                                project.content_blocks,
+                                            ) ? (
+                                                <img
+                                                    src={getFirstImageUrl(
+                                                        project.content_blocks,
+                                                    )}
+                                                    alt="project image"
+                                                    className={
+                                                        classes.projectsCardImg
+                                                    }
+                                                />
+                                            ) : (
+                                                <p>Project Image</p>
+                                            )}
+                                            {project.is_verified && (
+                                                <div
+                                                    className={
+                                                        classes.projectVerified
+                                                    }
+                                                >
+                                                    <div className="verifeidBox">
+                                                        <img
+                                                            src={verifeidIcon}
+                                                            alt="verifeid"
+                                                        />
+                                                        Verified By UnitStake
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </div>
+                                        <div
+                                            className={classes.projectsCardInfo}
+                                        >
+                                            <div
+                                                className={
+                                                    classes.projectsCardMainInfo
+                                                }
+                                            >
+                                                <h3>{project.name}</h3>
+                                                <p>{project.description}</p>
+                                            </div>
+                                            <div
+                                                className={
+                                                    classes.projectsCardProgressNumbers
+                                                }
+                                            >
+                                                <h4>Funding Progress</h4>
+                                                {project.current_investments >
+                                                    0 &&
+                                                    project.funding_goal >
+                                                        0 && (
+                                                        <p>
+                                                            {`${foundFirstCurrencySymbol(project.project_currency)}${formatAssetLabel(project.current_investments)} ${foundSecondCurrencySymbol(project.project_currency)} `}
+                                                            /
+                                                            {` ${foundFirstCurrencySymbol(project.project_currency)}${formatAssetLabel(project.funding_goal)} ${foundSecondCurrencySymbol(project.project_currency)}`}
+                                                        </p>
+                                                    )}
+                                            </div>
+                                            <div
+                                                className={
+                                                    classes.projectsCardProgressBar
+                                                }
+                                            >
+                                                <div
+                                                    className={
+                                                        classes.projectsCardProgressBarLine
+                                                    }
+                                                    style={{
+                                                        width: `${Math.round(
+                                                            (project.current_investments /
+                                                                project.funding_goal) *
+                                                                100,
+                                                        )}%`,
+                                                    }}
+                                                ></div>
+                                            </div>
+                                            <div
+                                                className={
+                                                    classes.projectsCardStats
+                                                }
+                                            >
+                                                <div
+                                                    className={
+                                                        classes.projectsCardStat
+                                                    }
+                                                >
+                                                    <h4>Progress</h4>
+                                                    {project.current_investments &&
+                                                    project.funding_goal ? (
+                                                        <p>
+                                                            {Math.round(
+                                                                (project.current_investments /
+                                                                    project.funding_goal) *
+                                                                    100,
+                                                            )}
+                                                            %
+                                                        </p>
+                                                    ) : (
+                                                        <p>0%</p>
+                                                    )}
+                                                </div>
+                                                <div
+                                                    className={
+                                                        classes.projectsCardStat
+                                                    }
+                                                >
+                                                    <h4>Token Price</h4>
+                                                    {project.min_investment >
+                                                    0 ? (
+                                                        <p>
+                                                            {`${foundFirstCurrencySymbol(project.project_currency)}${formatAssetLabel(project.min_investment)} ${foundSecondCurrencySymbol(project.project_currency)}`}
+                                                        </p>
+                                                    ) : (
+                                                        <p>*****</p>
+                                                    )}
+                                                </div>
+                                                <div
+                                                    className={
+                                                        classes.projectsCardStat
+                                                    }
+                                                >
+                                                    <h4>Deadline</h4>
+                                                    <p>
+                                                        {dateFormatter(
+                                                            project.deadline,
+                                                        ) == '1 January 1970'
+                                                            ? '*'
+                                                            : dateFormatter(
+                                                                  project.deadline,
+                                                              )}
+                                                    </p>
+                                                </div>
+                                                <div
+                                                    className={
+                                                        classes.projectsCardStat
+                                                    }
+                                                >
+                                                    <h4>Investors</h4>
+                                                    <p>
+                                                        {project.number_investors
+                                                            ? project.number_investors
+                                                            : '*'}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div
+                                                className={
+                                                    classes.projectsCardLink
+                                                }
+                                            >
+                                                <div
+                                                    className={
+                                                        classes.projectsCardLinkBtn
+                                                    }
+                                                    onClick={() =>
+                                                        navigate(
+                                                            `/projects/${project.slug}`,
+                                                        )
+                                                    }
+                                                >
+                                                    <p>View Details</p>
+                                                    <svg
+                                                        width="16"
+                                                        height="17"
+                                                        viewBox="0 0 16 17"
+                                                        fill="none"
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                    >
+                                                        <path
+                                                            d="M1 15.2758L15 1"
+                                                            stroke="#D34329"
+                                                            strokeWidth="2"
+                                                            strokeMiterlimit="10"
+                                                            strokeLinecap="round"
+                                                        />
+                                                        <path
+                                                            d="M15 12.0761V1.1C15 1.04477 14.9553 1 14.9 1H4.0752"
+                                                            stroke="#D34329"
+                                                            strokeWidth="2"
+                                                            strokeMiterlimit="10"
+                                                            strokeLinecap="round"
+                                                        />
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                            <div className={classes.linkToProjects}>
+                                <button onClick={() => navigate('/projects')}>
+                                    View All Projects
+                                    <svg
+                                        width="19"
+                                        height="19"
+                                        viewBox="0 0 19 19"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                        <path
+                                            d="M1.14307 17.4583L17.143 1.14307"
+                                            stroke="white"
+                                            strokeWidth="2.28571"
+                                            strokeMiterlimit="10"
+                                            strokeLinecap="round"
+                                        />
+                                        <path
+                                            d="M17.1433 13.8014V1.25735C17.1433 1.19423 17.0921 1.14307 17.029 1.14307H4.65771"
+                                            stroke="white"
+                                            strokeWidth="2.28571"
+                                            strokeMiterlimit="10"
+                                            strokeLinecap="round"
+                                        />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </section>
+                )}
+                {team.length > 0 && (
+                    <section className={classes.team}>
+                        <div className="wrapper">
+                            <div className={classes.teamHeader}>
+                                <h2>Team</h2>
+                                <p>
+                                    The platform team comprises experienced
+                                    professionals with expertise across multiple
+                                    jurisdictions, contributing to governance,
+                                    strategic direction, and day-to-day
+                                    operational management. All information
+                                    presented is based on publicly available
+                                    sources.
+                                </p>
+                            </div>
+                            <div className={classes.teamContainer}>
+                                {team.map((employer) => (
+                                    <div
+                                        key={employer.$id}
+                                        className={classes.employer}
+                                    >
+                                        <div className={classes.employerPhoto}>
+                                            {employer.image_url && (
+                                                <img
+                                                    src={employer.image_url}
+                                                    alt="photo"
+                                                />
+                                            )}
+                                        </div>
+                                        {employer.linkedin_url && (
+                                            <div
+                                                className={
+                                                    classes.employerLinkedin
+                                                }
+                                            >
+                                                <a
+                                                    href={employer.linkedin_url}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                >
+                                                    <img
+                                                        src={linkedinIcon}
+                                                        alt="linkedin Icon"
+                                                    />
+                                                </a>
+                                            </div>
+                                        )}
+                                        <div className={classes.employerName}>
+                                            {employer.name}
+                                        </div>
+                                        <div
+                                            className={classes.employerPosition}
+                                        >
+                                            {employer.position}
+                                        </div>
+                                        <div
+                                            className={
+                                                classes.employerDescription
+                                            }
+                                        >
+                                            {employer.description}
+                                        </div>
+                                        <div
+                                            className={classes.employerLocation}
+                                        >
+                                            <img
+                                                src={locationMarkIcon}
+                                                alt="location Mark Icon"
+                                            />
+                                            {employer.location}
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </section>
+                )}
+                <div className={classes.platformFaq}>
+                    <AssetsPageFaq pageName="platform" />
+                </div>
+                <ExternalLink
+                    isOpen={isModalOpen}
+                    url={targetUrl}
+                    onClose={() => setIsModalOpen(false)}
+                    onConfirm={handleConfirmTransition}
+                />
+            </main>
+        </>
+    );
+};
+
+export default OurPartnersPage;
