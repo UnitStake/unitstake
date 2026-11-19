@@ -64,6 +64,11 @@ import statsIcon1 from '../../../../assets/images/partnerPageImages/ourPartnersP
 import statsIcon2 from '../../../../assets/images/partnerPageImages/ourPartnersPage/icon2.svg';
 import statsIcon3 from '../../../../assets/images/partnerPageImages/ourPartnersPage/icon3.svg';
 import statsIcon4 from '../../../../assets/images/partnerPageImages/ourPartnersPage/icon4.svg';
+import statsIcon5 from '../../../../assets/images/partnerPageImages/ourPartnersPage/icon5.svg';
+import statsIcon6 from '../../../../assets/images/partnerPageImages/ourPartnersPage/icon6.svg';
+import statsIcon7 from '../../../../assets/images/partnerPageImages/ourPartnersPage/icon7.svg';
+import statsIcon8 from '../../../../assets/images/partnerPageImages/ourPartnersPage/icon8.svg';
+import partnershipIllustration from '../../../../assets/images/partnerPageImages/ourPartnersPage/partnershipIllustration.png';
 
 const partnerStats = [
     {
@@ -89,6 +94,33 @@ const partnerStats = [
         title: 'Since 2020',
         text: 'Operating',
         icon: statsIcon4,
+    },
+];
+
+const core = [
+    {
+        id: 1,
+        title: 'Asset Tokenization',
+        text: 'Turn real-world assets into digital tokens.',
+        icon: statsIcon5,
+    },
+    {
+        id: 2,
+        title: 'Compliance & Onboarding',
+        text: 'Built-in tools for regulatory and investor compliance.',
+        icon: statsIcon6,
+    },
+    {
+        id: 3,
+        title: 'Lifecycle Management',
+        text: 'Manage tokenized assets throughout their lifecycle.',
+        icon: statsIcon7,
+    },
+    {
+        id: 4,
+        title: 'White-label & API',
+        text: 'Flexible, scalable infrastructure that integrates with your ecosystem.',
+        icon: statsIcon8,
     },
 ];
 
@@ -523,6 +555,48 @@ const OurPartnersPage = () => {
                                     <p>{item.text}</p>
                                 </div>
                             ))}
+                        </div>
+                        <div className={classes.aboutPartner}>
+                            <h4>About the Partner</h4>
+                            <p>
+                                Brickken is a leading tokenization
+                                infrastructure provider that enables businesses,
+                                funds, and asset owners to bring real-world
+                                assets on-chain. The company delivers a secure,
+                                compliant, and scalable solution for the
+                                issuance, management, and operation of tokenized
+                                assets across multiple asset classes.
+                            </p>
+                        </div>
+                        <div className={classes.core}>
+                            <h4>Core Expertise</h4>
+                            <div className={classes.coreExpertise}>
+                                {core.map((item) => (
+                                    <div
+                                        key={item.id}
+                                        className={classes.coreItem}
+                                    >
+                                        <img src={item.icon} alt={item.text} />
+                                        <h5>{item.title}</h5>
+                                        <p>{item.text}</p>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                        <div className={classes.partnership}>
+                            <div className={classes.partnershipTxt}>
+                                <h2>UnitStake × Brickken Partnership</h2>
+                                <p>
+                                    A strategic collaboration that combines
+                                    Brickken’s tokenization infrastructure with
+                                    UnitStake’s market access, project
+                                    discovery, and structured presentation.
+                                </p>
+                            </div>
+                            <img
+                                src={partnershipIllustration}
+                                alt="Partnership Illustration"
+                            />
                         </div>
                     </div>
                 </section>

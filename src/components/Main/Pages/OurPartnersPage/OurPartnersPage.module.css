@@ -786,3 +786,173 @@
     letter-spacing: -1%;
     color: #57575c;
 }
+
+.aboutPartner {
+    margin-top: 80px;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 20px;
+}
+
+.aboutPartner h4,
+.core h4 {
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 140%;
+    letter-spacing: -1.5%;
+    color: #19191c;
+}
+
+.aboutPartner h4::after,
+.core h4::after {
+    content: '';
+    display: block;
+    width: 56px;
+    height: 2px;
+    background-color: #dcdcdc;
+    margin-top: 16px;
+}
+
+.aboutPartner p {
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 150%;
+    letter-spacing: -1.8%;
+    color: #19191c;
+}
+
+.core {
+    margin-top: 40px;
+}
+
+.coreExpertise {
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+}
+
+.coreItem {
+    padding: 32px;
+    background-color: #f4f4f6;
+    border-radius: 24px;
+}
+
+.coreItem h5 {
+    margin-top: 24px;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 140%;
+    letter-spacing: -1.5%;
+    color: #19191c;
+}
+
+.coreItem p {
+    margin-top: 8px;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #57575c;
+}
+
+.partnership {
+    margin-top: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    border-radius: 24px;
+    background-color: #19191c;
+}
+
+.partnershipTxt {
+    padding-left: 40px;
+}
+
+.partnershipTxt h2 {
+    font-weight: 600;
+    font-size: 40px;
+    line-height: 125%;
+    letter-spacing: -2%;
+    background: linear-gradient(
+        180deg,
+        #ffffff 0%,
+        rgba(255, 255, 255, 0.65) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+}
+
+.partnershipTxt p {
+    margin-top: 16px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #b4b4b4;
+}
+
+@media (max-width: 1000px) {
+    .nameDescription {
+        font-size: 24px;
+    }
+    .partnerStats {
+        padding: 16px;
+        border-radius: 16px;
+        grid-template-columns: repeat(2, 1fr);
+        column-gap: 8px;
+        row-gap: 24px;
+    }
+    .statsItem h4 {
+        font-size: 22px;
+    }
+    .statsItem {
+        border-right: none;
+    }
+    .aboutPartner {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+    .aboutPartner p {
+        font-size: 20px;
+    }
+    .coreExpertise {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+    }
+    .coreItem {
+        padding: 12px;
+        border-radius: 16px;
+    }
+    .coreItem h5 {
+        font-size: 18px;
+    }
+    .partnership {
+        position: relative;
+        overflow: hidden;
+    }
+    .partnership img {
+        position: absolute;
+        width: 100%;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        opacity: 0.4;
+    }
+    .partnershipTxt {
+        position: relative;
+        z-index: 1;
+        padding: 32px 16px;
+        border-radius: 16px;
+    }
+    .partnershipTxt h2 {
+        font-size: 28px;
+        text-align: center;
+    }
+    .partnershipTxt p {
+        text-align: center;
+    }
+}
