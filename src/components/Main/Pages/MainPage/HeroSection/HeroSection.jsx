@@ -73,7 +73,7 @@ const HeroSection = () => {
                                 {svgArrow}
                             </NavLink>
                             <NavLink
-                                to="/for-assets-owners"
+                                to="/for-asset-owners"
                                 className={classes.heroSectionLink}
                             >
                                 <span>Featured Opportunities</span>

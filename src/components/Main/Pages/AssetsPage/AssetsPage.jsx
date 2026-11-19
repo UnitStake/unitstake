@@ -40,13 +40,13 @@ const AssetsPage = () => {
                 />
                 <meta
                     property="og:url"
-                    content="https://unitstake.com/for-assets-owners"
+                    content="https://unitstake.com/for-asset-owners"
                 />
                 <meta property="og:type" content="website" />
                 <meta property="og:site_name" content="UnitStake" />
                 <link
                     rel="canonical"
-                    href="https://unitstake.com/for-assets-owners"
+                    href="https://unitstake.com/for-asset-owners"
                 />
             </Helmet>
             <main className={classes.assetsPage}>

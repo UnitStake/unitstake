@@ -813,11 +813,17 @@
     margin-top: 16px;
 }
 
-.aboutPartner p {
+.aboutPartnerTxt {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.aboutPartnerTxt p {
     font-weight: 400;
-    font-size: 28px;
-    line-height: 150%;
-    letter-spacing: -1.8%;
+    font-size: 18px;
+    line-height: 160%;
+    letter-spacing: -1%;
     color: #19191c;
 }
 
@@ -916,15 +922,12 @@
         grid-template-columns: 1fr;
         gap: 24px;
     }
-    .aboutPartner p {
-        font-size: 20px;
-    }
     .coreExpertise {
         grid-template-columns: 1fr 1fr;
-        gap: 8px;
+        gap: 16px;
     }
     .coreItem {
-        padding: 12px;
+        padding: 16px;
         border-radius: 16px;
     }
     .coreItem h5 {
@@ -954,5 +957,11 @@
     }
     .partnershipTxt p {
         text-align: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .coreExpertise {
+        grid-template-columns: 1fr;
     }
 }

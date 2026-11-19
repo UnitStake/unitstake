@@ -85,8 +85,8 @@ const partnerStats = [
     },
     {
         id: 3,
-        title: '40+',
-        text: 'Countries Served',
+        title: 'Spain, USA',
+        text: 'Jurisdiction',
         icon: statsIcon3,
     },
     {
@@ -100,26 +100,26 @@ const partnerStats = [
 const core = [
     {
         id: 1,
-        title: 'Asset Tokenization',
-        text: 'Turn real-world assets into digital tokens.',
+        title: 'Mission',
+        text: 'Enable businesses and individuals to tokenize assets, expand investment access, and transform asset management.',
         icon: statsIcon5,
     },
     {
         id: 2,
-        title: 'Compliance & Onboarding',
-        text: 'Built-in tools for regulatory and investor compliance.',
+        title: 'Vision',
+        text: 'Build a global ecosystem for accessible digital asset ownership, driving innovation, transparency, and growth in finance.',
         icon: statsIcon6,
     },
     {
         id: 3,
-        title: 'Lifecycle Management',
-        text: 'Manage tokenized assets throughout their lifecycle.',
+        title: 'Values',
+        text: 'Innovation, transparency, inclusivity, and excellence guide our technology, partnerships, and services.',
         icon: statsIcon7,
     },
     {
         id: 4,
-        title: 'White-label & API',
-        text: 'Flexible, scalable infrastructure that integrates with your ecosystem.',
+        title: 'Ethos',
+        text: 'Rooted in innovation, integrity, and empowerment, we champion accessible and transparent asset management.',
         icon: statsIcon8,
     },
 ];
@@ -430,8 +430,9 @@ const OurPartnersPage = () => {
                                     </div>
                                 </div>
                                 <div className={classes.nameDescription}>
-                                    Institutional-grade infrastructure for
-                                    real-world asset tokenization
+                                    Your partner in transforming traditional
+                                    assets into accessible, investor-ready
+                                    opportunities.
                                 </div>
                                 {data.description && (
                                     <div
@@ -558,18 +559,38 @@ const OurPartnersPage = () => {
                         </div>
                         <div className={classes.aboutPartner}>
                             <h4>About the Partner</h4>
-                            <p>
-                                Brickken is a leading tokenization
-                                infrastructure provider that enables businesses,
-                                funds, and asset owners to bring real-world
-                                assets on-chain. The company delivers a secure,
-                                compliant, and scalable solution for the
-                                issuance, management, and operation of tokenized
-                                assets across multiple asset classes.
-                            </p>
+                            <div className={classes.aboutPartnerTxt}>
+                                <p>
+                                    The leading institutional-grade software
+                                    provider enabling the compliant tokenization
+                                    and management of real-world assets (RWA).
+                                    Built for financial institutions, asset
+                                    managers, and regulated entities, the
+                                    platform digitizes financial instruments
+                                    such as equity, debt, private credit, bonds,
+                                    and funds, as well as tangible assets like
+                                    real estate, infrastructure, and
+                                    commodities.
+                                </p>
+                                <p>
+                                    Brickken offers a complete solution to
+                                    issue, manage, and operate tokenized assets
+                                    through a single, secure platform. Available
+                                    as a web app, white-label solution, or API,
+                                    it adapts to any business model or
+                                    technology stack, supporting regulated
+                                    environments, institutional use cases, and
+                                    platform-scale integrations.
+                                </p>
+                                <p>
+                                    To date, Brickken has supported the
+                                    tokenisation of assets with a combined Total
+                                    Tokenized Value (TTV) of $660M.
+                                </p>
+                            </div>
                         </div>
                         <div className={classes.core}>
-                            <h4>Core Expertise</h4>
+                            <h4>Our Foundation</h4>
                             <div className={classes.coreExpertise}>
                                 {core.map((item) => (
                                     <div
@@ -600,7 +621,7 @@ const OurPartnersPage = () => {
                         </div>
                     </div>
                 </section>
-                <section className={classes.content}>
+                {/* <section className={classes.content}>
                     <div className="wrapper">
                         <div className={classes.contentContainer}>
                             {sections.map((section, sIndex) => {
@@ -630,11 +651,11 @@ const OurPartnersPage = () => {
                             })}
                         </div>
                     </div>
-                </section>
+                </section> */}
                 {projects.length > 0 && (
                     <section className={classes.projects}>
                         <div className="wrapper">
-                            <h2>Projects on the Platform</h2>
+                            <h2>Partner Projects</h2>
                             <div className={classes.projectsContainer}>
                                 {projects.map((project, index) => (
                                     <div

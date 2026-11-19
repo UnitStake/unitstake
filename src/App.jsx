@@ -56,7 +56,7 @@ function App() {
                             element={<PlatformPage />}
                         />
                         <Route
-                            path="for-assets-owners"
+                            path="for-asset-owners"
                             element={<AssetsPage />}
                         />
                         <Route

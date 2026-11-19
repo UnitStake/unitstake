@@ -38,7 +38,7 @@ const tbabsData = [
         fackeBtns: ['Location', 'Structure', 'Platform', 'Asset Type'],
         img: tabPic3,
         btnName: 'View Ecosystem',
-        btnLink: '/for-assets-owners',
+        btnLink: '/for-asset-owners',
     },
 ];
 

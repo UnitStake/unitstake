@@ -47,7 +47,7 @@ export default async function handler(req, res) {
             '',
             '/projects',
             '/platforms',
-            '/for-assets-owners',
+            '/for-asset-owners',
             '/insights',
             '/academy',
             '/about-us',

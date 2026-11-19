@@ -8,7 +8,7 @@ import logo from '../../../assets/images/logoWhite.svg';
 const MENU_ITEMS = [
     { to: '/projects', label: 'Projects' },
     { to: '/platforms', label: 'Platforms' },
-    { to: '/for-assets-owners', label: 'For Asset Owners' },
+    { to: '/for-asset-owners', label: 'For Asset Owners' },
     { to: '/insights', label: 'Insights' },
     { to: '/academy', label: 'Academy' },
     { to: '/about-us', label: 'About Us' },
