@@ -429,20 +429,11 @@ const OurPartnersPage = () => {
                                         {data.name}
                                     </div>
                                 </div>
-                                <div className={classes.nameDescription}>
-                                    Your partner in transforming traditional
-                                    assets into accessible, investor-ready
-                                    opportunities.
-                                </div>
                                 {data.description && (
                                     <div
                                         className={classes.platformDescription}
                                     >
-                                        {/* {data.description} */}
-                                        Brickken develops technology for
-                                        issuing, managing, and operating
-                                        tokenized assets across multiple asset
-                                        classes.
+                                        {data.description}
                                     </div>
                                 )}
                             </div>
@@ -581,11 +572,6 @@ const OurPartnersPage = () => {
                                     technology stack, supporting regulated
                                     environments, institutional use cases, and
                                     platform-scale integrations.
-                                </p>
-                                <p>
-                                    To date, Brickken has supported the
-                                    tokenisation of assets with a combined Total
-                                    Tokenized Value (TTV) of $660M.
                                 </p>
                             </div>
                         </div>
