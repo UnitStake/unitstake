@@ -538,7 +538,7 @@ const OurPartnersPage = () => {
                                             )
                                         }
                                     >
-                                        Visit Platform Website
+                                        Visit Partner Website
                                         {linkIcon}
                                     </a>
                                 </div>
