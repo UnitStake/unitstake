@@ -311,6 +311,21 @@ const Article = () => {
                                                             {block.value}
                                                         </p>
                                                     );
+                                                case 'link':
+                                                    return (
+                                                        <a
+                                                            key={index}
+                                                            href={block.url}
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            className={
+                                                                classes.contentLink
+                                                            }
+                                                        >
+                                                            {block.label ||
+                                                                block.url}
+                                                        </a>
+                                                    );
                                                 default:
                                                     return null;
                                             }

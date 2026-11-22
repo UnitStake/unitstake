@@ -125,6 +125,22 @@
     word-break: break-word;
 }
 
+.contentLink {
+    width: fit-content;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 160%;
+    letter-spacing: -1%;
+    color: #d34329;
+    white-space: pre-wrap;
+    word-break: break-word;
+    transition: 0.3s ease-in-out;
+}
+
+.contentLink:hover {
+    color: #19191c;
+}
+
 .articleTableContainer {
     position: sticky;
     top: 120px;

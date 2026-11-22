@@ -103,19 +103,32 @@ const AdminNews = () => {
     };
 
     const addContentBlock = (type) => {
-        const newBlock = {
-            id: ID.unique(),
-            type: type,
-            value: '',
-        };
+        const newBlock =
+            type === 'link'
+                ? {
+                      id: ID.unique(),
+                      type: 'link',
+                      label: '',
+                      url: '',
+                  }
+                : {
+                      id: ID.unique(),
+                      type: type,
+                      value: '',
+                  };
         setContentBlocks([...contentBlocks, newBlock]);
     };
 
-    const handleBlockChange = (id, value) => {
+    const handleBlockChange = (id, fieldOrValue, maybeValue) => {
         setContentBlocks(
-            contentBlocks.map((block) =>
-                block.id === id ? { ...block, value: value } : block,
-            ),
+            contentBlocks.map((block) => {
+                if (block.id !== id) return block;
+
+                if (block.type === 'link') {
+                    return { ...block, [fieldOrValue]: maybeValue };
+                }
+                return { ...block, value: fieldOrValue };
+            }),
         );
     };
 
@@ -157,6 +170,14 @@ const AdminNews = () => {
         if (newsItem.content_blocks && newsItem.content_blocks.length) {
             const parsedBlocks = newsItem.content_blocks.map((blockStr) => {
                 const block = JSON.parse(blockStr);
+                if (block.type === 'link') {
+                    return {
+                        id: ID.unique(),
+                        type: 'link',
+                        label: block.label || '',
+                        url: block.url || '',
+                    };
+                }
                 return {
                     id: ID.unique(),
                     type: block.type,
@@ -246,12 +267,19 @@ const AdminNews = () => {
                 finalImageUrl = `${storage.client.config.endpoint}/storage/buckets/${BUCKET_ID}/files/${uploadedFile.$id}/view?project=${storage.client.config.project}`;
             }
 
-            const stringifiedBlocks = contentBlocks.map((block) =>
-                JSON.stringify({
+            const stringifiedBlocks = contentBlocks.map((block) => {
+                if (block.type === 'link') {
+                    return JSON.stringify({
+                        type: 'link',
+                        label: block.label,
+                        url: block.url,
+                    });
+                }
+                return JSON.stringify({
                     type: block.type,
                     value: block.value,
-                }),
-            );
+                });
+            });
 
             const data = {
                 title: title,
@@ -529,7 +557,7 @@ const AdminNews = () => {
                                         </div>
 
                                         <div>
-                                            {block.type === 'heading' ? (
+                                            {block.type === 'heading' && (
                                                 <input
                                                     type="text"
                                                     placeholder="Enter section heading..."
@@ -545,7 +573,9 @@ const AdminNews = () => {
                                                     }
                                                     required
                                                 />
-                                            ) : (
+                                            )}
+
+                                            {block.type === 'text' && (
                                                 <textarea
                                                     placeholder="Enter text..."
                                                     className={
@@ -560,6 +590,49 @@ const AdminNews = () => {
                                                     }
                                                     rows={6}
                                                 />
+                                            )}
+
+                                            {block.type === 'link' && (
+                                                <div
+                                                    style={{
+                                                        display: 'flex',
+                                                        flexDirection: 'column',
+                                                        gap: '10px',
+                                                    }}
+                                                >
+                                                    <input
+                                                        type="text"
+                                                        placeholder="Link text (e.g. Read official report)"
+                                                        className={
+                                                            classes.addPlatformFormBlocksListItemInputTitle
+                                                        }
+                                                        value={block.label}
+                                                        onChange={(e) =>
+                                                            handleBlockChange(
+                                                                block.id,
+                                                                'label',
+                                                                e.target.value,
+                                                            )
+                                                        }
+                                                        required
+                                                    />
+                                                    <input
+                                                        type="url"
+                                                        placeholder="https://example.com"
+                                                        className={
+                                                            classes.addPlatformFormBlocksListItemInputTitle
+                                                        }
+                                                        value={block.url}
+                                                        onChange={(e) =>
+                                                            handleBlockChange(
+                                                                block.id,
+                                                                'url',
+                                                                e.target.value,
+                                                            )
+                                                        }
+                                                        required
+                                                    />
+                                                </div>
                                             )}
                                         </div>
                                     </div>
@@ -580,6 +653,12 @@ const AdminNews = () => {
                                     onClick={() => addContentBlock('text')}
                                 >
                                     + Add Text
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={() => addContentBlock('link')}
+                                >
+                                    + Add Link
                                 </button>
                             </div>
                         </div>

@@ -18,6 +18,8 @@ export const TABLE_ID_FAQS_PAGE = import.meta.env
     .VITE_APPWRITE_TABLE_ID_FAQS_PAGE;
 export const TABLE_ID_ACADEMY = import.meta.env.VITE_APPWRITE_TABLE_ID_ACADEMY;
 export const BUCKET_ID = import.meta.env.VITE_APPWRITE_BUCKET_ID;
+export const TABLE_ID_TOTAL_AMOUNT = import.meta.env
+    .VITE_APPWRITE_TABLE_ID_TOTAL_AMOUNT;
 
 export const client = new Client();
 

@@ -8,6 +8,7 @@ import MainPageProjects from './MainPageProjects/MainPageProjects';
 import MainPagePlatforms from './MainPagePlatforms/MainPagePlatforms';
 import MainPageForm from './MainPageForm/MainPageForm';
 import MainPageNews from './MainPageNews/MainPageNews';
+import MainPageTotalAmount from './MainPageTotalAmount/MainPageTotalAmount';
 import classes from './MainPage.module.css';
 
 const MainPage = () => {
@@ -101,6 +102,7 @@ const MainPage = () => {
             <main className={classes.mainPage}>
                 <HeroSection />
                 <MainPageAssets />
+                <MainPageTotalAmount />
                 <MainPageAggregator />
                 <MainPageFragment />
                 <MainPageMarket />

@@ -1,0 +1,65 @@
+.adminTotal {
+    padding: 20px 0;
+    border-bottom: 1px solid #00000012;
+}
+
+.adminTotal h4 {
+    font-weight: 600;
+    font-size: 11px;
+    line-height: 16.5px;
+    letter-spacing: 0.86px;
+    text-transform: uppercase;
+    color: #aaa;
+}
+
+.AdminTotalForm {
+    margin-top: 20px;
+}
+
+.addPlatformFormIdentityField {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.addPlatformFormIdentityField input {
+    width: 100%;
+    padding: 12px;
+    box-sizing: border-box;
+    border: 1px solid #00000017;
+    border-radius: 8px;
+    background-color: #fafafa;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 100%;
+    letter-spacing: -0.08px;
+    color: #6b6b6b;
+}
+
+.addPlatformFormIdentityField input::placeholder {
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 100%;
+    letter-spacing: -0.08px;
+    color: #aaa;
+}
+
+.submitBtn {
+    margin-top: 20px;
+    padding: 8px 16px;
+    background-color: #d34329;
+    border: none;
+    box-sizing: border-box;
+    border-radius: 4px;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 19.5px;
+    letter-spacing: -0.08px;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+.submitBtn:hover {
+    background-color: #b83820;
+}
