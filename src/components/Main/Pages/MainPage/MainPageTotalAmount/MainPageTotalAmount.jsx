@@ -32,8 +32,8 @@ const MainPageTotalAmount = () => {
     if (
         totalAmount === '' ||
         totalAmount === null ||
-        totalAmount === undefined
-        // totalAmount === 0
+        totalAmount === undefined ||
+        totalAmount === 0
     ) {
         return null;
     }
