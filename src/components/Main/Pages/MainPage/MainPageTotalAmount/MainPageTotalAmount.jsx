@@ -38,7 +38,8 @@ const MainPageTotalAmount = () => {
         return null;
     }
 
-    const numberFormatter = new Intl.NumberFormat('en-US');
+    const formatted = new Intl.NumberFormat('en-US').format(totalAmount);
+    const chars = [...formatted];
 
     return (
         <section className={classes.mainPageTotalAmount}>
@@ -54,7 +55,16 @@ const MainPageTotalAmount = () => {
                 <div className={classes.mainPageTotalAmountValue}>
                     <span className={classes.totalAmountSymbol}>$</span>
                     <span className={classes.totalAmount}>
-                        {numberFormatter.format(totalAmount)}
+                        {chars.map((char, index) => (
+                            <span
+                                key={index}
+                                className={
+                                    char === ',' ? classes.comma : classes.digit
+                                }
+                            >
+                                {char}
+                            </span>
+                        ))}
                     </span>
                     <span className={classes.totalAmountSymbol}>+</span>
                 </div>

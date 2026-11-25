@@ -376,30 +376,15 @@ const ContactUs = () => {
                                     className={classes.checkboxInput}
                                 />
                                 <span>
-                                    By entering your email address, you agree to
-                                    our{' '}
-                                    <NavLink
-                                        to="/term-services"
-                                        className={classes.legalCheckboxLink}
-                                    >
-                                        Terms of Use
-                                    </NavLink>{' '}
-                                    and{' '}
-                                    <NavLink
-                                        to="/privacy-policy"
-                                        className={classes.legalCheckboxLink}
-                                    >
-                                        Privacy Policy
-                                    </NavLink>{' '}
-                                    and consent to receive emails from Unitstake
-                                    about market insights, industry news, and
-                                    updates. You may unsubscribe at any time by
-                                    clicking the unsubscribe link included in
-                                    each newsletter. <br />
+                                    Send me Unitstake updates by email,
+                                    including market insights and industry news.
+                                    Unsubscribe at any time.
                                     <br />
-                                    By submitting this form, you acknowledge
-                                    that your personal data will be processed in
-                                    accordance with our{' '}
+                                    <br />
+                                    We’ll use your details to respond to your
+                                    request. By submitting this form, you
+                                    acknowledge that your personal data will be
+                                    processed in accordance with our{' '}
                                     <NavLink
                                         to="/privacy-policy"
                                         className={classes.legalCheckboxLink}
