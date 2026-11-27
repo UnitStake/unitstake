@@ -36,6 +36,7 @@ import TermOfServices from './components/Main/Pages/TermOfServices/TermOfService
 import ContactUs from './components/Main/Pages/ContactUs/ContactUs';
 import NotFound from './components/Main/Pages/NotFound/NotFound';
 import CookieConsent from './components/CookieConsent/CookieConsent';
+import HubSpotTracker from './components/HubSpotTracker/HubSpotTracker';
 import OurPartnersPage from './components/Main/Pages/OurPartnersPage/OurPartnersPage';
 
 import './App.css';
@@ -45,6 +46,7 @@ function App() {
         <HelmetProvider>
             <Router>
                 <ScrollToTop />
+                <HubSpotTracker />
                 <Routes>
                     <Route path="/" element={<Main />}>
                         <Route index element={<MainPage />} />
