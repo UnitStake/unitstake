@@ -26,10 +26,32 @@ export const hasAnalyticsConsent = () => {
 
 const isAdminPath = () => window.location.pathname.startsWith('/admin');
 
+// The page the visitor landed on, with its utm_* tags. Kept only in memory for this visit
+// (no cookie, no storage): if analytics consent comes later on another page, HubSpot still
+// records the landing page first, so the visitor's channel is not lost.
+const LANDING_PATH =
+    typeof window === 'undefined'
+        ? null
+        : window.location.pathname + window.location.search;
+const currentPath = () => window.location.pathname + window.location.search;
+
 export const loadHubSpot = () => {
     if (typeof window === 'undefined' || isAdminPath()) return false;
     if (!hasAnalyticsConsent()) return false;
     if (document.getElementById(SCRIPT_ID)) return true;
+    const q = (window._hsq = window._hsq || []);
+    const here = currentPath();
+    if (LANDING_PATH && LANDING_PATH !== here) {
+        // first (automatic) page view = the landing page, then the page the visitor is on now
+        q.push(['setPath', LANDING_PATH]);
+        q.push([
+            'addIdentityListener',
+            () => {
+                q.push(['setPath', currentPath()]);
+                q.push(['trackPageView']);
+            },
+        ]);
+    }
     const s = document.createElement('script');
     s.id = SCRIPT_ID;
     s.type = 'text/javascript';
@@ -52,7 +74,7 @@ export const revokeHubSpot = () => {
 // SPA navigation: HubSpot records the first page itself, later routes are sent here.
 export const trackHubSpotPageView = (path) => {
     if (!document.getElementById(SCRIPT_ID)) return;
-    const q = (window._hsq = window._hsq || []);
+    const q = window._hsq || [];
     q.push(['setPath', path]);
     q.push(['trackPageView']);
 };
