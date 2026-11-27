@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { tablesDB, DATABASE_ID, ID } from '../../../../lib/appwrite';
 import { useNavigate, NavLink } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
+import { sendToHubSpot, trackLead } from '../../../../lib/hubspot';
 
 import classes from './ContactUs.module.css';
 
@@ -153,6 +154,19 @@ const ContactUs = () => {
                 rowId: ID.unique(),
                 data: data,
             });
+
+            const [firstname, ...rest] = formData.fullName.trim().split(/\s+/);
+            sendToHubSpot('contact', {
+                email: formData.email,
+                firstname,
+                lastname: rest.join(' '),
+                company: formData.projectName,
+                country: formData.country,
+                telegram: formData.contactValue,
+                asset_type: selectedCategories,
+                requested_actions: todoOptions,
+            });
+            trackLead('contact');
 
             alert('Your message has been sent successfully!');
             navigate('/for-asset-owners');

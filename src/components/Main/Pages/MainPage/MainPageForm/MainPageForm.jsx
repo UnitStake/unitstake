@@ -5,6 +5,7 @@ import {
     ID,
     TABLE_ID_FORM_MESSAGES,
 } from '../../../../../lib/appwrite';
+import { sendToHubSpot, trackLead } from '../../../../../lib/hubspot';
 import classes from './MainPageForm.module.css';
 
 import formImage from '../../../../../assets/images/mainPageImages/formImage.png';
@@ -33,6 +34,9 @@ const MainPageForm = () => {
                     purpose: 'To subscribe to the newsletter',
                 },
             });
+
+            sendToHubSpot('requestAccess', { email });
+            trackLead('request_access');
 
             setIsSubmitted(true);
             setEmail('');

@@ -62,6 +62,9 @@ const CookieConsent = () => {
 
     const saveAndClose = (prefs) => {
         localStorage.setItem('cookieConsent', JSON.stringify(prefs));
+        window.dispatchEvent(
+            new CustomEvent('cookieConsentChange', { detail: prefs }),
+        );
         setShowBanner(false);
         setShowModal(false);
     };
