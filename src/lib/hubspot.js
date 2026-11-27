@@ -26,31 +26,57 @@ export const hasAnalyticsConsent = () => {
 
 const isAdminPath = () => window.location.pathname.startsWith('/admin');
 
-// The page the visitor landed on, with its utm_* tags. Kept only in memory for this visit
-// (no cookie, no storage): if analytics consent comes later on another page, HubSpot still
-// records the landing page first, so the visitor's channel is not lost.
-const LANDING_PATH =
-    typeof window === 'undefined'
-        ? null
-        : window.location.pathname + window.location.search;
-const currentPath = () => window.location.pathname + window.location.search;
+// Campaign tags (utm_*, ad click ids) from the page the visitor landed on. Kept only in memory
+// for this visit (no cookie, no storage). If analytics consent comes later on another page, the
+// tags are put on the current URL for HubSpot's first page view, so the visitor's channel is not
+// lost; the URL is restored right after. The referrer needs nothing: it never changes in the SPA.
+const CAMPAIGN_KEYS = /^(utm_[a-z_]+|gclid|fbclid|msclkid|li_fat_id|hsa_[a-z_]+)$/;
+const LANDING_TAGS = (() => {
+    if (typeof window === 'undefined') return [];
+    try {
+        return [...new URLSearchParams(window.location.search)].filter(([k]) =>
+            CAMPAIGN_KEYS.test(k),
+        );
+    } catch {
+        return [];
+    }
+})();
+
+const withLandingTags = () => {
+    if (!LANDING_TAGS.length) return null;
+    const url = new URL(window.location.href);
+    if ([...url.searchParams.keys()].some((k) => CAMPAIGN_KEYS.test(k))) return null;
+    LANDING_TAGS.forEach(([k, v]) => url.searchParams.append(k, v));
+    return url.toString();
+};
 
 export const loadHubSpot = () => {
     if (typeof window === 'undefined' || isAdminPath()) return false;
     if (!hasAnalyticsConsent()) return false;
     if (document.getElementById(SCRIPT_ID)) return true;
-    const q = (window._hsq = window._hsq || []);
-    const here = currentPath();
-    if (LANDING_PATH && LANDING_PATH !== here) {
-        // first (automatic) page view = the landing page, then the page the visitor is on now
-        q.push(['setPath', LANDING_PATH]);
-        q.push([
-            'addIdentityListener',
-            () => {
-                q.push(['setPath', currentPath()]);
-                q.push(['trackPageView']);
-            },
-        ]);
+    const tagged = withLandingTags();
+    if (tagged) {
+        const original = window.location.href;
+        const state = window.history.state;
+        let restored = false;
+        const restore = () => {
+            if (restored) return;
+            restored = true;
+            if (window.location.href === tagged) window.history.replaceState(state, '', original);
+        };
+        try {
+            window.history.replaceState(state, '', tagged);
+            const po = new PerformanceObserver((list) => {
+                if (list.getEntries().some((e) => e.name.includes('hubspot.com/__ptq'))) {
+                    po.disconnect();
+                    restore();
+                }
+            });
+            po.observe({ type: 'resource', buffered: false });
+        } catch {
+            /* ignore */
+        }
+        setTimeout(restore, 5000);
     }
     const s = document.createElement('script');
     s.id = SCRIPT_ID;
